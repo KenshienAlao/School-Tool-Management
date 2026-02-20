@@ -4,6 +4,7 @@
 CMakeFiles/backend_app.dir/src/config/database.cpp.o: /home/kenshien/Documents/school/project/backend/src/config/database.cpp \
   /home/kenshien/Documents/school/project/backend/include/config/database.h \
   /home/kenshien/Documents/school/project/backend/include/config/db.h \
+  /home/kenshien/Documents/school/project/backend/include/utils/logger.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -17,6 +18,8 @@ CMakeFiles/backend_app.dir/src/config/database.cpp.o: /home/kenshien/Documents/s
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/chrono.h \
+  /usr/include/c++/13/bits/codecvt.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -36,8 +39,11 @@ CMakeFiles/backend_app.dir/src/config/database.cpp.o: /home/kenshien/Documents/s
   /usr/include/c++/13/bits/istream.tcc \
   /usr/include/c++/13/bits/locale_classes.h \
   /usr/include/c++/13/bits/locale_classes.tcc \
+  /usr/include/c++/13/bits/locale_conv.h \
   /usr/include/c++/13/bits/locale_facets.h \
   /usr/include/c++/13/bits/locale_facets.tcc \
+  /usr/include/c++/13/bits/locale_facets_nonio.h \
+  /usr/include/c++/13/bits/locale_facets_nonio.tcc \
   /usr/include/c++/13/bits/localefwd.h \
   /usr/include/c++/13/bits/memory_resource.h \
   /usr/include/c++/13/bits/memoryfwd.h \
@@ -47,12 +53,15 @@ CMakeFiles/backend_app.dir/src/config/database.cpp.o: /home/kenshien/Documents/s
   /usr/include/c++/13/bits/node_handle.h \
   /usr/include/c++/13/bits/ostream.tcc \
   /usr/include/c++/13/bits/ostream_insert.h \
+  /usr/include/c++/13/bits/parse_numbers.h \
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
+  /usr/include/c++/13/bits/quoted_string.h \
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
+  /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
@@ -75,10 +84,14 @@ CMakeFiles/backend_app.dir/src/config/database.cpp.o: /home/kenshien/Documents/s
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/chrono \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cstddef \
+  /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
+  /usr/include/c++/13/cstring \
+  /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
@@ -91,13 +104,18 @@ CMakeFiles/backend_app.dir/src/config/database.cpp.o: /home/kenshien/Documents/s
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
   /usr/include/c++/13/initializer_list \
+  /usr/include/c++/13/iomanip \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
+  /usr/include/c++/13/limits \
+  /usr/include/c++/13/locale \
   /usr/include/c++/13/new \
   /usr/include/c++/13/ostream \
   /usr/include/c++/13/pstl/pstl_config.h \
+  /usr/include/c++/13/ratio \
+  /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/stdlib.h \
   /usr/include/c++/13/streambuf \
@@ -114,6 +132,7 @@ CMakeFiles/backend_app.dir/src/config/database.cpp.o: /home/kenshien/Documents/s
   /usr/include/errno.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/libintl.h \
   /usr/include/linux/errno.h \
   /usr/include/locale.h \
   /usr/include/mysql/client_plugin.h \
@@ -134,6 +153,8 @@ CMakeFiles/backend_app.dir/src/config/database.cpp.o: /home/kenshien/Documents/s
   /usr/include/stdint.h \
   /usr/include/stdio.h \
   /usr/include/stdlib.h \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
@@ -209,7 +230,9 @@ CMakeFiles/backend_app.dir/src/config/database.cpp.o: /home/kenshien/Documents/s
   /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -1335,6 +1358,7 @@ CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o: /home/kenshien
   /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/defaults.h \
   /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/traits.h \
   /home/kenshien/Documents/school/project/backend/include/picojson/picojson.h \
+  /home/kenshien/Documents/school/project/backend/include/utils/logger.h \
   /home/kenshien/Documents/school/project/backend/include/utils/security.h \
   /usr/include/alloca.h \
   /usr/include/arpa/inet.h \
@@ -3229,8 +3253,15 @@ CMakeFiles/backend_app.dir/src/main.cpp.o: /home/kenshien/Documents/school/proje
   /home/kenshien/Documents/school/project/backend/include/config/database.h \
   /home/kenshien/Documents/school/project/backend/include/config/db.h \
   /home/kenshien/Documents/school/project/backend/include/crow.h \
+  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/base.h \
+  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/jwt.h \
+  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/defaults.h \
+  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/traits.h \
+  /home/kenshien/Documents/school/project/backend/include/middleware/auth_middleware.h \
+  /home/kenshien/Documents/school/project/backend/include/picojson/picojson.h \
   /home/kenshien/Documents/school/project/backend/include/routes/routes.h \
   /home/kenshien/Documents/school/project/backend/include/utils/cors.h \
+  /home/kenshien/Documents/school/project/backend/include/utils/logger.h \
   /usr/include/alloca.h \
   /usr/include/arpa/inet.h \
   /usr/include/asio.hpp \
@@ -3827,6 +3858,7 @@ CMakeFiles/backend_app.dir/src/main.cpp.o: /home/kenshien/Documents/school/proje
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/cfloat \
   /usr/include/c++/13/chrono \
+  /usr/include/c++/13/cinttypes \
   /usr/include/c++/13/climits \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
@@ -3846,6 +3878,8 @@ CMakeFiles/backend_app.dir/src/main.cpp.o: /home/kenshien/Documents/school/proje
   /usr/include/c++/13/debug/debug.h \
   /usr/include/c++/13/deque \
   /usr/include/c++/13/exception \
+  /usr/include/c++/13/experimental/bits/lfts_config.h \
+  /usr/include/c++/13/experimental/type_traits \
   /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
   /usr/include/c++/13/ext/atomicity.h \
@@ -3916,6 +3950,7 @@ CMakeFiles/backend_app.dir/src/main.cpp.o: /home/kenshien/Documents/school/proje
   /usr/include/fcntl.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/inttypes.h \
   /usr/include/libintl.h \
   /usr/include/limits.h \
   /usr/include/linux/close_range.h \
@@ -3946,6 +3981,72 @@ CMakeFiles/backend_app.dir/src/main.cpp.o: /home/kenshien/Documents/school/proje
   /usr/include/netdb.h \
   /usr/include/netinet/in.h \
   /usr/include/netinet/tcp.h \
+  /usr/include/openssl/asn1.h \
+  /usr/include/openssl/asn1err.h \
+  /usr/include/openssl/async.h \
+  /usr/include/openssl/asyncerr.h \
+  /usr/include/openssl/bio.h \
+  /usr/include/openssl/bioerr.h \
+  /usr/include/openssl/bn.h \
+  /usr/include/openssl/bnerr.h \
+  /usr/include/openssl/buffer.h \
+  /usr/include/openssl/buffererr.h \
+  /usr/include/openssl/comp.h \
+  /usr/include/openssl/comperr.h \
+  /usr/include/openssl/conf.h \
+  /usr/include/openssl/conferr.h \
+  /usr/include/openssl/conftypes.h \
+  /usr/include/openssl/core.h \
+  /usr/include/openssl/core_dispatch.h \
+  /usr/include/openssl/crypto.h \
+  /usr/include/openssl/cryptoerr.h \
+  /usr/include/openssl/cryptoerr_legacy.h \
+  /usr/include/openssl/ct.h \
+  /usr/include/openssl/cterr.h \
+  /usr/include/openssl/dh.h \
+  /usr/include/openssl/dherr.h \
+  /usr/include/openssl/dsa.h \
+  /usr/include/openssl/dsaerr.h \
+  /usr/include/openssl/dtls1.h \
+  /usr/include/openssl/e_os2.h \
+  /usr/include/openssl/ec.h \
+  /usr/include/openssl/ecdsa.h \
+  /usr/include/openssl/ecerr.h \
+  /usr/include/openssl/err.h \
+  /usr/include/openssl/evp.h \
+  /usr/include/openssl/evperr.h \
+  /usr/include/openssl/hmac.h \
+  /usr/include/openssl/http.h \
+  /usr/include/openssl/lhash.h \
+  /usr/include/openssl/macros.h \
+  /usr/include/openssl/obj_mac.h \
+  /usr/include/openssl/objects.h \
+  /usr/include/openssl/objectserr.h \
+  /usr/include/openssl/opensslv.h \
+  /usr/include/openssl/param_build.h \
+  /usr/include/openssl/params.h \
+  /usr/include/openssl/pem.h \
+  /usr/include/openssl/pemerr.h \
+  /usr/include/openssl/pkcs7.h \
+  /usr/include/openssl/pkcs7err.h \
+  /usr/include/openssl/prov_ssl.h \
+  /usr/include/openssl/rsa.h \
+  /usr/include/openssl/rsaerr.h \
+  /usr/include/openssl/safestack.h \
+  /usr/include/openssl/sha.h \
+  /usr/include/openssl/srtp.h \
+  /usr/include/openssl/ssl.h \
+  /usr/include/openssl/ssl2.h \
+  /usr/include/openssl/ssl3.h \
+  /usr/include/openssl/sslerr.h \
+  /usr/include/openssl/sslerr_legacy.h \
+  /usr/include/openssl/stack.h \
+  /usr/include/openssl/symhacks.h \
+  /usr/include/openssl/tls1.h \
+  /usr/include/openssl/types.h \
+  /usr/include/openssl/x509.h \
+  /usr/include/openssl/x509_vfy.h \
+  /usr/include/openssl/x509err.h \
   /usr/include/poll.h \
   /usr/include/pthread.h \
   /usr/include/rpc/netdb.h \
@@ -4122,6 +4223,8 @@ CMakeFiles/backend_app.dir/src/main.cpp.o: /home/kenshien/Documents/school/proje
   /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
+  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
   /usr/include/x86_64-linux-gnu/sys/epoll.h \
   /usr/include/x86_64-linux-gnu/sys/eventfd.h \
@@ -4150,6 +4253,12 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: /home/kenshien/Documents/sch
   /home/kenshien/Documents/school/project/backend/include/controllers/auth_controller.h \
   /home/kenshien/Documents/school/project/backend/include/controllers/grade_controller.h \
   /home/kenshien/Documents/school/project/backend/include/crow.h \
+  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/base.h \
+  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/jwt.h \
+  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/defaults.h \
+  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/traits.h \
+  /home/kenshien/Documents/school/project/backend/include/middleware/auth_middleware.h \
+  /home/kenshien/Documents/school/project/backend/include/picojson/picojson.h \
   /home/kenshien/Documents/school/project/backend/include/routes/routes.h \
   /home/kenshien/Documents/school/project/backend/include/utils/cors.h \
   /usr/include/alloca.h \
@@ -4748,6 +4857,7 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: /home/kenshien/Documents/sch
   /usr/include/c++/13/cerrno \
   /usr/include/c++/13/cfloat \
   /usr/include/c++/13/chrono \
+  /usr/include/c++/13/cinttypes \
   /usr/include/c++/13/climits \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
@@ -4767,6 +4877,8 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: /home/kenshien/Documents/sch
   /usr/include/c++/13/debug/debug.h \
   /usr/include/c++/13/deque \
   /usr/include/c++/13/exception \
+  /usr/include/c++/13/experimental/bits/lfts_config.h \
+  /usr/include/c++/13/experimental/type_traits \
   /usr/include/c++/13/ext/aligned_buffer.h \
   /usr/include/c++/13/ext/alloc_traits.h \
   /usr/include/c++/13/ext/atomicity.h \
@@ -4804,6 +4916,7 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: /home/kenshien/Documents/sch
   /usr/include/c++/13/set \
   /usr/include/c++/13/sstream \
   /usr/include/c++/13/stdexcept \
+  /usr/include/c++/13/stdlib.h \
   /usr/include/c++/13/streambuf \
   /usr/include/c++/13/string \
   /usr/include/c++/13/string_view \
@@ -4836,6 +4949,7 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: /home/kenshien/Documents/sch
   /usr/include/fcntl.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/inttypes.h \
   /usr/include/libintl.h \
   /usr/include/limits.h \
   /usr/include/linux/close_range.h \
@@ -4854,6 +4968,72 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: /home/kenshien/Documents/sch
   /usr/include/netdb.h \
   /usr/include/netinet/in.h \
   /usr/include/netinet/tcp.h \
+  /usr/include/openssl/asn1.h \
+  /usr/include/openssl/asn1err.h \
+  /usr/include/openssl/async.h \
+  /usr/include/openssl/asyncerr.h \
+  /usr/include/openssl/bio.h \
+  /usr/include/openssl/bioerr.h \
+  /usr/include/openssl/bn.h \
+  /usr/include/openssl/bnerr.h \
+  /usr/include/openssl/buffer.h \
+  /usr/include/openssl/buffererr.h \
+  /usr/include/openssl/comp.h \
+  /usr/include/openssl/comperr.h \
+  /usr/include/openssl/conf.h \
+  /usr/include/openssl/conferr.h \
+  /usr/include/openssl/conftypes.h \
+  /usr/include/openssl/core.h \
+  /usr/include/openssl/core_dispatch.h \
+  /usr/include/openssl/crypto.h \
+  /usr/include/openssl/cryptoerr.h \
+  /usr/include/openssl/cryptoerr_legacy.h \
+  /usr/include/openssl/ct.h \
+  /usr/include/openssl/cterr.h \
+  /usr/include/openssl/dh.h \
+  /usr/include/openssl/dherr.h \
+  /usr/include/openssl/dsa.h \
+  /usr/include/openssl/dsaerr.h \
+  /usr/include/openssl/dtls1.h \
+  /usr/include/openssl/e_os2.h \
+  /usr/include/openssl/ec.h \
+  /usr/include/openssl/ecdsa.h \
+  /usr/include/openssl/ecerr.h \
+  /usr/include/openssl/err.h \
+  /usr/include/openssl/evp.h \
+  /usr/include/openssl/evperr.h \
+  /usr/include/openssl/hmac.h \
+  /usr/include/openssl/http.h \
+  /usr/include/openssl/lhash.h \
+  /usr/include/openssl/macros.h \
+  /usr/include/openssl/obj_mac.h \
+  /usr/include/openssl/objects.h \
+  /usr/include/openssl/objectserr.h \
+  /usr/include/openssl/opensslv.h \
+  /usr/include/openssl/param_build.h \
+  /usr/include/openssl/params.h \
+  /usr/include/openssl/pem.h \
+  /usr/include/openssl/pemerr.h \
+  /usr/include/openssl/pkcs7.h \
+  /usr/include/openssl/pkcs7err.h \
+  /usr/include/openssl/prov_ssl.h \
+  /usr/include/openssl/rsa.h \
+  /usr/include/openssl/rsaerr.h \
+  /usr/include/openssl/safestack.h \
+  /usr/include/openssl/sha.h \
+  /usr/include/openssl/srtp.h \
+  /usr/include/openssl/ssl.h \
+  /usr/include/openssl/ssl2.h \
+  /usr/include/openssl/ssl3.h \
+  /usr/include/openssl/sslerr.h \
+  /usr/include/openssl/sslerr_legacy.h \
+  /usr/include/openssl/stack.h \
+  /usr/include/openssl/symhacks.h \
+  /usr/include/openssl/tls1.h \
+  /usr/include/openssl/types.h \
+  /usr/include/openssl/x509.h \
+  /usr/include/openssl/x509_vfy.h \
+  /usr/include/openssl/x509err.h \
   /usr/include/poll.h \
   /usr/include/pthread.h \
   /usr/include/rpc/netdb.h \
@@ -5030,6 +5210,8 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: /home/kenshien/Documents/sch
   /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
+  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
   /usr/include/x86_64-linux-gnu/sys/epoll.h \
   /usr/include/x86_64-linux-gnu/sys/eventfd.h \
@@ -5407,8 +5589,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/x86_64-linux-gnu/asm/posix_types.h:
 
-/usr/include/string.h:
-
 /usr/include/rpc/netdb.h:
 
 /usr/include/netinet/in.h:
@@ -5426,6 +5606,8 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/linux/stat.h:
 
 /usr/include/linux/posix_types.h:
+
+/home/kenshien/Documents/school/project/backend/include/middleware/auth_middleware.h:
 
 /usr/include/linux/close_range.h:
 
@@ -5451,13 +5633,7 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/thread:
 
-/usr/include/c++/13/sstream:
-
 /usr/include/c++/13/set:
-
-/usr/include/openssl/asyncerr.h:
-
-/usr/include/c++/13/ratio:
 
 /usr/include/c++/13/random:
 
@@ -5473,8 +5649,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/memory:
 
-/usr/include/c++/13/limits:
-
 /usr/include/c++/13/iterator:
 
 /usr/include/c++/13/future:
@@ -5483,8 +5657,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/ext/concurrence.h:
 
-/usr/include/c++/13/ctime:
-
 /usr/include/c++/13/csignal:
 
 /usr/include/c++/13/condition_variable:
@@ -5492,8 +5664,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/c++/13/compare:
 
 /usr/include/c++/13/cmath:
-
-/usr/include/c++/13/chrono:
 
 /usr/include/c++/13/bits/unordered_set.h:
 
@@ -5517,15 +5687,7 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/bits/stl_multiset.h:
 
-/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
-
-/usr/include/c++/13/locale:
-
-/usr/include/c++/13/bits/stl_map.h:
-
 /usr/include/c++/13/bits/std_function.h:
-
-/usr/include/c++/13/bits/sstream.tcc:
 
 /usr/include/c++/13/bits/specfun.h:
 
@@ -5536,12 +5698,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/c++/13/bits/shared_ptr_atomic.h:
 
 /usr/include/c++/13/bits/random.tcc:
-
-/usr/include/c++/13/bits/quoted_string.h:
-
-/usr/include/c++/13/bits/locale_facets_nonio.tcc:
-
-/usr/include/c++/13/bits/locale_facets_nonio.h:
 
 /usr/include/c++/13/bits/fs_fwd.h:
 
@@ -5803,51 +5959,31 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/impl/use_future.hpp:
 
-/usr/include/asio/basic_socket_streambuf.hpp:
+/usr/include/asio/impl/system_executor.hpp:
 
-/usr/include/asio/detail/string_view.hpp:
+/usr/include/c++/13/tr1/riemann_zeta.tcc:
 
-/usr/include/asio/writable_pipe.hpp:
+/usr/include/asio/impl/system_context.ipp:
 
-/usr/include/asio/basic_socket_iostream.hpp:
+/usr/include/asio/impl/serial_port_base.ipp:
 
-/usr/include/asio/generic/datagram_protocol.hpp:
+/usr/include/asio/impl/redirect_error.hpp:
 
-/usr/include/asio/basic_socket.hpp:
+/usr/include/asio/impl/io_context.ipp:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+/usr/include/asio/impl/io_context.hpp:
 
-/usr/include/asio/basic_readable_pipe.hpp:
+/usr/include/asio/impl/handler_alloc_hook.ipp:
 
-/usr/include/x86_64-linux-gnu/bits/signal_ext.h:
+/usr/include/c++/13/version:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
+/usr/include/asio/impl/execution_context.ipp:
 
-/usr/include/asio/basic_raw_socket.hpp:
+/usr/include/asio/impl/error.ipp:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h:
+/usr/include/asio/impl/executor.hpp:
 
-/usr/include/asio/traits/equality_comparable.hpp:
-
-/usr/include/x86_64-linux-gnu/sys/select.h:
-
-/usr/include/c++/13/cwchar:
-
-/usr/include/c++/13/tr1/modified_bessel_func.tcc:
-
-/usr/include/asio/execution/executor.hpp:
-
-/usr/include/asio/basic_file.hpp:
-
-/usr/include/asio/detail/reactive_wait_op.hpp:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/float.h:
-
-/usr/include/asio/associated_executor.hpp:
-
-/usr/include/asio/associated_cancellation_slot.hpp:
-
-/usr/include/c++/13/bits/ptr_traits.h:
+/usr/include/asio/any_io_executor.hpp:
 
 /usr/include/asio/detail/socket_holder.hpp:
 
@@ -5869,12 +6005,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/typeinfo:
 
-/usr/include/asm-generic/int-ll64.h:
-
-/usr/include/asio/basic_random_access_file.hpp:
-
-/usr/include/errno.h:
-
 /usr/include/c++/13/bits/fstream.tcc:
 
 /usr/include/openssl/symhacks.h:
@@ -5884,8 +6014,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/openssl/dh.h:
 
 /usr/include/c++/13/bits/stl_iterator_base_funcs.h:
-
-/usr/include/asio/impl/io_context.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
 
@@ -5903,8 +6031,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/bits/node_handle.h:
 
-/usr/include/asio/impl/io_context.ipp:
-
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
@@ -5919,23 +6045,13 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
 
-/usr/include/c++/13/bits/char_traits.h:
-
 /usr/include/asio/detail/strand_executor_service.hpp:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
 
-/usr/include/asio/basic_deadline_timer.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
-/home/kenshien/Documents/school/project/backend/include/controllers/grade_controller.h:
-
-/usr/include/asm-generic/bitsperlong.h:
-
-/usr/include/asio/is_write_buffered.hpp:
-
-/usr/include/asio/associated_allocator.hpp:
+/usr/include/asio/basic_deadline_timer.hpp:
 
 /usr/include/c++/13/bits/exception_defines.h:
 
@@ -5969,15 +6085,25 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/mysql/mysql_version.h:
 
-/usr/include/asio/basic_stream_file.hpp:
+/usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
+
+/usr/include/asio/basic_socket.hpp:
 
 /usr/include/asio/detail/impl/service_registry.hpp:
+
+/usr/include/poll.h:
+
+/usr/include/asio/impl/read_at.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
 /usr/include/c++/13/bits/hashtable.h:
 
 /usr/include/asio/detail/posix_thread.hpp:
 
 /usr/include/asio/detail/tss_ptr.hpp:
+
+/usr/include/c++/13/sstream:
 
 /usr/include/asio/detail/event.hpp:
 
@@ -5997,14 +6123,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/x86_64-linux-gnu/bits/timex.h:
 
-/usr/include/c++/13/bits/locale_conv.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
-
-/usr/include/c++/13/tr1/riemann_zeta.tcc:
-
-/usr/include/asio/impl/system_context.ipp:
-
 /usr/include/c++/13/bits/locale_classes.h:
 
 /usr/include/openssl/tls1.h:
@@ -6014,8 +6132,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 /usr/include/x86_64-linux-gnu/sys/eventfd.h:
 
@@ -6030,6 +6146,14 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/include/asio/consign.hpp:
+
+/usr/include/c++/13/cwchar:
+
+/usr/include/asio/basic_raw_socket.hpp:
+
+/usr/include/c++/13/tr1/modified_bessel_func.tcc:
+
+/usr/include/asio/execution/executor.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
@@ -6053,9 +6177,15 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
+/usr/include/c++/13/limits:
+
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
 
 /usr/include/c++/13/bits/requires_hosted.h:
+
+/usr/include/asio/basic_socket_streambuf.hpp:
+
+/usr/include/asio/detail/string_view.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls.h:
 
@@ -6070,10 +6200,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
-
-/usr/include/asio/associated_immediate_executor.hpp:
-
-/usr/include/asio/impl/any_completion_executor.ipp:
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
@@ -6091,6 +6217,10 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
+
+/usr/include/string.h:
+
 /usr/include/stdlib.h:
 
 /usr/include/stdio.h:
@@ -6098,10 +6228,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/c++/13/bits/stl_iterator_base_types.h:
 
 /usr/include/asio/append.hpp:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h:
-
-/usr/include/mysql/field_types.h:
 
 /usr/include/asio/detail/base_from_cancellation_state.hpp:
 
@@ -6111,11 +6237,21 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/endian.h:
 
+/usr/include/mysql/field_types.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h:
+
+/usr/include/asio/serial_port.hpp:
+
+/usr/include/asio/basic_streambuf_fwd.hpp:
+
 /usr/include/wctype.h:
 
 /usr/include/pthread.h:
 
-/usr/include/c++/13/bits/stl_construct.h:
+/usr/include/asio/buffered_read_stream_fwd.hpp:
 
 /usr/include/c++/13/bits/refwrap.h:
 
@@ -6123,11 +6259,15 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/detail/array_fwd.hpp:
 
-/usr/include/c++/13/bits/stl_algobase.h:
+/usr/include/c++/13/bits/locale_facets_nonio.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
 
 /usr/include/c++/13/ios:
+
+/usr/include/linux/errno.h:
+
+/usr/include/c++/13/bits/std_abs.h:
 
 /usr/include/c++/13/bits/memoryfwd.h:
 
@@ -6145,6 +6285,8 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/bits/invoke.h:
 
+/usr/include/c++/13/bits/locale_facets_nonio.h:
+
 /usr/include/c++/13/bits/locale_classes.tcc:
 
 /usr/include/asio/detail/scheduler_operation.hpp:
@@ -6155,17 +6297,43 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/execution/blocking.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
+/usr/include/asio/detail/array.hpp:
 
-/usr/include/asio/impl/redirect_error.hpp:
+/usr/include/c++/13/ext/numeric_traits.h:
 
-/usr/include/c++/13/bits/basic_string.h:
+/usr/include/mysql/plugin_auth_common.h:
 
-/usr/include/asio/detail/is_buffer_sequence.hpp:
+/usr/include/asio/impl/read_until.hpp:
 
-/usr/include/c++/13/bits/hashtable_policy.h:
+/usr/include/asio/impl/error_code.ipp:
 
-/usr/include/asio/detail/blocking_executor_op.hpp:
+/usr/include/asio/coroutine.hpp:
+
+/usr/include/c++/13/bits/hash_bytes.h:
+
+/usr/include/c++/13/string_view:
+
+/usr/include/openssl/conferr.h:
+
+/usr/include/x86_64-linux-gnu/bits/environments.h:
+
+/usr/include/asio/detail/handler_invoke_helpers.hpp:
+
+/usr/include/asio/execution/start.hpp:
+
+/usr/include/errno.h:
+
+/usr/include/asm-generic/int-ll64.h:
+
+/usr/include/asio/basic_random_access_file.hpp:
+
+/usr/include/asio/traits/require_member.hpp:
+
+/usr/include/c++/13/bits/functional_hash.h:
+
+/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
+
+/usr/include/c++/13/bits/exception.h:
 
 /usr/include/c++/13/bits/basic_ios.tcc:
 
@@ -6177,197 +6345,77 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/bits/basic_ios.h:
 
+/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
+
+/usr/include/mysql/errmsg.h:
+
+/usr/include/c++/13/bits/codecvt.h:
+
+/usr/include/asio/basic_waitable_timer.hpp:
+
+/usr/include/asio/streambuf.hpp:
+
+/usr/include/asio/stream_file.hpp:
+
+/usr/include/c++/13/cstdint:
+
+/usr/include/asio/execution/sender.hpp:
+
 /usr/include/asm-generic/errno.h:
 
 /usr/include/c++/13/iostream:
 
 /usr/include/asio/buffers_iterator.hpp:
 
-/usr/include/c++/13/bits/locale_facets.tcc:
-
-/usr/include/c++/13/bits/string_view.tcc:
-
 /usr/include/c++/13/backward/binders.h:
 
-/usr/include/c++/13/cwctype:
+/usr/include/asio/detail/epoll_reactor.hpp:
 
-/usr/include/openssl/opensslv.h:
+/usr/include/x86_64-linux-gnu/bits/time64.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
+/usr/include/c++/13/ext/type_traits.h:
 
-/usr/include/c++/13/bits/predefined_ops.h:
+/usr/include/c++/13/bits/char_traits.h:
 
-/usr/include/c++/13/iosfwd:
+/home/kenshien/Documents/school/project/backend/include/utils/logger.h:
 
-/usr/include/c++/13/bits/hash_bytes.h:
+/usr/include/asio/traits/set_value_member.hpp:
 
-/usr/include/asio/impl/system_executor.hpp:
+/usr/include/asio/execution/detail/submit_receiver.hpp:
+
+/usr/include/locale.h:
+
+/usr/include/x86_64-linux-gnu/sys/un.h:
+
+/usr/include/c++/13/bits/fs_dir.h:
+
+/usr/include/asio/detail/call_stack.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
+
+/usr/include/asio/execution/context.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
+
+/usr/include/netinet/tcp.h:
+
+/usr/include/c++/13/bits/random.h:
+
+/usr/include/c++/13/ext/alloc_traits.h:
 
 /usr/include/alloca.h:
 
-/usr/include/asio/basic_datagram_socket.hpp:
+/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 
-/usr/include/asio/traits/require_free.hpp:
+/usr/include/asio/traits/prefer_free.hpp:
 
-/usr/include/asio/detail/signal_set_service.hpp:
+/usr/include/c++/13/bits/stl_vector.h:
 
-/usr/include/asio/ip/resolver_query_base.hpp:
+/usr/include/asio/detail/thread.hpp:
 
-/usr/include/c++/13/bits/move.h:
+/usr/include/asio/impl/read.hpp:
 
-/usr/include/openssl/dtls1.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
-
-/usr/include/c++/13/bits/basic_string.tcc:
-
-/usr/include/openssl/dsa.h:
-
-/usr/include/asio/multiple_exceptions.hpp:
-
-/usr/include/c++/13/bit:
-
-/usr/include/c++/13/bits/enable_special_members.h:
-
-/usr/include/asio/detail/initiate_defer.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/sched.h:
-
-/home/kenshien/Documents/school/project/backend/include/crow.h:
-
-/home/kenshien/Documents/school/project/backend/include/config/db.h:
-
-/usr/include/x86_64-linux-gnu/bits/signum-arch.h:
-
-/usr/include/asio/execution/impl/receiver_invocation_error.ipp:
-
-/usr/include/asio/ip/address_v4_iterator.hpp:
-
-/usr/include/asio/connect.hpp:
-
-/usr/include/c++/13/debug/assertions.h:
-
-/usr/include/asio.hpp:
-
-/usr/include/asio/traits/require_member.hpp:
-
-/usr/include/c++/13/bits/functional_hash.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
-
-/usr/include/c++/13/bits/ostream.tcc:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
-
-/usr/include/mysql/my_compress.h:
-
-/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
-
-/usr/include/c++/13/bits/exception.h:
-
-/usr/include/c++/13/bits/localefwd.h:
-
-/usr/include/asm-generic/ioctls.h:
-
-/usr/include/asio/is_executor.hpp:
-
-/usr/include/asio/basic_writable_pipe.hpp:
-
-/usr/include/c++/13/bits/locale_facets.h:
-
-/usr/include/asio/signal_set_base.hpp:
-
-/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h:
-
-/usr/include/asio/bind_executor.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/sigthread.h:
-
-/usr/include/asio/ip/address_v4.hpp:
-
-/home/kenshien/Documents/school/project/backend/include/controllers/attendance_controller.h:
-
-/usr/include/asio/impl/connect_pipe.hpp:
-
-/usr/include/asio/detail/is_executor.hpp:
-
-/usr/include/openssl/param_build.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
-
-/usr/include/asio/execution/invocable_archetype.hpp:
-
-/usr/include/x86_64-linux-gnu/asm/ioctl.h:
-
-/usr/include/asio/traits/set_done_free.hpp:
-
-/usr/include/c++/13/bits/cpp_type_traits.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/asio/detail/cstddef.hpp:
-
-/usr/include/c++/13/bits/erase_if.h:
-
-/usr/include/mysql/mysql.h:
-
-/usr/include/asio/impl/buffered_write_stream.hpp:
-
-/usr/include/c++/13/cstddef:
-
-/usr/include/openssl/rsa.h:
-
-/usr/include/c++/13/vector:
-
-/usr/include/c++/13/bits/cxxabi_forced.h:
-
-/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
-
-/usr/include/asio/generic/basic_endpoint.hpp:
-
-/usr/include/asio/execution/execute.hpp:
-
-/usr/include/c++/13/bits/functexcept.h:
-
-/usr/include/c++/13/bits/istream.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/stat.h:
-
-/usr/include/c++/13/bits/this_thread_sleep.h:
-
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
-
-/usr/include/c++/13/bits/exception_ptr.h:
-
-/usr/include/asio/ip/impl/host_name.ipp:
-
-/usr/include/c++/13/bits/concept_check.h:
-
-/usr/include/c++/13/bits/alloc_traits.h:
-
-/usr/include/openssl/prov_ssl.h:
-
-/usr/include/asio/execution/detail/as_invocable.hpp:
-
-/usr/include/c++/13/bits/stl_uninitialized.h:
-
-/home/kenshien/Documents/school/project/backend/src/main.cpp:
-
-/usr/include/x86_64-linux-gnu/bits/termios-c_iflag.h:
-
-/usr/include/asio/ip/host_name.hpp:
-
-/usr/include/c++/13/bits/new_allocator.h:
-
-/usr/include/openssl/e_os2.h:
-
-/usr/include/c++/13/bits/unordered_map.h:
+/usr/include/c++/13/unordered_map:
 
 /usr/include/x86_64-linux-gnu/bits/statx-generic.h:
 
@@ -6389,27 +6437,265 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/detail/consuming_buffers.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+/usr/include/openssl/dtls1.h:
 
-/usr/include/asio/traits/prefer_free.hpp:
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
-/usr/include/asio/detail/thread.hpp:
+/usr/include/c++/13/bits/basic_string.tcc:
 
-/usr/include/c++/13/bits/stl_vector.h:
+/usr/include/asio/impl/execution_context.hpp:
+
+/usr/include/asio/detail/reactor.hpp:
+
+/usr/include/openssl/dsa.h:
+
+/usr/include/asio/multiple_exceptions.hpp:
+
+/usr/include/c++/13/bit:
+
+/usr/include/asio/signal_set_base.hpp:
+
+/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
+
+/usr/include/asio/detail/is_executor.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
+
+/usr/include/features-time64.h:
+
+/usr/include/c++/13/type_traits:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h:
+
+/usr/include/asio/bind_executor.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/sigthread.h:
+
+/usr/include/asio/ip/address_v4.hpp:
+
+/home/kenshien/Documents/school/project/backend/include/controllers/attendance_controller.h:
+
+/usr/include/asio/impl/connect_pipe.hpp:
+
+/usr/include/c++/13/bits/enable_special_members.h:
+
+/usr/include/openssl/opensslv.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
+
+/usr/include/c++/13/bits/predefined_ops.h:
+
+/usr/include/c++/13/iosfwd:
+
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
+
+/usr/include/c++/13/bits/basic_string.h:
+
+/usr/include/asio/detail/is_buffer_sequence.hpp:
+
+/usr/include/asio/detail/initiate_defer.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/sched.h:
+
+/home/kenshien/Documents/school/project/backend/include/crow.h:
+
+/home/kenshien/Documents/school/project/backend/include/config/db.h:
+
+/usr/include/x86_64-linux-gnu/bits/signum-arch.h:
+
+/usr/include/asio/execution/impl/receiver_invocation_error.ipp:
+
+/usr/include/asio/ip/address_v4_iterator.hpp:
+
+/usr/include/asio/connect.hpp:
+
+/usr/include/c++/13/debug/assertions.h:
+
+/usr/include/asio.hpp:
+
+/home/kenshien/Documents/school/project/backend/include/controllers/grade_controller.h:
+
+/usr/include/asm-generic/bitsperlong.h:
+
+/usr/include/asio/is_write_buffered.hpp:
+
+/usr/include/asio/associated_allocator.hpp:
+
+/usr/include/c++/13/bits/hashtable_policy.h:
+
+/usr/include/asio/detail/blocking_executor_op.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/FILE.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
+
+/usr/include/c++/13/bits/ostream.tcc:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
+
+/usr/include/mysql/my_compress.h:
+
+/usr/include/c++/13/bits/ptr_traits.h:
+
+/usr/include/asio/associated_cancellation_slot.hpp:
+
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/c++/13/bits/locale_conv.h:
+
+/usr/include/c++/13/bits/istream.tcc:
+
+/usr/include/c++/13/bits/alloc_traits.h:
+
+/usr/include/asio/ip/impl/host_name.ipp:
+
+/usr/include/c++/13/bits/concept_check.h:
+
+/usr/include/c++/13/bits/localefwd.h:
+
+/usr/include/asm-generic/ioctls.h:
+
+/usr/include/asio/is_executor.hpp:
+
+/usr/include/asio/basic_writable_pipe.hpp:
+
+/usr/include/c++/13/bits/locale_facets.h:
+
+/usr/include/asio/ip/resolver_query_base.hpp:
+
+/usr/include/c++/13/bits/move.h:
+
+/usr/include/x86_64-linux-gnu/bits/signal_ext.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/asio/basic_readable_pipe.hpp:
+
+/usr/include/openssl/param_build.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
+
+/usr/include/features.h:
+
+/usr/include/asio/detail/reactive_socket_recvfrom_op.hpp:
+
+/usr/include/c++/13/string:
+
+/usr/include/asio/execution/invocable_archetype.hpp:
+
+/usr/include/x86_64-linux-gnu/asm/ioctl.h:
+
+/usr/include/asio/traits/set_done_free.hpp:
+
+/usr/include/c++/13/bits/cpp_type_traits.h:
+
+/usr/include/asio/detail/cstddef.hpp:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/c++/13/bits/erase_if.h:
+
+/usr/include/mysql/mysql.h:
+
+/usr/include/asio/impl/buffered_write_stream.hpp:
+
+/usr/include/c++/13/cstddef:
+
+/usr/include/openssl/rsa.h:
+
+/usr/include/c++/13/vector:
+
+/usr/include/c++/13/bits/cxxabi_forced.h:
+
+/usr/include/x86_64-linux-gnu/bits/stat.h:
+
+/usr/include/c++/13/bits/this_thread_sleep.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+/usr/include/c++/13/bits/exception_ptr.h:
+
+/usr/include/c++/13/bits/locale_facets.tcc:
+
+/usr/include/asio/generic/seq_packet_protocol.hpp:
+
+/usr/include/c++/13/bits/allocator.h:
+
+/usr/include/asio/detail/wait_op.hpp:
+
+/usr/include/c++/13/bits/string_view.tcc:
+
+/usr/include/openssl/asyncerr.h:
+
+/usr/include/c++/13/ratio:
+
+/usr/include/c++/13/cwctype:
+
+/usr/include/c++/13/bits/sstream.tcc:
+
+/usr/include/asio/buffered_read_stream.hpp:
+
+/usr/include/c++/13/bits/stl_algobase.h:
+
+/usr/include/asio/execution/set_done.hpp:
+
+/usr/include/c++/13/bits/stl_bvector.h:
+
+/usr/include/c++/13/bits/stl_construct.h:
+
+/usr/include/asio/traits/equality_comparable.hpp:
+
+/usr/include/x86_64-linux-gnu/sys/select.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h:
+
+/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+
+/usr/include/asio/generic/basic_endpoint.hpp:
+
+/usr/include/asio/execution/execute.hpp:
+
+/usr/include/c++/13/bits/functexcept.h:
+
+/usr/include/mysql/mysql_com.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
+
+/usr/include/c++/13/bits/stl_map.h:
+
+/usr/include/c++/13/locale:
+
+/usr/include/asio/cancellation_type.hpp:
+
+/usr/include/openssl/prov_ssl.h:
+
+/usr/include/asio/execution/detail/as_invocable.hpp:
+
+/usr/include/c++/13/bits/stl_uninitialized.h:
+
+/home/kenshien/Documents/school/project/backend/src/main.cpp:
+
+/usr/include/x86_64-linux-gnu/bits/termios-c_iflag.h:
+
+/usr/include/asio/ip/host_name.hpp:
+
+/usr/include/c++/13/bits/new_allocator.h:
+
+/usr/include/c++/13/bits/quoted_string.h:
+
+/usr/include/asio/detail/thread_group.hpp:
+
+/usr/include/asio/execution/occupancy.hpp:
+
+/usr/include/openssl/e_os2.h:
+
+/usr/include/c++/13/bits/unordered_map.h:
 
 /usr/include/asio/detail/recycling_allocator.hpp:
 
 /usr/include/c++/13/bits/streambuf.tcc:
-
-/usr/include/linux/errno.h:
-
-/usr/include/c++/13/bits/std_abs.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
-
-/home/kenshien/Documents/school/project/backend/include/config/database.h:
-
-/usr/include/asio/execution/submit.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
@@ -6431,23 +6717,37 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/arpa/inet.h:
 
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
+
+/home/kenshien/Documents/school/project/backend/include/config/database.h:
+
+/usr/include/asio/execution/submit.hpp:
+
+/usr/include/openssl/bioerr.h:
+
+/usr/include/asio/impl/system_context.hpp:
+
+/usr/include/c++/13/bits/stl_function.h:
+
 /usr/include/asio/detail/timer_queue.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
-/usr/include/asio/basic_socket_acceptor.hpp:
-
-/usr/include/c++/13/stdlib.h:
-
 /usr/include/asio/ip/address_v6_range.hpp:
 
 /usr/include/c++/13/bits/vector.tcc:
 
-/usr/include/c++/13/unordered_map:
+/usr/include/asio/detail/winsock_init.hpp:
 
-/usr/include/asio/impl/read.hpp:
+/usr/include/c++/13/chrono:
+
+/usr/include/asio/version.hpp:
+
+/usr/include/asio/impl/multiple_exceptions.ipp:
+
+/usr/include/c++/13/fstream:
 
 /usr/include/c++/13/tuple:
 
@@ -6461,9 +6761,19 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/cstdio:
 
-/usr/include/asio/detail/winsock_init.hpp:
+/usr/include/c++/13/ctime:
 
-/usr/include/asio/basic_signal_set.hpp:
+/usr/include/asio/buffered_stream.hpp:
+
+/usr/include/asio/detail/assert.hpp:
+
+/usr/include/openssl/objects.h:
+
+/usr/include/x86_64-linux-gnu/sys/timerfd.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h:
+
+/usr/include/c++/13/ext/aligned_buffer.h:
 
 /usr/include/c++/13/cctype:
 
@@ -6472,10 +6782,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/asio/ip/tcp.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
-
-/usr/include/asio/async_result.hpp:
-
-/usr/include/c++/13/ext/string_conversions.h:
 
 /usr/include/openssl/evperr.h:
 
@@ -6491,129 +6797,9 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/c++/13/istream:
 
-/usr/include/c++/13/string_view:
+/usr/include/c++/13/bits/uses_allocator_args.h:
 
-/usr/include/openssl/conferr.h:
-
-/usr/include/x86_64-linux-gnu/bits/environments.h:
-
-/usr/include/asio/detail/handler_invoke_helpers.hpp:
-
-/usr/include/asio/execution/start.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/include/c++/13/type_traits:
-
-/usr/include/features-time64.h:
-
-/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
-
-/usr/include/netinet/tcp.h:
-
-/usr/include/c++/13/bits/random.h:
-
-/usr/include/c++/13/ext/alloc_traits.h:
-
-/usr/include/x86_64-linux-gnu/sys/un.h:
-
-/usr/include/c++/13/bits/fs_dir.h:
-
-/usr/include/asio/detail/call_stack.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
-
-/usr/include/asio/execution/context.hpp:
-
-/usr/include/c++/13/bits/codecvt.h:
-
-/usr/include/asio/basic_waitable_timer.hpp:
-
-/usr/include/c++/13/cstdint:
-
-/usr/include/asio/streambuf.hpp:
-
-/usr/include/asio/stream_file.hpp:
-
-/usr/include/asio/execution/sender.hpp:
-
-/usr/include/asio/any_completion_executor.hpp:
-
-/usr/include/c++/13/bits/range_access.h:
-
-/usr/include/c++/13/bits/ostream_insert.h:
-
-/usr/include/c++/13/system_error:
-
-/usr/include/asio/awaitable.hpp:
-
-/usr/include/c++/13/bits/cxxabi_init_exception.h:
-
-/usr/include/asio/connect_pipe.hpp:
-
-/usr/include/asio/detail/socket_option.hpp:
-
-/usr/include/mysql/errmsg.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
-
-/usr/include/asio/buffered_read_stream_fwd.hpp:
-
-/usr/include/asio/ip/impl/basic_endpoint.hpp:
-
-/usr/include/asio/detail/service_registry.hpp:
-
-/usr/include/c++/13/pstl/pstl_config.h:
-
-/usr/include/mysql/mysql_time.h:
-
-/usr/include/c++/13/bits/allocator.h:
-
-/usr/include/asio/detail/wait_op.hpp:
-
-/usr/include/asio/generic/seq_packet_protocol.hpp:
-
-/usr/include/openssl/objects.h:
-
-/usr/include/x86_64-linux-gnu/sys/timerfd.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h:
-
-/usr/include/c++/13/ext/aligned_buffer.h:
-
-/usr/include/asio/traits/set_value_member.hpp:
-
-/usr/include/asio/execution/detail/submit_receiver.hpp:
-
-/usr/include/locale.h:
-
-/usr/include/features.h:
-
-/usr/include/c++/13/string:
-
-/usr/include/asio/detail/reactive_socket_recvfrom_op.hpp:
-
-/usr/include/asio/detail/epoll_reactor.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/time64.h:
-
-/usr/include/c++/13/ext/type_traits.h:
-
-/usr/include/c++/13/bits/stl_bvector.h:
-
-/usr/include/asio/execution/set_done.hpp:
-
-/usr/include/mysql/mysql_com.h:
-
-/usr/include/asio/detail/array.hpp:
-
-/usr/include/c++/13/ext/numeric_traits.h:
-
-/usr/include/mysql/plugin_auth_common.h:
-
-/usr/include/asio/associator.hpp:
-
-/usr/include/asio/detail/throw_exception.hpp:
+/usr/include/mysql/udf_registration_types.h:
 
 /usr/include/c++/13/bits/streambuf_iterator.h:
 
@@ -6623,19 +6809,73 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/impl/cancellation_signal.ipp:
 
-/usr/include/c++/13/bits/uses_allocator_args.h:
+/usr/include/asio/ip/impl/basic_endpoint.hpp:
 
-/usr/include/mysql/udf_registration_types.h:
+/usr/include/mysql/mysql_time.h:
+
+/usr/include/asio/detail/service_registry.hpp:
+
+/usr/include/c++/13/pstl/pstl_config.h:
+
+/usr/include/asio/any_completion_executor.hpp:
+
+/usr/include/c++/13/bits/range_access.h:
+
+/usr/include/c++/13/bits/ostream_insert.h:
+
+/usr/include/c++/13/system_error:
+
+/usr/include/asio/connect_pipe.hpp:
+
+/usr/include/asio/detail/socket_option.hpp:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/float.h:
+
+/usr/include/asio/associated_executor.hpp:
+
+/usr/include/asio/associated_immediate_executor.hpp:
+
+/usr/include/asio/impl/any_completion_executor.ipp:
+
+/usr/include/asio/detail/throw_exception.hpp:
+
+/usr/include/asio/associator.hpp:
+
+/usr/include/c++/13/ext/string_conversions.h:
+
+/usr/include/asio/async_result.hpp:
+
+/usr/include/asio/detail/reactive_wait_op.hpp:
+
+/usr/include/c++/13/bits/cxxabi_init_exception.h:
+
+/usr/include/asio/awaitable.hpp:
+
+/usr/include/asio/basic_datagram_socket.hpp:
+
+/usr/include/asio/traits/require_free.hpp:
+
+/usr/include/asio/detail/signal_set_service.hpp:
+
+/usr/include/asio/basic_file.hpp:
+
+/usr/include/asio/basic_signal_set.hpp:
+
+/usr/include/c++/13/stdlib.h:
+
+/usr/include/asio/basic_socket_acceptor.hpp:
+
+/usr/include/asio/writable_pipe.hpp:
+
+/usr/include/asio/basic_socket_iostream.hpp:
+
+/usr/include/asio/generic/datagram_protocol.hpp:
+
+/usr/include/asio/basic_stream_file.hpp:
 
 /usr/include/c++/13/map:
 
 /usr/include/asio/basic_streambuf.hpp:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h:
-
-/usr/include/asio/serial_port.hpp:
-
-/usr/include/asio/basic_streambuf_fwd.hpp:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h:
 
@@ -6657,12 +6897,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/buffer_registration.hpp:
 
-/usr/include/asio/buffered_read_stream.hpp:
-
-/usr/include/asio/buffered_stream.hpp:
-
-/usr/include/asio/detail/assert.hpp:
-
 /usr/include/asio/buffered_stream_fwd.hpp:
 
 /usr/include/asio/traits/schedule_free.hpp:
@@ -6677,11 +6911,15 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/buffered_write_stream_fwd.hpp:
 
+/usr/include/asio/placeholders.hpp:
+
+/usr/include/asio/impl/executor.ipp:
+
+/usr/include/asio/cancellation_signal.hpp:
+
 /usr/include/x86_64-linux-gnu/bits/sigcontext.h:
 
 /usr/include/asio/cancellation_state.hpp:
-
-/usr/include/asio/cancellation_type.hpp:
 
 /usr/include/asio/deadline_timer.hpp:
 
@@ -6765,6 +7003,16 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/generic/detail/impl/endpoint.ipp:
 
+/usr/include/openssl/ssl2.h:
+
+/usr/include/asio/io_context_strand.hpp:
+
+/usr/include/asio/impl/thread_pool.hpp:
+
+/usr/include/asio/detail/initiate_post.hpp:
+
+/usr/include/asio/detail/eventfd_select_interrupter.hpp:
+
 /usr/include/asio/detail/executor_function.hpp:
 
 /usr/include/openssl/cterr.h:
@@ -6819,6 +7067,10 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/detail/impl/socket_ops.ipp:
 
+/usr/include/asio/impl/prepend.hpp:
+
+/usr/include/asio/detail/work_dispatcher.hpp:
+
 /usr/include/asio/detail/impl/eventfd_select_interrupter.ipp:
 
 /usr/include/openssl/cryptoerr_legacy.h:
@@ -6871,12 +7123,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/detail/impl/strand_executor_service.ipp:
 
-/usr/include/asio/impl/read_until.hpp:
-
-/usr/include/asio/coroutine.hpp:
-
-/usr/include/asio/impl/error_code.ipp:
-
 /usr/include/x86_64-linux-gnu/bits/termios-tcflow.h:
 
 /usr/include/asio/detail/op_queue.hpp:
@@ -6884,10 +7130,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/asio/detail/impl/strand_service.ipp:
 
 /usr/include/asio/detail/impl/timer_queue_set.ipp:
-
-/usr/include/asio/detail/reactor.hpp:
-
-/usr/include/asio/impl/execution_context.hpp:
 
 /usr/include/asio/detail/initiate_dispatch.hpp:
 
@@ -6910,10 +7152,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/asio/detail/regex_fwd.hpp:
 
 /usr/include/asio/detail/pop_options.hpp:
-
-/usr/include/asio/detail/work_dispatcher.hpp:
-
-/usr/include/asio/impl/prepend.hpp:
 
 /usr/include/asio/detail/posix_event.hpp:
 
@@ -7035,11 +7273,11 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/detail/socket_types.hpp:
 
-/usr/include/c++/13/cstring:
+/usr/include/mysql/my_command.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h:
 
-/usr/include/mysql/my_command.h:
+/usr/include/c++/13/cstring:
 
 /usr/include/asio/detail/static_mutex.hpp:
 
@@ -7050,10 +7288,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/x86_64-linux-gnu/bits/ss_flags.h:
 
 /usr/include/asio/detail/strand_service.hpp:
-
-/usr/include/asio/detail/thread_group.hpp:
-
-/usr/include/asio/execution/occupancy.hpp:
 
 /usr/include/asio/detail/thread_info_base.hpp:
 
@@ -7177,12 +7411,6 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/execution_context.hpp:
 
-/usr/include/poll.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
-
-/usr/include/asio/impl/read_at.hpp:
-
 /usr/include/c++/13/iomanip:
 
 /usr/include/asio/executor.hpp:
@@ -7205,6 +7433,10 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 
 /usr/include/asio/impl/append.hpp:
 
+/usr/include/asio/impl/serial_port_base.hpp:
+
+/usr/include/asio/impl/as_tuple.hpp:
+
 /usr/include/asio/impl/buffered_read_stream.hpp:
 
 /usr/include/linux/stddef.h:
@@ -7216,49 +7448,3 @@ CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/sc
 /usr/include/asio/detail/impl/epoll_reactor.hpp:
 
 /usr/include/asio/impl/detached.hpp:
-
-/usr/include/asio/impl/error.ipp:
-
-/usr/include/c++/13/version:
-
-/usr/include/asio/impl/execution_context.ipp:
-
-/usr/include/asio/any_io_executor.hpp:
-
-/usr/include/asio/impl/executor.hpp:
-
-/usr/include/asio/placeholders.hpp:
-
-/usr/include/asio/cancellation_signal.hpp:
-
-/usr/include/asio/impl/executor.ipp:
-
-/usr/include/asio/impl/handler_alloc_hook.ipp:
-
-/usr/include/asio/version.hpp:
-
-/usr/include/c++/13/fstream:
-
-/usr/include/asio/impl/multiple_exceptions.ipp:
-
-/usr/include/asio/impl/as_tuple.hpp:
-
-/usr/include/asio/impl/serial_port_base.hpp:
-
-/usr/include/asio/impl/serial_port_base.ipp:
-
-/usr/include/openssl/bioerr.h:
-
-/usr/include/c++/13/bits/stl_function.h:
-
-/usr/include/asio/impl/system_context.hpp:
-
-/usr/include/openssl/ssl2.h:
-
-/usr/include/asio/io_context_strand.hpp:
-
-/usr/include/asio/detail/eventfd_select_interrupter.hpp:
-
-/usr/include/asio/detail/initiate_post.hpp:
-
-/usr/include/asio/impl/thread_pool.hpp:

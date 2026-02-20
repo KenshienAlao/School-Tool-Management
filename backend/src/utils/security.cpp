@@ -37,4 +37,4 @@ bool verifyPassword(const std::string& password, const std::string& hash) {
     return std::string(hashed) == hash;
 }
 
-} // namespace Security
+}

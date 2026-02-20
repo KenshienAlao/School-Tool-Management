@@ -1,6 +1,7 @@
 CMakeFiles/backend_app.dir/src/main.cpp.o: \
  /home/kenshien/Documents/school/project/backend/src/main.cpp \
  /usr/include/stdc-predef.h \
+ /home/kenshien/Documents/school/project/backend/include/config/database.h \
  /home/kenshien/Documents/school/project/backend/include/config/db.h \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
@@ -123,9 +124,7 @@ CMakeFiles/backend_app.dir/src/main.cpp.o: \
  /usr/include/c++/13/ext/aligned_buffer.h \
  /usr/include/c++/13/bits/enable_special_members.h \
  /usr/include/c++/13/bits/node_handle.h \
- /usr/include/c++/13/bits/erase_if.h \
- /home/kenshien/Documents/school/project/backend/include/config/database.h \
- /usr/include/mysql/mysql.h \
+ /usr/include/c++/13/bits/erase_if.h /usr/include/mysql/mysql.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
@@ -876,5 +875,50 @@ CMakeFiles/backend_app.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/stl_map.h \
  /usr/include/c++/13/bits/stl_multimap.h /usr/include/c++/13/thread \
  /usr/include/c++/13/bits/this_thread_sleep.h \
+ /home/kenshien/Documents/school/project/backend/include/middleware/auth_middleware.h \
+ /home/kenshien/Documents/school/project/backend/include/jwt-cpp/jwt.h \
+ /home/kenshien/Documents/school/project/backend/include/picojson/picojson.h \
+ /usr/include/c++/13/cinttypes /usr/include/inttypes.h \
+ /home/kenshien/Documents/school/project/backend/include/jwt-cpp/base.h \
+ /usr/include/openssl/ec.h /usr/include/openssl/macros.h \
+ /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
+ /usr/include/x86_64-linux-gnu/openssl/configuration.h \
+ /usr/include/openssl/opensslv.h /usr/include/openssl/types.h \
+ /usr/include/openssl/e_os2.h /usr/include/openssl/safestack.h \
+ /usr/include/openssl/stack.h /usr/include/openssl/asn1.h \
+ /usr/include/openssl/bio.h /usr/include/openssl/crypto.h \
+ /usr/include/openssl/cryptoerr.h /usr/include/openssl/symhacks.h \
+ /usr/include/openssl/cryptoerr_legacy.h /usr/include/openssl/core.h \
+ /usr/include/openssl/bioerr.h /usr/include/openssl/asn1err.h \
+ /usr/include/openssl/bn.h /usr/include/openssl/bnerr.h \
+ /usr/include/openssl/ecerr.h /usr/include/openssl/params.h \
+ /usr/include/openssl/ecdsa.h /usr/include/openssl/err.h \
+ /usr/include/openssl/lhash.h /usr/include/openssl/evp.h \
+ /usr/include/openssl/core_dispatch.h /usr/include/openssl/evperr.h \
+ /usr/include/openssl/objects.h /usr/include/openssl/obj_mac.h \
+ /usr/include/openssl/objectserr.h /usr/include/openssl/hmac.h \
+ /usr/include/openssl/pem.h /usr/include/openssl/x509.h \
+ /usr/include/openssl/buffer.h /usr/include/openssl/buffererr.h \
+ /usr/include/openssl/rsa.h /usr/include/openssl/rsaerr.h \
+ /usr/include/openssl/dsa.h /usr/include/openssl/dh.h \
+ /usr/include/openssl/dherr.h /usr/include/openssl/dsaerr.h \
+ /usr/include/openssl/sha.h /usr/include/openssl/x509err.h \
+ /usr/include/openssl/x509_vfy.h /usr/include/openssl/pkcs7.h \
+ /usr/include/openssl/pkcs7err.h /usr/include/openssl/http.h \
+ /usr/include/openssl/conf.h /usr/include/openssl/conferr.h \
+ /usr/include/openssl/conftypes.h /usr/include/openssl/pemerr.h \
+ /usr/include/openssl/ssl.h /usr/include/openssl/comp.h \
+ /usr/include/openssl/comperr.h /usr/include/openssl/async.h \
+ /usr/include/openssl/asyncerr.h /usr/include/openssl/ct.h \
+ /usr/include/openssl/cterr.h /usr/include/openssl/sslerr.h \
+ /usr/include/openssl/sslerr_legacy.h /usr/include/openssl/prov_ssl.h \
+ /usr/include/openssl/ssl2.h /usr/include/openssl/ssl3.h \
+ /usr/include/openssl/tls1.h /usr/include/openssl/dtls1.h \
+ /usr/include/openssl/srtp.h /usr/include/c++/13/experimental/type_traits \
+ /usr/include/c++/13/experimental/bits/lfts_config.h \
+ /usr/include/openssl/param_build.h \
+ /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/defaults.h \
+ /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/traits.h \
  /home/kenshien/Documents/school/project/backend/include/routes/routes.h \
- /home/kenshien/Documents/school/project/backend/include/utils/cors.h
+ /home/kenshien/Documents/school/project/backend/include/utils/cors.h \
+ /home/kenshien/Documents/school/project/backend/include/utils/logger.h

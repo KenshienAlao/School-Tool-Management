@@ -3,7 +3,8 @@
 #include "controllers/auth_controller.h"
 #include "controllers/grade_controller.h"
 
-void setup_routes(crow::App<CORSMiddleware> &app, const std::string &jwt_secret) {
+void setup_routes(crow::App<CORSMiddleware, AuthMiddleware> &app,
+                  const std::string &jwt_secret) {
   // Basic route
   CROW_ROUTE(app, "/")
   ([]() {
@@ -15,7 +16,7 @@ void setup_routes(crow::App<CORSMiddleware> &app, const std::string &jwt_secret)
 
   // auth route
   CROW_ROUTE(app, "/api/auth/login")
-      .methods(crow::HTTPMethod::POST)([&jwt_secret](const crow::request &req) {
+      .methods(crow::HTTPMethod::POST)([jwt_secret](const crow::request &req) {
         return AuthController::login(req, jwt_secret);
       });
 
@@ -24,11 +25,13 @@ void setup_routes(crow::App<CORSMiddleware> &app, const std::string &jwt_secret)
         return AuthController::registerUser(req);
       });
 
-  // attendace route
-  CROW_ROUTE(app, "/api/attendance")
-  ([]() { return AttendanceController::getAttendance(); });
+//   // attendace route (PROTECTED)
+//   CROW_ROUTE(app, "/api/attendance").CROW_MIDDLEWARES(app, AuthMiddleware)([]() {
+//     return AttendanceController::getAttendance();
+//   });
 
-  // grade route
-  CROW_ROUTE(app, "/api/grades")
-  ([]() { return GradeController::getGrades(); });
+//   // grade route (PROTECTED)
+//   CROW_ROUTE(app, "/api/grades").CROW_MIDDLEWARES(app, AuthMiddleware)([]() {
+//     return GradeController::getGrades();
+//   });
 }

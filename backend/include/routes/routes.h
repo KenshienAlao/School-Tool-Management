@@ -2,9 +2,11 @@
 #define ROUTES_H
 
 #include "crow.h"
+#include "middleware/auth_middleware.h"
 #include "utils/cors.h"
 #include <string>
 
-void setup_routes(crow::App<CORSMiddleware> &app, const std::string &jwt_secret);
+void setup_routes(crow::App<CORSMiddleware, AuthMiddleware> &app,
+                  const std::string &jwt_secret);
 
 #endif

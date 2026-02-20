@@ -1,9 +1,10 @@
-#include "config/db.h"
 #include "config/database.h"
+#include "config/db.h"
 #include "crow.h"
+#include "middleware/auth_middleware.h"
 #include "routes/routes.h"
 #include "utils/cors.h"
-#include <iostream>
+#include "utils/logger.h"
 
 int main() {
   // load env
@@ -12,13 +13,16 @@ int main() {
 
   // database
   if (!Database::getInstance().connect(dbConfig)) {
-      std::cerr << "database error" << std::endl;
+    Logger::error("Failed to connect to database");
   }
 
-  std::cout << "server on http://localhost:8080" << std::endl;
-  
-  // cors
-  crow::App<CORSMiddleware> app;
+  Logger::info("Server starting on http://localhost:8080");
+
+  // middleware
+  AuthMiddleware::secret() = dbConfig.jwt_secret;
+
+  // app with middleware
+  crow::App<CORSMiddleware, AuthMiddleware> app;
 
   // routes
   setup_routes(app, dbConfig.jwt_secret);

@@ -4,45 +4,59 @@
 #include "utils/security.h"
 #include <chrono>
 
+#include "utils/logger.h"
+
 namespace AuthController {
+
+// helper to safely get string from crow::json::rvalue
+auto get_string_safely = [](const crow::json::rvalue& v) -> std::string {
+    if (v && v.t() == crow::json::type::String) {
+        return v.s();
+    }
+    return "";
+};
+
+// helper for standard responses
+auto standard_response = [](int code, bool success, const std::string& message, crow::json::wvalue data = {}) {
+    crow::json::wvalue res;
+    res["success"] = success;
+    res["message"] = message;
+    if (!data.dump().empty() && data.dump() != "{}") {
+        res["data"] = std::move(data);
+    }
+    return crow::response(code, res);
+};
 
 // login
 crow::response login(const crow::request &req, const std::string &secret) {
   try {
     auto x = crow::json::load(req.body);
-    if (!x) {
-      return crow::response(400, "Invalid JSON");
-    }
+    if (!x) return standard_response(400, false, "Invalid JSON");
 
-    std::string email = x.has("email") ? std::string(x["email"].s()) : "";
-    std::string password =
-        x.has("password") ? std::string(x["password"].s()) : "";
+    std::string email = x.has("email") ? get_string_safely(x["email"]) : "";
+    std::string password = x.has("password") ? get_string_safely(x["password"]) : "";
 
     if (email.empty() || password.empty()) {
-      crow::json::wvalue res;
-      res["success"] = false;
-      res["message"] = "All fields are required";
-      return crow::response(400, res);
+      return standard_response(400, false, "All fields are required");
     }
 
-    // query
-    std::string query =
-        "SELECT * FROM users WHERE email = '" + email + "' LIMIT 1";
-    auto users = Database::getInstance().query(query);
+    Logger::info("Login attempt for email: " + email);
+
+    // query using prepared statement
+    auto users = Database::getInstance().query(
+        "SELECT id, username, password FROM users WHERE email = ? LIMIT 1",
+        {email}
+    );
 
     if (users.empty()) {
-      crow::json::wvalue res;
-      res["success"] = false;
-      res["message"] = "User not found";
-      return crow::response(400, res);
+      Logger::warn("Login failed: User not found (" + email + ")");
+      return standard_response(401, false, "Invalid credentials");
     }
 
-    // 4. Password comparison (Actual)
+    // hash pass compare
     if (!Security::verifyPassword(password, users[0]["password"])) {
-      crow::json::wvalue res;
-      res["success"] = false;
-      res["message"] = "Invalid password";
-      return crow::response(400, res);
+      Logger::warn("Login failed: Invalid password (" + email + ")");
+      return standard_response(401, false, "Invalid credentials");
     }
 
     // generate token
@@ -55,88 +69,71 @@ crow::response login(const crow::request &req, const std::string &secret) {
                                      std::chrono::hours{1})
                      .sign(jwt::algorithm::hs256{secret});
 
-    // return success
-    crow::json::wvalue res;
-    res["success"] = true;
-    res["message"] = "User logged in";
-    res["token"] = token;
-    res["data"]["id"] = user_id;
-    res["data"]["email"] = email;
-    res["data"]["username"] = users[0]["username"];
+    Logger::info("User logged in successfully: " + email);
 
-    return crow::response(200, res);
+    crow::json::wvalue data;
+    data["id"] = user_id;
+    data["email"] = email;
+    data["username"] = users[0]["username"];
+    data["token"] = token;
+
+    return standard_response(200, true, "User logged in", std::move(data));
   } catch (const std::exception &e) {
-    crow::json::wvalue res;
-    res["success"] = false;
-    res["message"] = "Internal server error";
-    return crow::response(500, res);
+    Logger::error("LOGIN ERROR: " + std::string(e.what()));
+    return standard_response(500, false, "Internal server error");
   }
 }
 
 // register
 crow::response registerUser(const crow::request &req) {
   try {
-    // declaration
     auto x = crow::json::load(req.body);
-    if (!x)
-      return crow::response(400, "Invalid JSON");
+    if (!x) return standard_response(400, false, "Invalid JSON");
 
-    std::string username =
-        x.has("username") ? std::string(x["username"].s()) : "";
-    std::string email = x.has("email") ? std::string(x["email"].s()) : "";
-    std::string password =
-        x.has("password") ? std::string(x["password"].s()) : "";
+    std::string username = x.has("username") ? get_string_safely(x["username"]) : "";
+    std::string email = x.has("email") ? get_string_safely(x["email"]) : "";
+    std::string password = x.has("password") ? get_string_safely(x["password"]) : "";
 
-    // if user did not put anything
     if (username.empty() || email.empty() || password.empty()) {
-      crow::json::wvalue res;
-      res["success"] = false;
-      res["message"] = "All fields are required";
-      return crow::response(400, res);
+      return standard_response(400, false, "All fields are required");
     }
 
+    Logger::info("Registration attempt for email: " + email);
+
     // check if email already exists
-    std::string checkEmail =
-        "SELECT id FROM users WHERE email = '" + email + "' LIMIT 1";
-    auto emailExist = Database::getInstance().query(checkEmail);
+    auto emailExist = Database::getInstance().query(
+        "SELECT id FROM users WHERE email = ? LIMIT 1",
+        {email}
+    );
     if (!emailExist.empty()) {
-      crow::json::wvalue res;
-      res["success"] = false;
-      res["message"] = "Email already registered";
-      return crow::response(400, res);
+      return standard_response(400, false, "Email already registered");
     }
 
     // check if username already exists
-    std::string checkUsername =
-        "SELECT id FROM users WHERE username = '" + username + "' LIMIT 1";
-    auto usernameExist = Database::getInstance().query(checkUsername);
+    auto usernameExist = Database::getInstance().query(
+        "SELECT id FROM users WHERE username = ? LIMIT 1",
+        {username}
+    );
     if (!usernameExist.empty()) {
-      crow::json::wvalue res;
-      res["success"] = false;
-      res["message"] = "Username already registered";
-      return crow::response(400, res);
+      return standard_response(400, false, "Username already registered");
     }
 
-    // hash pass
+    // hash pass and insert
     std::string hashedPassword = Security::hashPassword(password);
-    std::string insertQuery =
-        "INSERT INTO users (username, email, password) VALUES ('" + username +
-        "', '" + email + "', '" + hashedPassword + "')";
+    bool success = Database::getInstance().execute(
+        "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+        {username, email, hashedPassword}
+    );
 
-    // return success
-    if (Database::getInstance().execute(insertQuery)) {
-      crow::json::wvalue res;
-      res["success"] = true;
-      res["message"] = "User registered successfully";
-      return crow::response(201, res);
+    if (success) {
+      Logger::info("User registered successfully: " + email);
+      return standard_response(201, true, "User registered successfully");
     } else {
       throw std::runtime_error("Database insertion failed");
     }
   } catch (const std::exception &e) {
-    crow::json::wvalue res;
-    res["success"] = false;
-    res["message"] = "Registration failed: Internal Error";
-    return crow::response(500, res);
+    Logger::error("REGISTRATION ERROR: " + std::string(e.what()));
+    return standard_response(500, false, "Registration failed: Internal Error");
   }
 }
 } // namespace AuthController

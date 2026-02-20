@@ -1,39 +1,20 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import axios from "axios";
+
+// hooks
+import { useRegister } from "@/app/hooks/useRegister";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { register, loading, error, success } = useRegister();
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      alert("Passwords don't match!");
-      return;
-    }
-
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`,
-        {
-          username,
-          email,
-          password,
-        },
-      );
-      console.log("Test: work", res.data);
-      alert(`Registration status: ${res.data.message}`);
-    } catch (err) {
-      console.error("Registration error:", err);
-      alert(
-        "Registration failed: " + (err.response?.data?.message || err.message),
-      );
-    }
+    await register({ username, email, password, confirmPassword });
   };
 
   return (
@@ -42,6 +23,19 @@ export default function Register() {
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Create Account
         </h1>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+            {error}
+          </div>
+        )}
+
+        {success && (
+          <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
+            Registration successful! You can now login.
+          </div>
+        )}
+
         <form onSubmit={handleRegister} className="space-y-4">
           {/* Username */}
           <div>
@@ -57,8 +51,9 @@ export default function Register() {
               placeholder="Your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all disabled:opacity-50"
               required
+              disabled={loading}
             />
           </div>
 
@@ -76,8 +71,9 @@ export default function Register() {
               placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all disabled:opacity-50"
               required
+              disabled={loading}
             />
           </div>
 
@@ -95,8 +91,9 @@ export default function Register() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all disabled:opacity-50"
               required
+              disabled={loading}
             />
           </div>
 
@@ -114,16 +111,18 @@ export default function Register() {
               placeholder="••••••••"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all disabled:opacity-50"
               required
+              disabled={loading}
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transform transition-active active:scale-95 shadow-md"
+            disabled={loading}
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transform transition-active active:scale-95 shadow-md disabled:bg-blue-400 disabled:cursor-not-allowed"
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </button>
 
           <p className="text-center text-gray-600 mt-6">

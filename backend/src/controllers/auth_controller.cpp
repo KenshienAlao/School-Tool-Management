@@ -1,10 +1,12 @@
 #include "controllers/auth_controller.h"
 #include "config/database.h"
-#include "utils/security.h"
 #include "jwt-cpp/jwt.h"
+#include "utils/security.h"
 #include <chrono>
 
 namespace AuthController {
+
+// login
 crow::response login(const crow::request &req, const std::string &secret) {
   try {
     auto x = crow::json::load(req.body);
@@ -13,7 +15,8 @@ crow::response login(const crow::request &req, const std::string &secret) {
     }
 
     std::string email = x.has("email") ? std::string(x["email"].s()) : "";
-    std::string password = x.has("password") ? std::string(x["password"].s()) : "";
+    std::string password =
+        x.has("password") ? std::string(x["password"].s()) : "";
 
     if (email.empty() || password.empty()) {
       crow::json::wvalue res;
@@ -22,8 +25,9 @@ crow::response login(const crow::request &req, const std::string &secret) {
       return crow::response(400, res);
     }
 
-    // 3. Database query (Actual)
-    std::string query = "SELECT * FROM users WHERE email = '" + email + "' LIMIT 1";
+    // query
+    std::string query =
+        "SELECT * FROM users WHERE email = '" + email + "' LIMIT 1";
     auto users = Database::getInstance().query(query);
 
     if (users.empty()) {
@@ -41,7 +45,7 @@ crow::response login(const crow::request &req, const std::string &secret) {
       return crow::response(400, res);
     }
 
-    // 5. Generate Token
+    // generate token
     std::string user_id = users[0]["id"];
     auto token = jwt::create()
                      .set_type("JWS")
@@ -51,15 +55,15 @@ crow::response login(const crow::request &req, const std::string &secret) {
                                      std::chrono::hours{1})
                      .sign(jwt::algorithm::hs256{secret});
 
-    // 6. Return success
+    // return success
     crow::json::wvalue res;
     res["success"] = true;
-    res["message"] = "User logged in successfully";
+    res["message"] = "User logged in";
     res["token"] = token;
     res["data"]["id"] = user_id;
     res["data"]["email"] = email;
     res["data"]["username"] = users[0]["username"];
-    
+
     return crow::response(200, res);
   } catch (const std::exception &e) {
     crow::json::wvalue res;
@@ -69,15 +73,21 @@ crow::response login(const crow::request &req, const std::string &secret) {
   }
 }
 
+// register
 crow::response registerUser(const crow::request &req) {
   try {
+    // declaration
     auto x = crow::json::load(req.body);
-    if (!x) return crow::response(400, "Invalid JSON");
+    if (!x)
+      return crow::response(400, "Invalid JSON");
 
-    std::string username = x.has("username") ? std::string(x["username"].s()) : "";
+    std::string username =
+        x.has("username") ? std::string(x["username"].s()) : "";
     std::string email = x.has("email") ? std::string(x["email"].s()) : "";
-    std::string password = x.has("password") ? std::string(x["password"].s()) : "";
+    std::string password =
+        x.has("password") ? std::string(x["password"].s()) : "";
 
+    // if user did not put anything
     if (username.empty() || email.empty() || password.empty()) {
       crow::json::wvalue res;
       res["success"] = false;
@@ -85,21 +95,35 @@ crow::response registerUser(const crow::request &req) {
       return crow::response(400, res);
     }
 
-    // Check if user already exists
-    std::string checkQuery = "SELECT id FROM users WHERE email = '" + email + "' LIMIT 1";
-    auto existing = Database::getInstance().query(checkQuery);
-    if (!existing.empty()) {
+    // check if email already exists
+    std::string checkEmail =
+        "SELECT id FROM users WHERE email = '" + email + "' LIMIT 1";
+    auto emailExist = Database::getInstance().query(checkEmail);
+    if (!emailExist.empty()) {
       crow::json::wvalue res;
       res["success"] = false;
       res["message"] = "Email already registered";
       return crow::response(400, res);
     }
 
-    // Insert new user with hashed password
+    // check if username already exists
+    std::string checkUsername =
+        "SELECT id FROM users WHERE username = '" + username + "' LIMIT 1";
+    auto usernameExist = Database::getInstance().query(checkUsername);
+    if (!usernameExist.empty()) {
+      crow::json::wvalue res;
+      res["success"] = false;
+      res["message"] = "Username already registered";
+      return crow::response(400, res);
+    }
+
+    // hash pass
     std::string hashedPassword = Security::hashPassword(password);
-    std::string insertQuery = "INSERT INTO users (username, email, password) VALUES ('" + 
-                              username + "', '" + email + "', '" + hashedPassword + "')";
-    
+    std::string insertQuery =
+        "INSERT INTO users (username, email, password) VALUES ('" + username +
+        "', '" + email + "', '" + hashedPassword + "')";
+
+    // return success
     if (Database::getInstance().execute(insertQuery)) {
       crow::json::wvalue res;
       res["success"] = true;

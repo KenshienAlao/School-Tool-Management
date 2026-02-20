@@ -1,0 +1,3 @@
+/home/kenshien/Documents/school/project/backend/build/CMakeFiles/backend_app.dir
+/home/kenshien/Documents/school/project/backend/build/CMakeFiles/edit_cache.dir
+/home/kenshien/Documents/school/project/backend/build/CMakeFiles/rebuild_cache.dir

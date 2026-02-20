@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -std=gnu++17 -o CMakeFiles/backend_app.dir/src/main.cpp.o -c /home/kenshien/Documents/school/project/backend/src/main.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/main.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -std=gnu++17 -o CMakeFiles/backend_app.dir/src/config/db.cpp.o -c /home/kenshien/Documents/school/project/backend/src/config/db.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/config/db.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/config/db.cpp.o"
+},
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -std=gnu++17 -o CMakeFiles/backend_app.dir/src/config/database.cpp.o -c /home/kenshien/Documents/school/project/backend/src/config/database.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/config/database.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/config/database.cpp.o"
+},
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -std=gnu++17 -o CMakeFiles/backend_app.dir/src/routes/routes.cpp.o -c /home/kenshien/Documents/school/project/backend/src/routes/routes.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/routes/routes.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/routes/routes.cpp.o"
+},
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -std=gnu++17 -o CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o -c /home/kenshien/Documents/school/project/backend/src/controllers/auth_controller.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/controllers/auth_controller.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o"
+},
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -std=gnu++17 -o CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.o -c /home/kenshien/Documents/school/project/backend/src/controllers/attendance_controller.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/controllers/attendance_controller.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.o"
+},
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -std=gnu++17 -o CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.o -c /home/kenshien/Documents/school/project/backend/src/controllers/grade_controller.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/controllers/grade_controller.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.o"
+},
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -std=gnu++17 -o CMakeFiles/backend_app.dir/src/utils/security.cpp.o -c /home/kenshien/Documents/school/project/backend/src/utils/security.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/utils/security.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/utils/security.cpp.o"
+}
+]

@@ -28,14 +28,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const isTokenExpired = (decoded) => {
+    if (!decoded || !decoded.exp) return true;
+    const now = Math.floor(Date.now() / 1000);
+    return decoded.exp < now;
+  };
+
+  const logout = () => {
+    localStorage.removeItem("SchoolToolManagementToken");
+    setUser(null);
+    router.push("/page/login");
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("SchoolToolManagementToken");
     if (token) {
       const decoded = decodeToken(token);
-      if (decoded) {
+      if (decoded && !isTokenExpired(decoded)) {
         setUser(decoded);
       } else {
+        // Clear token if invalid or expired
         localStorage.removeItem("SchoolToolManagementToken");
+        setUser(null);
       }
     }
     setLoading(false);
@@ -55,20 +69,14 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
+  // global checkin
   const login = (token) => {
-    // Note: token here is the full data object from the new backend response
     const actualToken = token.token || token;
     localStorage.setItem("SchoolToolManagementToken", actualToken);
     const decoded = decodeToken(actualToken);
     setUser(decoded);
     router.push("/dashboard");
-  };
-
-  const logout = () => {
-    localStorage.removeItem("SchoolToolManagementToken");
-    setUser(null);
-    router.push("/page/login");
-  };
+  };  
 
   return (
     <AuthContext.Provider

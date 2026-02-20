@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }) {
   const { loading: authLoading } = useProtectedRoute();
   const handleLogout = LogoutHandle();
   const pathname = usePathname();
-  const activeView = pathname.split("/").pop() || "info";
+  const activeView = pathname.split("/").pop() || "home";
 
   if (authLoading) return null;
 

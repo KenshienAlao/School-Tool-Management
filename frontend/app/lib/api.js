@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080",
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
 });
 
 // add a request interceptor to include the token
@@ -20,7 +20,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Standardize error reporting
+    // error 
     const message =
       error.response?.data?.message ||
       error.message ||
@@ -30,7 +30,7 @@ api.interceptors.response.use(
       message,
     );
 
-    // You could trigger a toast or notification here in a real app
+    // for toast
 
     return Promise.reject({
       ...error,

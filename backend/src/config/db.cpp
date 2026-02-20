@@ -24,12 +24,13 @@ loadEnv(const std::string &filename) {
   return env;
 }
 
+
 DbConfig getDbConfig(const std::unordered_map<std::string, std::string> &env) {
   DbConfig config;
-  config.db_name = env.count("DB_NAME") ? env.at("DB_NAME") : "not found";
-  config.db_host = env.count("DB_HOST") ? env.at("DB_HOST") : "localhost";
-  config.db_user = env.count("DB_USER") ? env.at("DB_USER") : "root";
-  config.db_pass = env.count("DB_PASS") ? env.at("DB_PASS") : "";
+  config.db_name = env.count("DB_NAME") ? env.at("DB_NAME") : "not found database";
+  config.db_host = env.count("DB_HOST") ? env.at("DB_HOST") : "not found host";
+  config.db_user = env.count("DB_USER") ? env.at("DB_USER") : "not found root";
+  config.db_pass = env.count("DB_PASS") ? env.at("DB_PASS") : "not found password";
   config.jwt_secret =
       env.count("JWT_SECRET") ? env.at("JWT_SECRET") : "default_secret";
   return config;

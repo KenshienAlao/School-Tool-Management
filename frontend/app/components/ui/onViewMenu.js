@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { menu } from "@/app/data/menuLink";
 
-export function OnViewMenu({ activeView = "info" }) {
+export function OnViewMenu({ activeView = "home" }) {
   return (
     <div className="h-full p-4">
       <div className="flex flex-col space-y-2">

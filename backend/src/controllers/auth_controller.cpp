@@ -16,7 +16,7 @@ auto get_string_safely = [](const crow::json::rvalue& v) -> std::string {
     return "";
 };
 
-// helper for standard responses
+// helper forresponses
 auto standard_response = [](int code, bool success, const std::string& message, crow::json::wvalue data = {}) {
     crow::json::wvalue res;
     res["success"] = success;

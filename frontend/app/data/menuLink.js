@@ -1,6 +1,9 @@
+// ui
+import { Home, Grade, Attendance, Info } from "@/app/components/ui/icons";
+
 export const menu = [
-  { id: "home", label: "home" },
-  { id: "grade", label: "grade" },
-  { id: "attendance", label: "attendance" },
-  { id: "info", label: "info" },
+  { id: "home", label: "Home", icon: Home },
+  { id: "grade", label: "Grade", icon: Grade },
+  { id: "attendance", label: "Attendance", icon: Attendance },
+  { id: "info", label: "Info", icon: Info },
 ];

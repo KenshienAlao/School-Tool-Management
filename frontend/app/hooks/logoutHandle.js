@@ -8,5 +8,5 @@ export function LogoutHandle() {
     logout();
   };
 
-  return handleLogout;
+  return { handleLogout };
 }

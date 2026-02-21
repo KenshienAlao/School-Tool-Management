@@ -6,7 +6,7 @@ import { useLogin } from "@/app/hooks/useLogin";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, loading, error, success } = useLogin();
+  const { login, error, success } = useLogin();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,20 +14,20 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
+      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
+        <h1 className="mb-6 text-center text-3xl font-bold text-gray-800">
           Login
         </h1>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+          <div className="mb-4 rounded border border-red-400 bg-red-100 p-3 text-sm text-red-700">
             {error}
           </div>
         )}
 
         {success && (
-          <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
+          <div className="mb-4 rounded border border-green-400 bg-green-100 p-3 text-sm text-green-700">
             Login successful! You can now login.
           </div>
         )}
@@ -35,7 +35,7 @@ export default function Login() {
           {/* Email */}
           <div>
             <label
-              className="block text-gray-700 text-sm font-semibold mb-2"
+              className="mb-2 block text-sm font-semibold text-gray-700"
               htmlFor="email"
             >
               Email Address
@@ -46,7 +46,7 @@ export default function Login() {
               placeholder="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-black transition-all focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
             />
           </div>
@@ -54,7 +54,7 @@ export default function Login() {
           {/* Password */}
           <div>
             <label
-              className="block text-gray-700 text-sm font-semibold mb-2"
+              className="mb-2 block text-sm font-semibold text-gray-700"
               htmlFor="password"
             >
               Password
@@ -65,23 +65,23 @@ export default function Login() {
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-black transition-all focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transform transition-active active:scale-95 shadow-md"
+            className="transition-active w-full transform rounded-lg bg-blue-600 py-3 font-bold text-white shadow-md hover:bg-blue-700 active:scale-95"
           >
             Sign In
           </button>
 
-          <p className="text-center text-gray-600 mt-6">
+          <p className="mt-6 text-center text-gray-600">
             Don't have an account?{" "}
             <Link
               href="/page/register"
-              className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+              className="font-medium text-blue-600 transition-colors hover:text-blue-800"
             >
               Register here
             </Link>

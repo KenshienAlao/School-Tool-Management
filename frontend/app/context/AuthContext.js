@@ -4,55 +4,69 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import api from "@/app/lib/api";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
+const TOKEN_KEY = "SchoolToolManagementToken";
+
+const decodeToken = (token) => {
+  try {
+    const base64Url = token.split(".")[1];
+    if (!base64Url) return null;
+
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+        .join(""),
+    );
+    return JSON.parse(jsonPayload);
+  } catch (err) {
+    console.error("Failed to decode token", err);
+    return null;
+  }
+};
+
+// pag check kung expired na yung token
+const isTokenExpired = (decoded) => {
+  if (!decoded || !decoded.exp) return true;
+  const now = Math.floor(Date.now() / 1000);
+  return decoded.exp < now;
+};
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const router = useRouter(); 
 
-  // Helper to decode JWT payload safely
-  const decodeToken = (token) => {
-    try {
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split("")
-          .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-          .join(""),
-      );
-      return JSON.parse(jsonPayload);
-    } catch (e) {
-      return null;
-    }
-  };
-
-  const isTokenExpired = (decoded) => {
-    if (!decoded || !decoded.exp) return true;
-    const now = Math.floor(Date.now() / 1000);
-    return decoded.exp < now;
-  };
-
+  // logout
   const logout = () => {
-    localStorage.removeItem("SchoolToolManagementToken");
+    try {
+      localStorage.removeItem(TOKEN_KEY);
+    } catch (err) {
+      console.warn("localStorage is not accessible", err);
+    }
     setUser(null);
     router.push("/page/login");
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("SchoolToolManagementToken");
-    if (token) {
-      const decoded = decodeToken(token);
-      if (decoded && !isTokenExpired(decoded)) {
-        setUser(decoded);
-      } else {
-        // Clear token if invalid or expired
-        localStorage.removeItem("SchoolToolManagementToken");
-        setUser(null);
+    try {
+      const token = localStorage.getItem(TOKEN_KEY);
+      if (token) {
+        const decoded = decodeToken(token);
+        if (decoded && !isTokenExpired(decoded)) {
+          setUser(decoded);
+        } else {
+          // Token is invalid or expired
+          localStorage.removeItem(TOKEN_KEY);
+          setUser(null);
+        }
       }
+    } catch (err) {
+      console.warn("Failed to read token from localStorage", err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
 
     const interceptor = api.interceptors.response.use(
       (response) => response,
@@ -69,14 +83,37 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  // global checkin
-  const login = (token) => {
-    const actualToken = token.token || token;
-    localStorage.setItem("SchoolToolManagementToken", actualToken);
-    const decoded = decodeToken(actualToken);
-    setUser(decoded);
+  /**
+   * pag update para localstorage at user
+   * @param {object|string} tokenPayload - The token na naglalaman ng user data.
+   */
+  const login = (tokenPayload) => {
+    const actualToken =
+      typeof tokenPayload === "string" ? tokenPayload : tokenPayload.token;
+
+    if (!actualToken) {
+      console.error("Login failed: no token provided");
+      return;
+    }
+
+    try {
+      localStorage.setItem(TOKEN_KEY, actualToken);
+    } catch (err) {
+      console.warn("Failed to write to localStorage", err);
+    }
+
+    const decoded = decodeToken(actualToken) || {};
+
+    // pag update ng user pwede rin ma call out for information or sum shit
+    setUser({
+      ...decoded,
+      id: decoded.id || tokenPayload.id,
+      username: decoded.username || tokenPayload.username,
+      email: decoded.email || tokenPayload.email,
+    });
+
     router.push("/dashboard");
-  };  
+  };
 
   return (
     <AuthContext.Provider
@@ -87,4 +124,10 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

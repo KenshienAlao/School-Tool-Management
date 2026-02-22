@@ -1,7 +1,7 @@
 "use client";
 import { useProtectedRoute } from "@/app/hooks/useProtectedRoute";
 import { Sidebar } from "@/app/components/Sidebar";
-import { Settings } from "@/app/components/ui/settings";
+import { Settings } from "@/app/components/settings";
 import { ProfileProvider } from "@/app/context/profileContext";
 import { usePathname } from "next/navigation";
 
@@ -14,9 +14,9 @@ export default function DashboardLayout({ children }) {
 
   return (
     <ProfileProvider>
-      <div className="flex min-h-screen">
+      <div className="flex min-h-dvh">
         <Sidebar activeView={activeView} handleLogout={null} />
-        <main className="flex-1 p-8">{children}</main>
+        <main className="size-full">{children}</main>
       </div>
       <Settings />
     </ProfileProvider>

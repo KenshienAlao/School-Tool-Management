@@ -28,7 +28,7 @@ export default function Login() {
 
         {success && (
           <div className="mb-4 rounded border border-green-400 bg-green-100 p-3 text-sm text-green-700">
-            Login successful! You can now login.
+            {success}
           </div>
         )}
         <form onSubmit={handleLogin} className="space-y-6">

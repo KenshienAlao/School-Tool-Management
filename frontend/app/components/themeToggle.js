@@ -1,9 +1,9 @@
 "use client";
 
-import { useThemeHandle } from "@/app/hooks/themeHandle";
+import { useThemeContext } from "../context/themeContext";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useThemeHandle();
+  const { theme, setTheme } = useThemeContext();
 
   return (
     <div>

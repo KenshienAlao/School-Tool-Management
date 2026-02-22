@@ -249,6 +249,54 @@ src/controllers/grade_controller.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.s
 .PHONY : src/controllers/grade_controller.cpp.s
 
+src/controllers/section_controller.o: src/controllers/section_controller.cpp.o
+.PHONY : src/controllers/section_controller.o
+
+# target to build an object file
+src/controllers/section_controller.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o
+.PHONY : src/controllers/section_controller.cpp.o
+
+src/controllers/section_controller.i: src/controllers/section_controller.cpp.i
+.PHONY : src/controllers/section_controller.i
+
+# target to preprocess a source file
+src/controllers/section_controller.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.i
+.PHONY : src/controllers/section_controller.cpp.i
+
+src/controllers/section_controller.s: src/controllers/section_controller.cpp.s
+.PHONY : src/controllers/section_controller.s
+
+# target to generate assembly for a file
+src/controllers/section_controller.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.s
+.PHONY : src/controllers/section_controller.cpp.s
+
+src/controllers/task_controller.o: src/controllers/task_controller.cpp.o
+.PHONY : src/controllers/task_controller.o
+
+# target to build an object file
+src/controllers/task_controller.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o
+.PHONY : src/controllers/task_controller.cpp.o
+
+src/controllers/task_controller.i: src/controllers/task_controller.cpp.i
+.PHONY : src/controllers/task_controller.i
+
+# target to preprocess a source file
+src/controllers/task_controller.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.i
+.PHONY : src/controllers/task_controller.cpp.i
+
+src/controllers/task_controller.s: src/controllers/task_controller.cpp.s
+.PHONY : src/controllers/task_controller.s
+
+# target to generate assembly for a file
+src/controllers/task_controller.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.s
+.PHONY : src/controllers/task_controller.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -345,6 +393,12 @@ help:
 	@echo "... src/controllers/grade_controller.o"
 	@echo "... src/controllers/grade_controller.i"
 	@echo "... src/controllers/grade_controller.s"
+	@echo "... src/controllers/section_controller.o"
+	@echo "... src/controllers/section_controller.i"
+	@echo "... src/controllers/section_controller.s"
+	@echo "... src/controllers/task_controller.o"
+	@echo "... src/controllers/task_controller.i"
+	@echo "... src/controllers/task_controller.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -167,10 +167,38 @@ CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenshien/Documents/school/project/backend/src/controllers/grade_controller.cpp -o CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.s
 
+CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o: CMakeFiles/backend_app.dir/flags.make
+CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o: /home/kenshien/Documents/school/project/backend/src/controllers/section_controller.cpp
+CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o: CMakeFiles/backend_app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kenshien/Documents/school/project/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o -MF CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o.d -o CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o -c /home/kenshien/Documents/school/project/backend/src/controllers/section_controller.cpp
+
+CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kenshien/Documents/school/project/backend/src/controllers/section_controller.cpp > CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.i
+
+CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenshien/Documents/school/project/backend/src/controllers/section_controller.cpp -o CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.s
+
+CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o: CMakeFiles/backend_app.dir/flags.make
+CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o: /home/kenshien/Documents/school/project/backend/src/controllers/task_controller.cpp
+CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o: CMakeFiles/backend_app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kenshien/Documents/school/project/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o -MF CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o.d -o CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o -c /home/kenshien/Documents/school/project/backend/src/controllers/task_controller.cpp
+
+CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kenshien/Documents/school/project/backend/src/controllers/task_controller.cpp > CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.i
+
+CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenshien/Documents/school/project/backend/src/controllers/task_controller.cpp -o CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.s
+
 CMakeFiles/backend_app.dir/src/utils/security.cpp.o: CMakeFiles/backend_app.dir/flags.make
 CMakeFiles/backend_app.dir/src/utils/security.cpp.o: /home/kenshien/Documents/school/project/backend/src/utils/security.cpp
 CMakeFiles/backend_app.dir/src/utils/security.cpp.o: CMakeFiles/backend_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kenshien/Documents/school/project/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/backend_app.dir/src/utils/security.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kenshien/Documents/school/project/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/backend_app.dir/src/utils/security.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/backend_app.dir/src/utils/security.cpp.o -MF CMakeFiles/backend_app.dir/src/utils/security.cpp.o.d -o CMakeFiles/backend_app.dir/src/utils/security.cpp.o -c /home/kenshien/Documents/school/project/backend/src/utils/security.cpp
 
 CMakeFiles/backend_app.dir/src/utils/security.cpp.i: cmake_force
@@ -190,6 +218,8 @@ backend_app_OBJECTS = \
 "CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o" \
 "CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.o" \
 "CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.o" \
+"CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o" \
+"CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o" \
 "CMakeFiles/backend_app.dir/src/utils/security.cpp.o"
 
 # External object files for target backend_app
@@ -202,12 +232,14 @@ backend_app: CMakeFiles/backend_app.dir/src/routes/routes.cpp.o
 backend_app: CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o
 backend_app: CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.o
 backend_app: CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.o
+backend_app: CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o
+backend_app: CMakeFiles/backend_app.dir/src/controllers/task_controller.cpp.o
 backend_app: CMakeFiles/backend_app.dir/src/utils/security.cpp.o
 backend_app: CMakeFiles/backend_app.dir/build.make
 backend_app: /usr/lib/x86_64-linux-gnu/libssl.so
 backend_app: /usr/lib/x86_64-linux-gnu/libcrypto.so
 backend_app: CMakeFiles/backend_app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kenshien/Documents/school/project/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable backend_app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kenshien/Documents/school/project/backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable backend_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/backend_app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

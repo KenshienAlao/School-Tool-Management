@@ -19,6 +19,8 @@ set(SOURCES
     src/controllers/auth_controller.cpp
     src/controllers/attendance_controller.cpp
     src/controllers/grade_controller.cpp
+    src/controllers/section_controller.cpp
+    src/controllers/task_controller.cpp
     src/utils/security.cpp
 )
 

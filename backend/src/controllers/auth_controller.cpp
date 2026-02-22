@@ -3,12 +3,10 @@
 #include "jwt-cpp/jwt.h"
 #include "utils/security.h"
 #include <chrono>
-
 #include "utils/logger.h"
 
 namespace AuthController {
 
-// helper to safely get string from crow::json::rvalue
 auto get_string_safely = [](const crow::json::rvalue& v) -> std::string {
     if (v && v.t() == crow::json::type::String) {
         return v.s();
@@ -16,7 +14,6 @@ auto get_string_safely = [](const crow::json::rvalue& v) -> std::string {
     return "";
 };
 
-// helper forresponses
 auto standard_response = [](int code, bool success, const std::string& message, crow::json::wvalue data = {}) {
     crow::json::wvalue res;
     res["success"] = success;
@@ -64,20 +61,26 @@ crow::response login(const crow::request &req, const std::string &secret) {
     auto token = jwt::create()
                      .set_type("JWS")
                      .set_issuer("school_api")
+                    //  user logged in ID
                      .set_payload_claim("id", jwt::claim(user_id))
+                    // user logged in username
+                     .set_payload_claim("username", jwt::claim(users[0]["username"]))
+                    // user logged in email
+                     .set_payload_claim("email", jwt::claim(email))
+                    //  token expire time
                      .set_expires_at(std::chrono::system_clock::now() +
                                      std::chrono::hours{1})
                      .sign(jwt::algorithm::hs256{secret});
+    Logger::info("user added: " + email);
 
-    Logger::info("User logged in successfully: " + email);
-
+    // frontend get this message
     crow::json::wvalue data;
     data["id"] = user_id;
     data["email"] = email;
     data["username"] = users[0]["username"];
     data["token"] = token;
 
-    return standard_response(200, true, "User logged in", std::move(data));
+    return standard_response(200, true, "Success", std::move(data));
   } catch (const std::exception &e) {
     Logger::error("LOGIN ERROR: " + std::string(e.what()));
     return standard_response(500, false, "Internal server error");

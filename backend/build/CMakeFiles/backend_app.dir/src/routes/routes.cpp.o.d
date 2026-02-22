@@ -913,4 +913,6 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: \
  /home/kenshien/Documents/school/project/backend/include/utils/cors.h \
  /home/kenshien/Documents/school/project/backend/include/controllers/attendance_controller.h \
  /home/kenshien/Documents/school/project/backend/include/controllers/auth_controller.h \
- /home/kenshien/Documents/school/project/backend/include/controllers/grade_controller.h
+ /home/kenshien/Documents/school/project/backend/include/controllers/grade_controller.h \
+ /home/kenshien/Documents/school/project/backend/include/controllers/section_controller.h \
+ /home/kenshien/Documents/school/project/backend/include/controllers/task_controller.h

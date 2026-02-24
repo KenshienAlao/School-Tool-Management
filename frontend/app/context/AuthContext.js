@@ -1,7 +1,9 @@
 "use client";
 
+// react
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+// lib
 import api from "@/app/lib/api";
 
 const AuthContext = createContext(null);
@@ -36,7 +38,7 @@ const isTokenExpired = (decoded) => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter(); 
+  const router = useRouter();
 
   // logout
   const logout = () => {

@@ -920,5 +920,5 @@ CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o: \
  /usr/include/openssl/param_build.h \
  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/defaults.h \
  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/traits.h \
- /home/kenshien/Documents/school/project/backend/include/utils/security.h \
- /home/kenshien/Documents/school/project/backend/include/utils/logger.h
+ /home/kenshien/Documents/school/project/backend/include/utils/logger.h \
+ /home/kenshien/Documents/school/project/backend/include/utils/security.h

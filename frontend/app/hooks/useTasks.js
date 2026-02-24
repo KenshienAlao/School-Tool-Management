@@ -6,6 +6,7 @@ export function useTasks() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // fetch tasks
   const fetchTasks = useCallback(async () => {
     try {
       setLoading(true);
@@ -19,10 +20,12 @@ export function useTasks() {
     }
   }, []);
 
+  // fetch tasks on mount
   useEffect(() => {
     fetchTasks();
   }, [fetchTasks]);
 
+  // add tasks
   const addTask = async (title, description = "", dueDate = "") => {
     try {
       const res = await api.post("/api/tasks", {
@@ -30,13 +33,14 @@ export function useTasks() {
         description,
         due_date: dueDate,
       });
-      await fetchTasks(); // Refresh list to get new ID and created_at
+      await fetchTasks();
       return res.data;
     } catch (err) {
       throw new Error(err.response?.data?.message || "Failed to add task");
     }
   };
 
+  // update task
   const updateTask = async (id, updates) => {
     try {
       const res = await api.put(`/api/tasks/${id}`, updates);
@@ -48,21 +52,22 @@ export function useTasks() {
 
       return res.data;
     } catch (err) {
-      // Re-fetch on error to sync with backend
       fetchTasks();
       throw new Error(err.response?.data?.message || "Failed to update task");
     }
   };
 
+  // toggle task done
   const toggleTaskDone = async (id, currentStatus) => {
     return updateTask(id, { is_done: !currentStatus });
   };
 
+  // delete task
   const deleteTask = async (id) => {
     try {
       const res = await api.delete(`/api/tasks/${id}`);
 
-      // Optimistic delete
+      // delete task
       setTasks((prev) => prev.filter((t) => t.id !== id));
 
       return res.data;

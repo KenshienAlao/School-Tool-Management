@@ -34,6 +34,12 @@ select {
   cursor: pointer;
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+}
+
 p,
 h1,
 h2,

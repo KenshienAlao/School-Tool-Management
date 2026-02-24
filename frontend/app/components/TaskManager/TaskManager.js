@@ -5,7 +5,7 @@ import { useTasks } from "@/app/hooks/useTasks";
 import { useAddTask } from "@/app/hooks/useAddTask";
 
 // ui
-import { X, PlusIcon } from "@/app/components/ui/icons";
+import { XIcon, PlusIcon } from "@/app/components/ui/icons";
 
 // components
 import { TaskRow } from "@/app/components/TaskManager/TaskRow";
@@ -44,7 +44,7 @@ export function TaskManager() {
             onClick={() => setIsAdding(!isAdding)}
             className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-700 active:scale-95"
           >
-            {isAdding ? <X size={18} /> : <PlusIcon />}
+            {isAdding ? <XIcon size={18} /> : <PlusIcon size={18} />}
             {isAdding ? "Cancel" : "Add Task"}
           </button>
         </div>
@@ -75,12 +75,12 @@ export function TaskManager() {
                 type="date"
                 value={newTaskDue}
                 onChange={(e) => setNewTaskDue(e.target.value)}
-                className="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-600 outline-none focus:border-blue-500 dark:border-neutral-700 dark:bg-neutral-900 dark:text-gray-300"
+                className="rounded-md border border-gray-300  px-3 py-1.5 text-sm outline-none"
               />
               <button
                 type="submit"
                 disabled={!newTaskTitle.trim()}
-                className="rounded-md bg-gray-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
+                className="rounded-md bg-blue-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-700"
               >
                 Save
               </button>
@@ -90,11 +90,9 @@ export function TaskManager() {
 
         {/* Task List */}
         {loading ? (
-          <div className="py-8 text-center text-sm text-gray-500">
-            Loading tasks...
-          </div>
+          <div className="py-8 text-center text-sm">Loading tasks...</div>
         ) : tasks.length === 0 ? (
-          <div className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+          <div className="py-8 text-center text-sm">
             No tasks yet. Enjoy your day!
           </div>
         ) : (
@@ -112,7 +110,7 @@ export function TaskManager() {
             {/* completed tasks */}
             {completedTasks.length > 0 && (
               <>
-                <h3 className="mt-4 text-xs font-semibold tracking-wider text-gray-400 uppercase">
+                <h3 className="mt-4 text-xs font-semibold tracking-wider uppercase">
                   Completed
                 </h3>
                 {completedTasks.map((task) => (

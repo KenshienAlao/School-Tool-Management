@@ -1,4 +1,6 @@
+// react
 import Link from "next/link";
+// data
 import { menu } from "@/app/data/menuLink";
 
 export function OnViewMenu({ activeView = "home" }) {

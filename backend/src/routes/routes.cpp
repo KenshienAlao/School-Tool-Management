@@ -28,12 +28,38 @@ void setup_routes(crow::App<CORSMiddleware, AuthMiddleware> &app,
       });
 
   // section routes (PROTECTED)
-  // GET /api/sections  — list all sections
+  // GET /api/sections  — list all sections for logged in user
   CROW_ROUTE(app, "/api/sections")
       .methods(crow::HTTPMethod::GET)
+      .CROW_MIDDLEWARES(app, AuthMiddleware)([&app](const crow::request &req) {
+        auto &ctx = app.get_context<AuthMiddleware>(req);
+        return SectionController::getSections(req, ctx);
+      });
+
+  // POST /api/sections  — create section
+  CROW_ROUTE(app, "/api/sections")
+      .methods(crow::HTTPMethod::POST)
+      .CROW_MIDDLEWARES(app, AuthMiddleware)([&app](const crow::request &req) {
+        auto &ctx = app.get_context<AuthMiddleware>(req);
+        return SectionController::createSection(req, ctx);
+      });
+
+  // PUT /api/sections/:id  — update section
+  CROW_ROUTE(app, "/api/sections/<int>")
+      .methods(crow::HTTPMethod::PUT)
       .CROW_MIDDLEWARES(app, AuthMiddleware)(
-          [](const crow::request &req) {
-            return SectionController::getSections(req);
+          [&app](const crow::request &req, int id) {
+            auto &ctx = app.get_context<AuthMiddleware>(req);
+            return SectionController::updateSection(req, ctx, id);
+          });
+
+  // DELETE /api/sections/:id  — delete section
+  CROW_ROUTE(app, "/api/sections/<int>")
+      .methods(crow::HTTPMethod::DELETE)
+      .CROW_MIDDLEWARES(app, AuthMiddleware)(
+          [&app](const crow::request &req, int id) {
+            auto &ctx = app.get_context<AuthMiddleware>(req);
+            return SectionController::deleteSection(req, ctx, id);
           });
 
   // GET /api/sections/<id>/students  — students in a specific section
@@ -47,35 +73,32 @@ void setup_routes(crow::App<CORSMiddleware, AuthMiddleware> &app,
   // GET /api/students/me/section  — logged-in user's own section
   CROW_ROUTE(app, "/api/students/me/section")
       .methods(crow::HTTPMethod::GET)
-      .CROW_MIDDLEWARES(app, AuthMiddleware)(
-          [&app](const crow::request &req) {
-            auto& ctx = app.get_context<AuthMiddleware>(req);
-            return SectionController::getMySection(req, ctx);
-          });
+      .CROW_MIDDLEWARES(app, AuthMiddleware)([&app](const crow::request &req) {
+        auto &ctx = app.get_context<AuthMiddleware>(req);
+        return SectionController::getMySection(req, ctx);
+      });
 
   // task routes (PROTECTED)
-  
+
   CROW_ROUTE(app, "/api/tasks")
       .methods(crow::HTTPMethod::GET)
-      .CROW_MIDDLEWARES(app, AuthMiddleware)(
-          [&app](const crow::request &req) {
-            auto& ctx = app.get_context<AuthMiddleware>(req);
-            return TaskController::getTasks(req, ctx);
-          });
+      .CROW_MIDDLEWARES(app, AuthMiddleware)([&app](const crow::request &req) {
+        auto &ctx = app.get_context<AuthMiddleware>(req);
+        return TaskController::getTasks(req, ctx);
+      });
 
   CROW_ROUTE(app, "/api/tasks")
       .methods(crow::HTTPMethod::POST)
-      .CROW_MIDDLEWARES(app, AuthMiddleware)(
-          [&app](const crow::request &req) {
-            auto& ctx = app.get_context<AuthMiddleware>(req);
-            return TaskController::createTask(req, ctx);
-          });
+      .CROW_MIDDLEWARES(app, AuthMiddleware)([&app](const crow::request &req) {
+        auto &ctx = app.get_context<AuthMiddleware>(req);
+        return TaskController::createTask(req, ctx);
+      });
 
   CROW_ROUTE(app, "/api/tasks/<int>")
       .methods(crow::HTTPMethod::PUT)
       .CROW_MIDDLEWARES(app, AuthMiddleware)(
           [&app](const crow::request &req, int id) {
-            auto& ctx = app.get_context<AuthMiddleware>(req);
+            auto &ctx = app.get_context<AuthMiddleware>(req);
             return TaskController::updateTask(req, ctx, id);
           });
 
@@ -83,17 +106,19 @@ void setup_routes(crow::App<CORSMiddleware, AuthMiddleware> &app,
       .methods(crow::HTTPMethod::DELETE)
       .CROW_MIDDLEWARES(app, AuthMiddleware)(
           [&app](const crow::request &req, int id) {
-            auto& ctx = app.get_context<AuthMiddleware>(req);
+            auto &ctx = app.get_context<AuthMiddleware>(req);
             return TaskController::deleteTask(req, ctx, id);
           });
 
-//   // attendance route (PROTECTED)
-//   CROW_ROUTE(app, "/api/attendance").CROW_MIDDLEWARES(app, AuthMiddleware)([]() {
-//     return AttendanceController::getAttendance();
-//   });
+  //   // attendance route (PROTECTED)
+  //   CROW_ROUTE(app, "/api/attendance").CROW_MIDDLEWARES(app,
+  //   AuthMiddleware)([]() {
+  //     return AttendanceController::getAttendance();
+  //   });
 
-//   // grade route (PROTECTED)
-//   CROW_ROUTE(app, "/api/grades").CROW_MIDDLEWARES(app, AuthMiddleware)([]() {
-//     return GradeController::getGrades();
-//   });
+  //   // grade route (PROTECTED)
+  //   CROW_ROUTE(app, "/api/grades").CROW_MIDDLEWARES(app, AuthMiddleware)([]()
+  //   {
+  //     return GradeController::getGrades();
+  //   });
 }

@@ -1,11 +1,14 @@
 "use client";
 
+// ui
 import { motion, AnimatePresence } from "framer-motion";
-import { useProfileHandle } from "@/app/context/profileContext";
 import { BackdropProfile } from "@/app/components/ui/backdrop";
-import { User, X } from "@/app/components/ui/icons";
-import { ThemeToggle } from "@/app/components/themeToggle";
+import { UserIcon, XIcon } from "@/app/components/ui/icons";
+// context
+import { useProfileHandle } from "@/app/context/profileContext";
 import { useAuth } from "@/app/context/AuthContext";
+// components
+import { ThemeToggle } from "@/app/components/themeToggle";
 
 export function Settings() {
   const { isOpenProfile, setIsOpenProfile } = useProfileHandle();
@@ -30,11 +33,11 @@ export function Settings() {
                 onClick={() => setIsOpenProfile(false)}
                 className="p-1 transition hover:bg-gray-100"
               >
-                <X size={25} />
+                <XIcon size={25} />
               </button>
             </div>
             <div className="flex items-center gap-3 border-b-2 pb-4">
-              <User size={100} />
+              <UserIcon size={100} />
               <div className="flex flex-col">
                 <h1 className="text-lg font-bold">{user?.username}</h1>
                 <h2 className="text-blue-400">{user?.email}</h2>

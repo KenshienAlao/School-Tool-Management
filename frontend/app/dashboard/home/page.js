@@ -8,17 +8,18 @@ import Clock from "@/app/components/Clock";
 import { TaskManager } from "@/app/components/TaskManager/TaskManager";
 
 export default function Home() {
+  // fetch user info
   const { user } = useAuth();
 
-  // Get time of day for greeting
+  // get time of day for greeting
   const hour = new Date().getHours();
   const greeting =
     hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
   return (
-    <div className="min-h-dvh p-4 sm:p-8">
+    <div className="min-h-dvh p-4">
       <div className="mx-auto max-w-7xl">
-        {/* Header Section */}
+        {/* header section */}
         <div className="mb-8 flex flex-row items-center justify-between gap-2 rounded-2xl p-8 shadow-sm ring-1 ring-gray-100">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">
@@ -31,7 +32,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Dashboard Widgets */}
+        {/* dashboard widgets */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <TaskManager />
         </div>

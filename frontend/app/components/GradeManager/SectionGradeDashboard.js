@@ -12,8 +12,8 @@ import {
   Info,
 } from "lucide-react";
 import "./GradingTable.css";
-
-const PROTECTED_ROWS_COUNT = 5;
+import { useGrades } from "@/app/hooks/useGrades";
+import api from "@/app/lib/api";
 
 const DEFAULT_CATEGORY_TYPES = [
   "Performance Task",
@@ -24,42 +24,22 @@ const DEFAULT_CATEGORY_TYPES = [
 ];
 
 export function SectionGradeDashboard({ sectionId, sectionName }) {
-  // Column State: [{ id, type, label, limit }]
-  const [columns, setColumns] = useState(() => {
-    if (typeof window === "undefined") return [];
-    const saved = localStorage.getItem(`grading_columns_${sectionId}`);
-    return saved ? JSON.parse(saved) : [];
-  });
+  const {
+    students: apiStudents,
+    grades: apiGrades,
+    loading: gradesLoading,
+    addStudent,
+    updateStudent,
+    deleteStudent,
+    submitGrade,
+    updateGrade,
+    deleteGrade,
+  } = useGrades(sectionId);
 
-  // Category Weights State: { type: weightPercentage }
-  const [categoryWeights, setCategoryWeights] = useState(() => {
-    if (typeof window === "undefined") return {};
-    const saved = localStorage.getItem(`grading_weights_${sectionId}`);
-    return saved ? JSON.parse(saved) : {};
-  });
-
-  // Manual Overrides State: { studentId: overriddenGrade }
-  const [manualGrades, setManualGrades] = useState(() => {
-    if (typeof window === "undefined") return {};
-    const saved = localStorage.getItem(`grading_manual_${sectionId}`);
-    return saved ? JSON.parse(saved) : {};
-  });
-
-  // Students (rows)
-  const [students, setStudents] = useState(() => {
-    if (typeof window === "undefined") return [];
-    const saved = localStorage.getItem(`grading_students_${sectionId}`);
-    if (saved) return JSON.parse(saved);
-
-    return Array.from({ length: PROTECTED_ROWS_COUNT }).map((_, i) => ({
-      id: `student-${Date.now()}-${i}`,
-      name: "",
-      grades: {},
-      protected: true,
-    }));
-  });
-
-  // Modal State
+  const [columns, setColumns] = useState([]);
+  const [categoryWeights, setCategoryWeights] = useState({});
+  const [manualGrades, setManualGrades] = useState({});
+  const [filterStatus, setFilterStatus] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newCol, setNewCol] = useState({
     type: DEFAULT_CATEGORY_TYPES[0],
@@ -68,33 +48,49 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
     weight: "",
   });
   const [isCustomType, setIsCustomType] = useState(false);
-  const [filterStatus, setFilterStatus] = useState("All"); // "All", "Passed", "Incomplete", "Failed"
 
-  // Persistence
+  // Fetch grading config from section
   useEffect(() => {
-    localStorage.setItem(
-      `grading_columns_${sectionId}`,
-      JSON.stringify(columns),
-    );
-    localStorage.setItem(
-      `grading_weights_${sectionId}`,
-      JSON.stringify(categoryWeights),
-    );
-    localStorage.setItem(
-      `grading_students_${sectionId}`,
-      JSON.stringify(students),
-    );
-    localStorage.setItem(
-      `grading_manual_${sectionId}`,
-      JSON.stringify(manualGrades),
-    );
-  }, [columns, categoryWeights, students, manualGrades, sectionId]);
+    const fetchConfig = async () => {
+      try {
+        const res = await api.get(`/api/sections`);
+        const section = res.data.data.sections.find(
+          (s) => s.section_id === parseInt(sectionId),
+        );
+        if (section && section.grading_config) {
+          const config =
+            typeof section.grading_config === "string"
+              ? JSON.parse(section.grading_config)
+              : section.grading_config;
+          setColumns(config.columns || []);
+          setCategoryWeights(config.categoryWeights || {});
+          setManualGrades(config.manualGrades || {});
+        }
+      } catch (err) {
+        console.error("Error fetching grading config:", err);
+      }
+    };
+    if (sectionId) fetchConfig();
+  }, [sectionId]);
 
-  // Conversion Function: Percentage (0-100) to 1-5 Scale (Inverse Mapping)
+  // Save grading config
+  const saveConfig = async (newCols, newWeights, newManual) => {
+    try {
+      await api.put(`/api/sections/${sectionId}`, {
+        grading_config: {
+          columns: newCols || columns,
+          categoryWeights: newWeights || categoryWeights,
+          manualGrades: newManual || manualGrades,
+        },
+      });
+    } catch (err) {
+      console.error("Error saving grading config:", err);
+    }
+  };
+
   const convertToScale = useCallback((percentage) => {
     const p = parseFloat(percentage);
     if (isNaN(p)) return "5";
-
     if (p >= 90) return "1";
     if (p >= 80) return "2";
     if (p >= 70) return "3";
@@ -102,7 +98,6 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
     return "5";
   }, []);
 
-  // Helper for performance colors
   const getGradeColorClass = (scaleValue) => {
     const grade = parseInt(scaleValue);
     if (grade === 1 || grade === 2) return "grade-excellent";
@@ -112,19 +107,21 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
     return "";
   };
 
-  // GPA Computation: Percentage-First
   const computeFinalGrade = useCallback(
-    (studentGrades = {}) => {
+    (studentId) => {
+      const studentGrades = apiGrades.filter((g) => g.student_id === studentId);
       if (!columns || columns.length === 0)
         return { scale: "0.00", percentage: "0.00" };
 
-      // Group items by normalized type
       const itemsByType = {};
       columns.forEach((col) => {
         const type = (col.type || "Default").trim();
         if (!itemsByType[type]) itemsByType[type] = [];
 
-        const score = parseFloat(studentGrades?.[col.id]);
+        const gradeObj = studentGrades.find(
+          (g) => g.assessment_type === col.label,
+        );
+        const score = gradeObj ? parseFloat(gradeObj.grade) : NaN;
         const limit = parseFloat(col.limit) || 100;
 
         if (!isNaN(score)) {
@@ -149,60 +146,53 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
           totalWeightedPercentage += typeAvg * weight;
           totalWeightUsed += weight;
         }
-
         fallbackPercentage += typeAvg;
         fallbackCount++;
       });
 
-      // If weights are defined, use them. Otherwise, use unweighted average of categories.
       let finalPercentageRaw = 0;
       if (totalWeightUsed > 0) {
         finalPercentageRaw = totalWeightedPercentage / totalWeightUsed;
       } else if (fallbackCount > 0) {
         finalPercentageRaw = fallbackPercentage / fallbackCount;
       } else {
-        return { scale: "1.00", percentage: "0.00" };
+        return { scale: "5.00", percentage: "0.00" };
       }
 
       const finalPercentage = finalPercentageRaw.toFixed(2);
       const scaleGrade = convertToScale(finalPercentage);
-
       return { scale: scaleGrade, percentage: finalPercentage };
     },
-    [columns, categoryWeights, convertToScale],
+    [columns, categoryWeights, apiGrades, convertToScale],
   );
 
-  // Auto-naming logic
-  const getNextLabel = (type) => {
-    const existingCount = columns.filter((c) => c.type === type).length;
-    return `${type} ${existingCount + 1}`;
-  };
-
-  // Handlers
-  const addColumn = (e) => {
+  const handleAddColumn = async (e) => {
     e.preventDefault();
     const type = (isCustomType ? newCol.customType : newCol.type)?.trim();
     if (!type) return;
 
-    const colId = `col-${Date.now()}`;
+    const existingCount = columns.filter((c) => c.type === type).length;
+    const label = `${type} ${existingCount + 1}`;
+
     const nextCol = {
-      id: colId,
+      id: `col-${Date.now()}`,
       type: type,
-      label: getNextLabel(type),
+      label: label,
       limit: parseFloat(newCol.limit) || 100,
     };
 
-    // Update weight if provided or if it's new
-    if (newCol.weight && !isNaN(parseFloat(newCol.weight))) {
-      setCategoryWeights((prev) => ({
-        ...prev,
-        [type]: parseFloat(newCol.weight),
-      }));
-    } else if (categoryWeights[type] === undefined) {
-      setCategoryWeights((prev) => ({ ...prev, [type]: 0 }));
+    const newCols = [...columns, nextCol];
+    const newWeights = { ...categoryWeights };
+    if (newCol.weight) {
+      newWeights[type] = parseFloat(newCol.weight);
+    } else if (newWeights[type] === undefined) {
+      newWeights[type] = 0;
     }
 
-    setColumns((prev) => [...prev, nextCol]);
+    setColumns(newCols);
+    setCategoryWeights(newWeights);
+    await saveConfig(newCols, newWeights);
+
     setIsModalOpen(false);
     setNewCol({
       type: DEFAULT_CATEGORY_TYPES[0],
@@ -213,44 +203,49 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
     setIsCustomType(false);
   };
 
-  const deleteColumn = (colId) => {
+  const handleDeleteColumn = async (colId) => {
     const col = columns.find((c) => c.id === colId);
     if (!col) return;
 
-    if (
-      window.confirm(
-        `Are you sure you want to delete "${col.label}"? This action cannot be undone.`,
-      )
-    ) {
-      setColumns((prev) => prev.filter((c) => c.id !== colId));
-
-      // Remove grades for this column
-      setStudents((prev) =>
-        prev.map((s) => {
-          const newGrades = { ...s.grades };
-          delete newGrades[colId];
-          return { ...s, grades: newGrades };
-        }),
-      );
+    if (window.confirm(`Delete "${col.label}"?`)) {
+      const newCols = columns.filter((c) => c.id !== colId);
+      setColumns(newCols);
+      await saveConfig(newCols, categoryWeights);
+      // Optional: Delete all grades associated with this label from backend
     }
   };
 
-  const handleGradeChange = (studentId, colId, value) => {
+  const handleGradeChange = async (studentId, colLabel, value) => {
     if (value !== "" && isNaN(value)) return;
     const numericVal = parseFloat(value);
-    if (!isNaN(numericVal) && numericVal < 0) return;
 
-    setStudents((prev) =>
-      prev.map((s) => {
-        if (s.id === studentId) {
-          return { ...s, grades: { ...s.grades, [colId]: value } };
-        }
-        return s;
-      }),
+    const existingGrade = apiGrades.find(
+      (g) => g.student_id === studentId && g.assessment_type === colLabel,
     );
+
+    if (existingGrade) {
+      if (value === "") {
+        await deleteGrade(existingGrade.grade_id);
+      } else {
+        await updateGrade(existingGrade.grade_id, numericVal);
+      }
+    } else if (value !== "") {
+      // Need course_id here, usually passed via props or fetched
+      // For now assume we can get it from section
+      const res = await api.get("/api/sections");
+      const section = res.data.data.sections.find(
+        (s) => s.section_id === parseInt(sectionId),
+      );
+      await submitGrade({
+        student_id: studentId,
+        course_id: section.course_id,
+        assessment_type: colLabel,
+        grade: numericVal,
+      });
+    }
   };
 
-  const handleManualOverride = (studentId, result) => {
+  const handleManualOverride = async (studentId, result) => {
     const currentManual = manualGrades[studentId];
     if (currentManual) {
       if (
@@ -258,11 +253,10 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
           `Reset manual grade (${currentManual}) to computed grade (${result.scale})?`,
         )
       ) {
-        setManualGrades((prev) => {
-          const next = { ...prev };
-          delete next[studentId];
-          return next;
-        });
+        const next = { ...manualGrades };
+        delete next[studentId];
+        setManualGrades(next);
+        await saveConfig(null, null, next);
       }
     } else {
       if (
@@ -274,10 +268,12 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
         if (newVal !== null) {
           const numericVal = parseInt(newVal);
           if (!isNaN(numericVal) && numericVal >= 1 && numericVal <= 5) {
-            setManualGrades((prev) => ({
-              ...prev,
+            const next = {
+              ...manualGrades,
               [studentId]: numericVal.toString(),
-            }));
+            };
+            setManualGrades(next);
+            await saveConfig(null, null, next);
           } else {
             alert("Please enter a valid grade between 1 and 5");
           }
@@ -286,50 +282,36 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
     }
   };
 
-  // Filtered and Sorted Students
   const processedStudents = useMemo(() => {
-    let filtered = [...students];
+    let list = [...apiStudents];
+    // Alphabetical sort as required
+    list.sort((a, b) => a.last_name.localeCompare(b.last_name));
 
-    // Status Filter
     if (filterStatus !== "All") {
-      filtered = filtered.filter((student) => {
-        const result = computeFinalGrade(student.grades);
-        const grade = parseInt(manualGrades[student.id] || result.scale);
-
+      list = list.filter((s) => {
+        const res = computeFinalGrade(s.student_id);
+        const grade = parseInt(manualGrades[s.student_id] || res.scale);
         if (filterStatus === "Passed") return grade >= 1 && grade <= 3;
         if (filterStatus === "Incomplete") return grade === 4;
         if (filterStatus === "Failed") return grade === 5;
         return true;
       });
     }
-
-    // Sort by name (Last name extraction attempt: Split by comma and take first part)
-    filtered.sort((a, b) => {
-      const nameA = (a.name || "ZZZ").toLowerCase();
-      const nameB = (b.name || "ZZZ").toLowerCase();
-      return nameA.localeCompare(nameB);
-    });
-
-    return filtered;
-  }, [students, filterStatus, computeFinalGrade, manualGrades]);
+    return list;
+  }, [apiStudents, filterStatus, computeFinalGrade, manualGrades]);
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Action Bar */}
       <div className="flex flex-row items-center justify-between rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
         <div className="flex gap-3">
           <button
-            onClick={() =>
-              setStudents((prev) => [
-                ...prev,
-                {
-                  id: `student-${Date.now()}`,
-                  name: "",
-                  grades: {},
-                  protected: false,
-                },
-              ])
-            }
+            onClick={() => {
+              const name = window.prompt("Enter Student Name (Last, First):");
+              if (name) {
+                const [last, first] = name.split(",").map((s) => s.trim());
+                addStudent({ last_name: last, first_name: first || "" });
+              }
+            }}
             className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:bg-blue-700 active:scale-95"
           >
             <Plus size={18} /> Add Student
@@ -346,7 +328,7 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
               Filter Status:
             </span>
             <select
-              className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-700 outline-none focus:ring-2 focus:ring-blue-500/20"
+              className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-700 outline-none"
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
             >
@@ -357,50 +339,8 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
             </select>
           </div>
         </div>
-
-        <div className="flex items-center gap-4 text-sm text-gray-500">
-          <span className="flex items-center gap-1 font-medium">
-            Section Performance:
-            <span
-              className={`text-blue-600 ${getGradeColorClass(
-                (() => {
-                  const results = students
-                    .map((s) => {
-                      const res = computeFinalGrade(s.grades);
-                      const manual = manualGrades[s.id];
-                      return parseFloat(manual || res.scale);
-                    })
-                    .filter((v) => v > 0);
-
-                  return results.length > 0
-                    ? (
-                        results.reduce((a, b) => a + b, 0) / results.length
-                      ).toFixed(1) // Just for class check
-                    : "0";
-                })(),
-              )}`}
-            >
-              {(() => {
-                const results = students
-                  .map((s) => {
-                    const res = computeFinalGrade(s.grades);
-                    const manual = manualGrades[s.id];
-                    return parseFloat(manual || res.scale);
-                  })
-                  .filter((v) => v > 0);
-
-                return results.length > 0
-                  ? (
-                      results.reduce((a, b) => a + b, 0) / results.length
-                    ).toFixed(2)
-                  : "0.00";
-              })()}
-            </span>
-          </span>
-        </div>
       </div>
 
-      {/* Table Section */}
       <div className="grading-table-container">
         <table className="grading-table">
           <thead>
@@ -413,11 +353,7 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
                 >
                   <div className="flex flex-col items-center gap-1">
                     <span className="text-[10px] font-bold text-gray-400 uppercase">
-                      {col.type}
-                      <span className="weight-indicator">
-                        {" "}
-                        ({categoryWeights[col.type]}%)
-                      </span>
+                      {col.type} ({categoryWeights[col.type]}%)
                     </span>
                     <span className="text-sm font-semibold">{col.label}</span>
                     <span className="text-[10px] font-medium text-gray-500">
@@ -425,9 +361,8 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
                     </span>
                   </div>
                   <button
-                    onClick={() => deleteColumn(col.id)}
+                    onClick={() => handleDeleteColumn(col.id)}
                     className="delete-col-btn"
-                    title="Delete Column"
                   >
                     <X size={14} />
                   </button>
@@ -439,84 +374,65 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
           </thead>
           <tbody>
             {processedStudents.map((student) => {
-              const result = computeFinalGrade(student.grades);
-              const manualVal = manualGrades[student.id];
+              const result = computeFinalGrade(student.student_id);
+              const manualVal = manualGrades[student.student_id];
               const displayGrade = manualVal || result.scale;
 
               return (
-                <tr key={student.id} className="group">
-                  <td
-                    className={`fixed-col ${student.protected ? "bg-gray-50/50" : ""}`}
-                  >
-                    <input
-                      type="text"
-                      placeholder="Last, First, MI"
-                      value={student.name}
-                      onChange={(e) =>
-                        setStudents((prev) =>
-                          prev.map((s) =>
-                            s.id === student.id
-                              ? { ...s, name: e.target.value }
-                              : s,
-                          ),
-                        )
-                      }
-                      className="name-input"
-                    />
+                <tr key={student.student_id} className="group">
+                  <td className="fixed-col">
+                    <span className="px-2 font-medium">
+                      {student.last_name}, {student.first_name}{" "}
+                      {student.middle_name || ""}
+                    </span>
                   </td>
-                  {columns.map((col) => (
-                    <td key={col.id} className="text-center">
-                      <div className="grade-cell-container">
-                        <input
-                          type="number"
-                          value={student.grades[col.id] || ""}
-                          onChange={(e) =>
-                            handleGradeChange(
-                              student.id,
-                              col.id,
-                              e.target.value,
-                            )
-                          }
-                          onFocus={(e) => e.target.select()}
-                          className="grade-input"
-                          placeholder="-"
-                        />
-                        <span className="grade-slash">/</span>
-                        <span className="limit-display">{col.limit}</span>
-                      </div>
-                    </td>
-                  ))}
+                  {columns.map((col) => {
+                    const gradeObj = apiGrades.find(
+                      (g) =>
+                        g.student_id === student.student_id &&
+                        g.assessment_type === col.label,
+                    );
+                    return (
+                      <td key={col.id} className="text-center">
+                        <div className="grade-cell-container">
+                          <input
+                            type="number"
+                            value={gradeObj ? gradeObj.grade : ""}
+                            onChange={(e) =>
+                              handleGradeChange(
+                                student.student_id,
+                                col.label,
+                                e.target.value,
+                              )
+                            }
+                            className="grade-input"
+                            placeholder="-"
+                          />
+                          <span className="grade-slash">/</span>
+                          <span className="limit-display">{col.limit}</span>
+                        </div>
+                      </td>
+                    );
+                  })}
                   <td
                     className={`col-gpa text-center text-lg ${getGradeColorClass(displayGrade)} ${manualVal ? "grade-overridden" : ""}`}
                     title={`Percentage: ${result.percentage}%`}
-                    onClick={() => handleManualOverride(student.id, result)}
+                    onClick={() =>
+                      handleManualOverride(student.student_id, result)
+                    }
                   >
                     {displayGrade}
                   </td>
                   <td className="text-center">
-                    {!student.protected ? (
-                      <button
-                        onClick={() => {
-                          if (window.confirm("Remove student?")) {
-                            setStudents((prev) =>
-                              prev.filter((s) => s.id !== student.id),
-                            );
-                            setManualGrades((prev) => {
-                              const n = { ...prev };
-                              delete n[student.id];
-                              return n;
-                            });
-                          }
-                        }}
-                        className="delete-btn"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    ) : (
-                      <div className="mx-auto h-6 w-6 opacity-20">
-                        <AlertCircle size={16} />
-                      </div>
-                    )}
+                    <button
+                      onClick={() => {
+                        if (window.confirm("Delete student?"))
+                          deleteStudent(student.student_id);
+                      }}
+                      className="delete-btn"
+                    >
+                      <Trash2 size={18} />
+                    </button>
                   </td>
                 </tr>
               );
@@ -525,7 +441,6 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
         </table>
       </div>
 
-      {/* Add Column Modal */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -540,40 +455,34 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
                 <X size={24} />
               </button>
             </div>
-
-            <form onSubmit={addColumn}>
+            <form onSubmit={handleAddColumn}>
               <div className="form-group">
                 <label className="form-label">Category Type</label>
-                <div className="flex gap-2">
-                  <select
-                    className="form-input flex-1"
-                    value={isCustomType ? "+" : newCol.type}
-                    onChange={(e) => {
-                      if (e.target.value === "+") {
-                        setIsCustomType(true);
-                      } else {
-                        setIsCustomType(false);
-                        setNewCol({ ...newCol, type: e.target.value });
-                      }
-                    }}
-                  >
-                    {DEFAULT_CATEGORY_TYPES.map((t) => (
-                      <option key={t} value={t}>
-                        {t}
-                      </option>
-                    ))}
-                    <option value="+">Custom Category (+)</option>
-                  </select>
-                </div>
+                <select
+                  className="form-input"
+                  value={isCustomType ? "+" : newCol.type}
+                  onChange={(e) => {
+                    if (e.target.value === "+") setIsCustomType(true);
+                    else {
+                      setIsCustomType(false);
+                      setNewCol({ ...newCol, type: e.target.value });
+                    }
+                  }}
+                >
+                  {DEFAULT_CATEGORY_TYPES.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                  <option value="+">Custom Category (+)</option>
+                </select>
               </div>
-
               {isCustomType && (
                 <div className="form-group">
                   <label className="form-label">Custom Label</label>
                   <input
                     type="text"
                     className="form-input"
-                    placeholder="Enter type name (e.g. Lab)"
                     value={newCol.customType}
                     onChange={(e) =>
                       setNewCol({ ...newCol, customType: e.target.value })
@@ -582,19 +491,6 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
                   />
                 </div>
               )}
-
-              <div className="form-group">
-                <label className="form-label">Auto Display Name</label>
-                <input
-                  type="text"
-                  className="form-input cursor-not-allowed border-gray-200 bg-gray-50 text-gray-500"
-                  value={getNextLabel(
-                    isCustomType ? newCol.customType : newCol.type,
-                  )}
-                  readOnly
-                />
-              </div>
-
               <div className="grid grid-cols-2 gap-4">
                 <div className="form-group">
                   <label className="form-label">Limit Score</label>
@@ -614,11 +510,6 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
                   <input
                     type="number"
                     className="form-input"
-                    placeholder={
-                      categoryWeights[
-                        isCustomType ? newCol.customType : newCol.type
-                      ] || "e.g. 50"
-                    }
                     value={newCol.weight}
                     onChange={(e) =>
                       setNewCol({ ...newCol, weight: e.target.value })
@@ -626,16 +517,8 @@ export function SectionGradeDashboard({ sectionId, sectionName }) {
                     min="0"
                     max="100"
                   />
-                  <p className="mt-1 text-[10px] text-gray-400">
-                    Current:{" "}
-                    {categoryWeights[
-                      isCustomType ? newCol.customType : newCol.type
-                    ] || 0}
-                    %
-                  </p>
                 </div>
               </div>
-
               <button
                 type="submit"
                 className="mt-4 w-full rounded-lg bg-blue-600 py-3 text-sm font-bold text-white shadow-lg transition-all hover:bg-blue-700 active:scale-95"

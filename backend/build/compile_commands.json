@@ -37,6 +37,12 @@
 },
 {
   "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -g -std=gnu++17 -o CMakeFiles/backend_app.dir/src/controllers/course_controller.cpp.o -c /home/kenshien/Documents/school/project/backend/src/controllers/course_controller.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/controllers/course_controller.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/controllers/course_controller.cpp.o"
+},
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
   "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -g -std=gnu++17 -o CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.o -c /home/kenshien/Documents/school/project/backend/src/controllers/grade_controller.cpp",
   "file": "/home/kenshien/Documents/school/project/backend/src/controllers/grade_controller.cpp",
   "output": "CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.o"
@@ -46,6 +52,12 @@
   "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -g -std=gnu++17 -o CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o -c /home/kenshien/Documents/school/project/backend/src/controllers/section_controller.cpp",
   "file": "/home/kenshien/Documents/school/project/backend/src/controllers/section_controller.cpp",
   "output": "CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.o"
+},
+{
+  "directory": "/home/kenshien/Documents/school/project/backend/build",
+  "command": "/usr/bin/c++  -I/home/kenshien/Documents/school/project/backend/include -I/usr/include/mysql -g -std=gnu++17 -o CMakeFiles/backend_app.dir/src/controllers/student_controller.cpp.o -c /home/kenshien/Documents/school/project/backend/src/controllers/student_controller.cpp",
+  "file": "/home/kenshien/Documents/school/project/backend/src/controllers/student_controller.cpp",
+  "output": "CMakeFiles/backend_app.dir/src/controllers/student_controller.cpp.o"
 },
 {
   "directory": "/home/kenshien/Documents/school/project/backend/build",

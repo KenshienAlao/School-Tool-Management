@@ -225,6 +225,30 @@ src/controllers/auth_controller.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.s
 .PHONY : src/controllers/auth_controller.cpp.s
 
+src/controllers/course_controller.o: src/controllers/course_controller.cpp.o
+.PHONY : src/controllers/course_controller.o
+
+# target to build an object file
+src/controllers/course_controller.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/course_controller.cpp.o
+.PHONY : src/controllers/course_controller.cpp.o
+
+src/controllers/course_controller.i: src/controllers/course_controller.cpp.i
+.PHONY : src/controllers/course_controller.i
+
+# target to preprocess a source file
+src/controllers/course_controller.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/course_controller.cpp.i
+.PHONY : src/controllers/course_controller.cpp.i
+
+src/controllers/course_controller.s: src/controllers/course_controller.cpp.s
+.PHONY : src/controllers/course_controller.s
+
+# target to generate assembly for a file
+src/controllers/course_controller.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/course_controller.cpp.s
+.PHONY : src/controllers/course_controller.cpp.s
+
 src/controllers/grade_controller.o: src/controllers/grade_controller.cpp.o
 .PHONY : src/controllers/grade_controller.o
 
@@ -272,6 +296,30 @@ src/controllers/section_controller.s: src/controllers/section_controller.cpp.s
 src/controllers/section_controller.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/section_controller.cpp.s
 .PHONY : src/controllers/section_controller.cpp.s
+
+src/controllers/student_controller.o: src/controllers/student_controller.cpp.o
+.PHONY : src/controllers/student_controller.o
+
+# target to build an object file
+src/controllers/student_controller.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/student_controller.cpp.o
+.PHONY : src/controllers/student_controller.cpp.o
+
+src/controllers/student_controller.i: src/controllers/student_controller.cpp.i
+.PHONY : src/controllers/student_controller.i
+
+# target to preprocess a source file
+src/controllers/student_controller.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/student_controller.cpp.i
+.PHONY : src/controllers/student_controller.cpp.i
+
+src/controllers/student_controller.s: src/controllers/student_controller.cpp.s
+.PHONY : src/controllers/student_controller.s
+
+# target to generate assembly for a file
+src/controllers/student_controller.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/student_controller.cpp.s
+.PHONY : src/controllers/student_controller.cpp.s
 
 src/controllers/task_controller.o: src/controllers/task_controller.cpp.o
 .PHONY : src/controllers/task_controller.o
@@ -390,12 +438,18 @@ help:
 	@echo "... src/controllers/auth_controller.o"
 	@echo "... src/controllers/auth_controller.i"
 	@echo "... src/controllers/auth_controller.s"
+	@echo "... src/controllers/course_controller.o"
+	@echo "... src/controllers/course_controller.i"
+	@echo "... src/controllers/course_controller.s"
 	@echo "... src/controllers/grade_controller.o"
 	@echo "... src/controllers/grade_controller.i"
 	@echo "... src/controllers/grade_controller.s"
 	@echo "... src/controllers/section_controller.o"
 	@echo "... src/controllers/section_controller.i"
 	@echo "... src/controllers/section_controller.s"
+	@echo "... src/controllers/student_controller.o"
+	@echo "... src/controllers/student_controller.i"
+	@echo "... src/controllers/student_controller.s"
 	@echo "... src/controllers/task_controller.o"
 	@echo "... src/controllers/task_controller.i"
 	@echo "... src/controllers/task_controller.s"

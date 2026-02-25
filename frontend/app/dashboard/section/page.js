@@ -1,4 +1,4 @@
-import { SectionManager } from "@/app/components/SectionManager/SectionManager";
+import { SectionManager } from "@/app/dashboard/section/components/SectionManager";
 
 export default function Section() {
   return (

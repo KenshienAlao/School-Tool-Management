@@ -1,7 +1,7 @@
 CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: \
  /home/kenshien/Documents/school/project/backend/src/routes/routes.cpp \
  /usr/include/stdc-predef.h \
- /home/kenshien/Documents/school/project/backend/include/routes/routes.h \
+ /home/kenshien/Documents/school/project/backend/include/controllers/attendance_controller.h \
  /home/kenshien/Documents/school/project/backend/include/crow.h \
  /usr/include/c++/13/unordered_map \
  /usr/include/c++/13/bits/requires_hosted.h \
@@ -865,6 +865,8 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: \
  /usr/include/c++/13/bits/stl_map.h \
  /usr/include/c++/13/bits/stl_multimap.h /usr/include/c++/13/thread \
  /usr/include/c++/13/bits/this_thread_sleep.h \
+ /home/kenshien/Documents/school/project/backend/include/controllers/auth_controller.h \
+ /home/kenshien/Documents/school/project/backend/include/controllers/course_controller.h \
  /home/kenshien/Documents/school/project/backend/include/middleware/auth_middleware.h \
  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/jwt.h \
  /home/kenshien/Documents/school/project/backend/include/picojson/picojson.h \
@@ -910,9 +912,8 @@ CMakeFiles/backend_app.dir/src/routes/routes.cpp.o: \
  /usr/include/openssl/param_build.h \
  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/defaults.h \
  /home/kenshien/Documents/school/project/backend/include/jwt-cpp/traits/kazuho-picojson/traits.h \
- /home/kenshien/Documents/school/project/backend/include/utils/cors.h \
- /home/kenshien/Documents/school/project/backend/include/controllers/attendance_controller.h \
- /home/kenshien/Documents/school/project/backend/include/controllers/auth_controller.h \
  /home/kenshien/Documents/school/project/backend/include/controllers/grade_controller.h \
  /home/kenshien/Documents/school/project/backend/include/controllers/section_controller.h \
+ /home/kenshien/Documents/school/project/backend/include/utils/cors.h \
+ /home/kenshien/Documents/school/project/backend/include/controllers/student_controller.h \
  /home/kenshien/Documents/school/project/backend/include/controllers/task_controller.h

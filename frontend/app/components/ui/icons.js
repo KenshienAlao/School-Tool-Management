@@ -11,6 +11,7 @@
  * CheckCircleIcon
  * ClockIcon
  * SectionIcon
+ * ChevronDownIcon
  */
 
 import { School } from "lucide-react";
@@ -247,7 +248,14 @@ export const CheckCircle = ({ checked }) => {
   );
 };
 
-export const ClockIcon = ({ top, bottom, left, right, size, className = "" }) => {
+export const ClockIcon = ({
+  top,
+  bottom,
+  left,
+  right,
+  size,
+  className = "",
+}) => {
   const positionStyles = {
     position: "relative",
     ...(top && { top: `${top}px` }),
@@ -285,4 +293,39 @@ export const SectionIcon = ({ top, bottom, left, right, size }) => {
     ...(size && { width: `${size}px`, height: `${size}px` }),
   };
   return <School style={positionStyles} />;
+};
+
+export const ChevronDownIcon = ({
+  top,
+  bottom,
+  left,
+  right,
+  size,
+  className = "",
+}) => {
+  const positionStyles = {
+    ...(top && { top: `${top}px` }),
+    ...(bottom && { bottom: `${bottom}px` }),
+    ...(left && { left: `${left}px` }),
+    ...(right && { right: `${right}px` }),
+    ...(size && { width: `${size}px`, height: `${size}px` }),
+  };
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      style={positionStyles}
+      className={className}
+    >
+      <path
+        d="M5 7.5L10 12.5L15 7.5"
+        stroke="currentColor"
+        strokeWidth="1.67"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
 };

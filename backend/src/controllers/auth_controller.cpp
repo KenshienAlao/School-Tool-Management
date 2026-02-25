@@ -43,9 +43,10 @@ crow::response login(const crow::request &req, const std::string &secret) {
     Logger::info("Login attempt for email: " + email);
 
     // query using prepared statement
-    auto users = Database::getInstance().query(
-        "SELECT id, username, password FROM users WHERE email = ? LIMIT 1",
-        {email});
+    auto users =
+        Database::getInstance().query("SELECT user_id, user_name, password "
+                                      "FROM users WHERE email = ? LIMIT 1",
+                                      {email});
 
     if (users.empty()) {
       Logger::warn("Login failed: User not found (" + email + ")");
@@ -59,7 +60,7 @@ crow::response login(const crow::request &req, const std::string &secret) {
     }
 
     // generate token
-    std::string user_id = users[0]["id"];
+    std::string user_id = users[0]["user_id"];
     auto token =
         jwt::create()
             .set_type("JWS")
@@ -67,7 +68,8 @@ crow::response login(const crow::request &req, const std::string &secret) {
             //  user logged in ID
             .set_payload_claim("id", jwt::claim(user_id))
             // user logged in username
-            .set_payload_claim("username", jwt::claim(users[0]["username"]))
+            .set_payload_claim("username", jwt::claim(users[0]["user_name"]))
+            .set_payload_claim("user_name", jwt::claim(users[0]["user_name"]))
             // user logged in email
             .set_payload_claim("email", jwt::claim(email))
             //  token expire time
@@ -78,9 +80,11 @@ crow::response login(const crow::request &req, const std::string &secret) {
 
     // frontend get this message
     crow::json::wvalue data;
+    data["user_id"] = user_id;
     data["id"] = user_id;
     data["email"] = email;
-    data["username"] = users[0]["username"];
+    data["username"] = users[0]["user_name"];
+    data["user_name"] = users[0]["user_name"];
     data["token"] = token;
 
     return standard_response(200, true, "Success", std::move(data));
@@ -97,13 +101,17 @@ crow::response registerUser(const crow::request &req) {
     if (!x)
       return standard_response(400, false, "Invalid JSON");
 
-    std::string username =
-        x.has("username") ? get_string_safely(x["username"]) : "";
+    std::string user_name = "";
+    if (x.has("user_name")) {
+      user_name = get_string_safely(x["user_name"]);
+    } else if (x.has("username")) {
+      user_name = get_string_safely(x["username"]);
+    }
     std::string email = x.has("email") ? get_string_safely(x["email"]) : "";
     std::string password =
         x.has("password") ? get_string_safely(x["password"]) : "";
 
-    if (username.empty() || email.empty() || password.empty()) {
+    if (user_name.empty() || email.empty() || password.empty()) {
       return standard_response(400, false, "All fields are required");
     }
 
@@ -111,23 +119,16 @@ crow::response registerUser(const crow::request &req) {
 
     // check if email already exists
     auto emailExist = Database::getInstance().query(
-        "SELECT id FROM users WHERE email = ? LIMIT 1", {email});
+        "SELECT user_id FROM users WHERE email = ? LIMIT 1", {email});
     if (!emailExist.empty()) {
       return standard_response(400, false, "Email already registered");
-    }
-
-    // check if username already exists
-    auto usernameExist = Database::getInstance().query(
-        "SELECT id FROM users WHERE username = ? LIMIT 1", {username});
-    if (!usernameExist.empty()) {
-      return standard_response(400, false, "Username already registered");
     }
 
     // hash pass and insert
     std::string hashedPassword = Security::hashPassword(password);
     bool success = Database::getInstance().execute(
-        "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-        {username, email, hashedPassword});
+        "INSERT INTO users (user_name, email, password) VALUES (?, ?, ?)",
+        {user_name, email, hashedPassword});
 
     if (success) {
       Logger::info("User registered successfully: " + email);

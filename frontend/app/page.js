@@ -12,7 +12,7 @@ export default function Home() {
       if (!isAuthenticated) {
         router.push("/page/login");
       } else {
-        router.push("/page/dashboard");
+        router.push("/dashboard");
       }
     }
   }, [isAuthenticated, loading, router]);

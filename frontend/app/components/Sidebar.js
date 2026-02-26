@@ -14,7 +14,7 @@ import { MenuIcon, UserIcon, XIcon } from "@/app/components/ui/icons";
 // components
 import { OnViewMenu, OnViewMenuIcon } from "@/app/components/onViewMenu";
 
-export function Sidebar({ activeView, handleLogout }) {
+export function Sidebar({ activeView }) {
   const { isOpen, setIsOpen } = useSidebarHandle();
   const { setIsOpenProfile } = useProfileHandle();
   const { user } = useAuth();

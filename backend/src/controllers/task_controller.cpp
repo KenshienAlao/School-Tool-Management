@@ -32,14 +32,14 @@ crow::response getTasks(const crow::request &req,
     std::string user_id = ctx.user_id;
 
     auto rows = Database::getInstance().query(
-        "SELECT id, title, description, is_done, due_date, created_at "
+        "SELECT task_id, title, description, is_done, due_date, created_at "
         "FROM tasks WHERE user_id = ? ORDER BY created_at DESC",
         {user_id});
 
     crow::json::wvalue::list tasks;
     for (auto &row : rows) {
       crow::json::wvalue t;
-      t["id"] = std::stoi(row["id"]);
+      t["id"] = std::stoi(row["task_id"]);
       t["title"] = row["title"];
       t["description"] = row["description"] == "NULL" ? "" : row["description"];
       t["is_done"] = row["is_done"] == "1";
@@ -93,7 +93,14 @@ crow::response createTask(const crow::request &req,
     bool success = Database::getInstance().execute(query, params);
 
     if (success) {
-      return standard_response(201, true, "Task created successfully");
+      auto last_id =
+          Database::getInstance().query("SELECT LAST_INSERT_ID() as id");
+      crow::json::wvalue data;
+      if (!last_id.empty()) {
+        data["id"] = std::stoi(last_id[0]["id"]);
+      }
+      return standard_response(201, true, "Task created successfully",
+                               std::move(data));
     } else {
       return standard_response(500, false, "Failed to create task in database");
     }
@@ -112,7 +119,7 @@ crow::response updateTask(const crow::request &req,
 
     // Verify ownership
     auto check = Database::getInstance().query(
-        "SELECT id FROM tasks WHERE id = ? AND user_id = ? LIMIT 1",
+        "SELECT task_id FROM tasks WHERE task_id = ? AND user_id = ? LIMIT 1",
         {str_task_id, user_id});
 
     if (check.empty()) {
@@ -166,7 +173,7 @@ crow::response updateTask(const crow::request &req,
     query.pop_back();
     query.pop_back();
 
-    query += " WHERE id = ? AND user_id = ?";
+    query += " WHERE task_id = ? AND user_id = ?";
     params.push_back(str_task_id);
     params.push_back(user_id);
 
@@ -214,7 +221,7 @@ crow::response deleteTask(const crow::request &req,
     std::string str_task_id = std::to_string(task_id);
 
     auto check = Database::getInstance().query(
-        "SELECT id FROM tasks WHERE id = ? AND user_id = ? LIMIT 1",
+        "SELECT task_id FROM tasks WHERE task_id = ? AND user_id = ? LIMIT 1",
         {str_task_id, user_id});
 
     if (check.empty()) {
@@ -222,7 +229,7 @@ crow::response deleteTask(const crow::request &req,
     }
 
     bool success = Database::getInstance().execute(
-        "DELETE FROM tasks WHERE id = ? AND user_id = ?",
+        "DELETE FROM tasks WHERE task_id = ? AND user_id = ?",
         {str_task_id, user_id});
 
     if (success) {

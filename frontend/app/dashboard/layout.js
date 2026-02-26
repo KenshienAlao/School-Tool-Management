@@ -15,7 +15,7 @@ export default function DashboardLayout({ children }) {
   return (
     <ProfileProvider>
       <div className="flex min-h-dvh">
-        <Sidebar activeView={activeView} handleLogout={null} />
+        <Sidebar activeView={activeView} />
         <main className="size-full">{children}</main>
       </div>
       <Settings />

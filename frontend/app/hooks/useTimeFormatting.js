@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function useTimeFormatting() {
+  const [currentTime, setCurrentTime] = useState("");
+
   const formatTime12hr = useCallback((time24) => {
     if (!time24) return "";
     const [hour, min] = time24.split(":");
@@ -11,6 +13,18 @@ export function useTimeFormatting() {
     h = h % 12 || 12;
     return min === "00" ? `${h}${ampm}` : `${h}:${min}${ampm}`;
   }, []);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const time24 = `${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")}`;
+      setCurrentTime(formatTime12hr(time24));
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 60000);
+    return () => clearInterval(timer);
+  }, [formatTime12hr]);
 
   const formatTimeRange = useCallback(
     (rangeText) => {
@@ -23,5 +37,5 @@ export function useTimeFormatting() {
     [formatTime12hr],
   );
 
-  return { formatTime12hr, formatTimeRange };
+  return { formatTime12hr, formatTimeRange, currentTime };
 }

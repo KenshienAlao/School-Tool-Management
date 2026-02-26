@@ -6,7 +6,7 @@ export function SaveCancelButtons({
   isDisabled = false,
 }) {
   return (
-    <div className="flex justify-end gap-3 border-t pt-4">
+    <div className="flex justify-end gap-3 pt-4">
       <button
         type="button"
         onClick={onCancel}

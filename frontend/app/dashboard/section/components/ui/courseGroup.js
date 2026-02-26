@@ -5,6 +5,9 @@ export function CourseGroup({
   sections,
   updateSection,
   deleteSection,
+  openSectionId,
+  setOpenSectionId,
+  setIsAdding,
 }) {
   return (
     <div className="flex flex-col gap-4">
@@ -24,6 +27,11 @@ export function CourseGroup({
             section={section}
             onUpdate={(updatedData) => updateSection(section.id, updatedData)}
             onDelete={() => deleteSection(section.id)}
+            isOpen={openSectionId === section.id}
+            setIsOpen={(isOpen) => {
+              setOpenSectionId(isOpen ? section.id : null);
+              if (isOpen) setIsAdding(false);
+            }}
           />
         ))}
       </div>

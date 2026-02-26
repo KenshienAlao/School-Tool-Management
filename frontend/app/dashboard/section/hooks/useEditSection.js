@@ -4,7 +4,6 @@ import { useState } from "react";
 
 export function useEditSection(section, onUpdate) {
   const [isEditing, setIsEditing] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
   const [editSchedule, setEditSchedule] = useState(section.schedule || {});
   const [editSectionName, setEditSectionName] = useState(section.sectionName);
@@ -28,8 +27,6 @@ export function useEditSection(section, onUpdate) {
   return {
     isEditing,
     setIsEditing,
-    isOpen,
-    setIsOpen,
     editSchedule,
     setEditSchedule,
     editSectionName,

@@ -9,9 +9,7 @@ export const getStatusCards = (summaryCounts) => [
     color: "emerald",
     bg: "bg-emerald-500",
     text: "text-emerald-600",
-    ring: "ring-emerald-100",
     activeBg: "bg-emerald-50",
-    activeBorder: "border-emerald-500",
   },
   {
     id: "Upcoming",
@@ -21,9 +19,7 @@ export const getStatusCards = (summaryCounts) => [
     color: "blue",
     bg: "bg-blue-500",
     text: "text-blue-600",
-    ring: "ring-blue-100",
     activeBg: "bg-blue-50",
-    activeBorder: "border-blue-500",
   },
   {
     id: "No Classes",
@@ -33,8 +29,6 @@ export const getStatusCards = (summaryCounts) => [
     color: "slate",
     bg: "bg-slate-500",
     text: "text-slate-600",
-    ring: "ring-slate-100",
     activeBg: "bg-slate-50",
-    activeBorder: "border-slate-500",
   },
 ];

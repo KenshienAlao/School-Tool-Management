@@ -14,12 +14,10 @@ import { ScheduleGrid } from "./ui/scheduleGrid";
 import { SaveCancelButtons } from "./ui/saveCancelButtons";
 import { FormInput } from "./ui/formInput";
 
-export function SectionRow({ section, onUpdate, onDelete }) {
+export function SectionRow({ section, onUpdate, onDelete, isOpen, setIsOpen }) {
   const {
     isEditing,
     setIsEditing,
-    isOpen,
-    setIsOpen,
     editSchedule,
     setEditSchedule,
     editSectionName,

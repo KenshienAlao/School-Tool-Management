@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 // hooks
 import { useManageSections } from "@/app/hooks/useManageSections";
 import { useSectionManagerLogic } from "../hooks/useSectionManagerLogic";
@@ -7,12 +8,12 @@ import { useSectionManagerLogic } from "../hooks/useSectionManagerLogic";
 import { Header } from "./ui/header";
 import { StatusSchedule } from "./statusSchedule";
 import { AddSectionForm } from "./AddSectionForm";
-import { SectionFilter } from "./ui/sectionFilter";
 import { SectionLoading } from "./ui/sectionLoading";
 import { SectionEmptyState } from "./ui/sectionEmptyState";
 import { CourseGroup } from "./ui/courseGroup";
 
 export function SectionManager() {
+  const [openSectionId, setOpenSectionId] = useState(null);
   const {
     sections,
     loading,
@@ -41,22 +42,18 @@ export function SectionManager() {
         summaryCounts={summaryCounts}
       />
 
-      <div className="flex flex-col rounded-3xl border border-gray-100 bg-white p-8 shadow-sm">
+      <div className="flex flex-col rounded-sm p-8 shadow-sm ring-2 ring-gray-100">
         {/* Toolbar */}
         <div className="mb-8 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <Header
             sections={sections}
             isAdding={isAdding}
             setIsAdding={setIsAdding}
-          />
-
-          <SectionFilter
-            scheduleFilter={scheduleFilter}
-            setScheduleFilter={setScheduleFilter}
+            setOpenSectionId={setOpenSectionId}
           />
         </div>
 
-        {/* Add Section Form Area */}
+        {/* Add Section Form  Area */}
         {isAdding && (
           <AddSectionForm
             onSubmit={handleAddSubmit}
@@ -81,6 +78,9 @@ export function SectionManager() {
                 sections={filteredGroupedSections[courseName]}
                 updateSection={updateSection}
                 deleteSection={deleteSection}
+                openSectionId={openSectionId}
+                setOpenSectionId={setOpenSectionId}
+                setIsAdding={setIsAdding}
               />
             ))}
           </div>

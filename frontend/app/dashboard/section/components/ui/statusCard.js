@@ -4,13 +4,12 @@ export function StatusCard({ card, isActive, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`group relative flex flex-col items-start gap-4 rounded-4xl border-2 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${
-        isActive
-          ? `${card.activeBorder} ${card.activeBg} shadow-lg ring-4 ring-${card.color}-500/10`
-          : "border-gray-100 bg-white"
+      className={`group relative flex flex-col items-start gap-4 rounded-sm p-6 shadow-sm ring-2 ring-gray-100 transition-all duration-300 hover:-translate-y-1 ${
+        isActive ? `${card.activeBg} shadow-lg` : "bg-white"
       }`}
     >
       <div className="flex w-full items-start justify-between">
+        {/* icon and the count */}
         <div
           className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110 ${
             isActive ? `${card.bg} text-white` : `bg-gray-50 ${card.text}`
@@ -28,6 +27,8 @@ export function StatusCard({ card, isActive, onClick }) {
           {card.count}
         </div>
       </div>
+
+      {/* label and the id */}
       <div className="flex flex-col items-start text-left">
         <span
           className={`text-xs font-black tracking-[0.2em] uppercase ${
@@ -36,17 +37,7 @@ export function StatusCard({ card, isActive, onClick }) {
         >
           {card.label}
         </span>
-        <span className="text-xl font-black text-gray-800">
-          {card.id === "No Classes" ? "Idle" : card.id}
-        </span>
       </div>
-
-      {/* Active Indicator */}
-      {isActive && (
-        <div
-          className={`absolute right-4 bottom-4 h-2 w-2 rounded-full ${card.bg} animate-pulse`}
-        ></div>
-      )}
     </button>
   );
 }

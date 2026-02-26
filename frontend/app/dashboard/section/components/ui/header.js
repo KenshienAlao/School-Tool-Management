@@ -2,7 +2,7 @@
 
 import { X, Plus } from "lucide-react";
 
-export function Header({ sections, isAdding, setIsAdding }) {
+export function Header({ sections, isAdding, setIsAdding, setOpenSectionId }) {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-center gap-3">
@@ -13,12 +13,11 @@ export function Header({ sections, isAdding, setIsAdding }) {
           {sections.length} TOTAL
         </div>
       </div>
-      <p className="text-sm font-medium text-gray-400">
-        Manage your course sections and weekly schedules
-      </p>
-
       <button
-        onClick={() => setIsAdding(!isAdding)}
+        onClick={() => {
+          setIsAdding(!isAdding);
+          setOpenSectionId(null);
+        }}
         className={`mt-4 flex w-fit items-center gap-2 rounded-2xl px-6 py-3 text-sm font-black shadow-lg transition-all active:scale-95 ${
           isAdding
             ? "border border-gray-200 bg-gray-100 text-gray-600 shadow-none hover:bg-gray-200"
@@ -30,7 +29,7 @@ export function Header({ sections, isAdding, setIsAdding }) {
         ) : (
           <Plus size={18} strokeWidth={3} />
         )}
-        {isAdding ? "CANCEL CREATION" : "ADD NEW SECTION"}
+        {isAdding ? "CANCEL" : "ADD NEW SECTION"}
       </button>
     </div>
   );

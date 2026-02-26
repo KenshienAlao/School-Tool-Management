@@ -20,13 +20,9 @@ export function ScheduleInput({ schedule, setSchedule }) {
   } = useScheduleControls(setSchedule);
 
   return (
-    <div className="flex flex-col gap-6 rounded-2xl border border-gray-100 bg-gray-50/30 p-5 shadow-inner">
+    <div className="mt-2 flex flex-col gap-6">
       <div className="flex flex-col gap-3">
-        <label className="text-xs font-black tracking-widest text-gray-400 uppercase">
-          Add Schedule Entry
-        </label>
-
-        <div className="flex flex-wrap items-end gap-3">
+        <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-1.5">
             <span className="text-[10px] font-bold text-gray-400 uppercase">
               Day
@@ -58,10 +54,10 @@ export function ScheduleInput({ schedule, setSchedule }) {
             type="button"
             onClick={handleAddTime}
             disabled={!startTime || !endTime}
-            className="flex h-[38px] items-center gap-2 rounded-lg bg-blue-600 px-5 text-sm font-bold text-white shadow-md transition-all hover:bg-blue-700 active:scale-95 disabled:bg-blue-200 disabled:shadow-none"
+            className="flex h-[38px] w-25 items-center gap-2 rounded-lg bg-blue-600 px-5 text-sm font-bold text-white shadow-md transition-all hover:bg-blue-700 active:scale-95 disabled:bg-blue-200 disabled:shadow-none"
           >
             <Plus size={18} strokeWidth={3} />
-            <span>Add Entry</span>
+            <span>Add </span>
           </button>
         </div>
       </div>
@@ -70,7 +66,7 @@ export function ScheduleInput({ schedule, setSchedule }) {
 
       <div className="flex flex-col gap-3">
         <label className="text-xs font-black tracking-widest text-gray-400 uppercase">
-          Current Schedule
+          Schedule
         </label>
         <ScheduleEntryList schedule={schedule} onRemove={handleRemoveTime} />
       </div>

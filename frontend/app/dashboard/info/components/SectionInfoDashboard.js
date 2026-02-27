@@ -1,16 +1,16 @@
 "use client";
+
 import React, { useState, useMemo } from "react";
-import "../../grade/components/GradingTable.css"; // Reuse the same CSS for the grid
+import "../../grade/components/GradingTable.css";
 import { useGrades } from "@/app/hooks/useGrades";
 import { InfoHeader } from "./InfoHeader";
 import { InfoTable } from "./InfoTable";
 import { AddStudentModal } from "./AddStudentModal";
+import { AnimatePresence } from "framer-motion";
 
 export function SectionInfoDashboard({ sectionId, sectionName }) {
   const [filterText, setFilterText] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Reuse useGrades hook to get students
   const {
     students: apiStudents,
     loading,
@@ -54,22 +54,31 @@ export function SectionInfoDashboard({ sectionId, sectionName }) {
         onAddStudent={() => setIsModalOpen(true)}
       />
 
-      {loading ? (
-        <div className="p-8 text-center text-gray-500">Loading students...</div>
-      ) : (
-        <InfoTable
-          students={processedStudents}
-          deleteStudent={deleteStudent}
-          updateStudent={updateStudent}
-        />
-      )}
+      <div className="min-h-[500px]">
+        {loading ? (
+          <div className="flex h-[400px] flex-col items-center justify-center gap-4">
+            <div className="border-brand-primary h-10 w-10 animate-spin rounded-full border-b-2"></div>
+            <span className="text-text-secondary text-sm font-black tracking-widest uppercase opacity-40">
+              Fetching Identity Records...
+            </span>
+          </div>
+        ) : (
+          <InfoTable
+            students={processedStudents}
+            deleteStudent={deleteStudent}
+            updateStudent={updateStudent}
+          />
+        )}
+      </div>
 
-      {isModalOpen && (
-        <AddStudentModal
-          onClose={() => setIsModalOpen(false)}
-          onSubmit={handleAddStudent}
-        />
-      )}
+      <AnimatePresence>
+        {isModalOpen && (
+          <AddStudentModal
+            onClose={() => setIsModalOpen(false)}
+            onSubmit={handleAddStudent}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

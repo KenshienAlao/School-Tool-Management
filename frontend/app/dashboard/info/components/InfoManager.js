@@ -1,59 +1,82 @@
 "use client";
+
+import { motion } from "framer-motion";
 import { useManageSections } from "@/app/hooks/useManageSections";
 import { InfoRow } from "./InfoRow";
+import { UserCheck, ArrowRight } from "lucide-react";
 
 export function InfoManager() {
   const { loading, sections, groupedSections } = useManageSections();
 
   return (
-    <div className="col-span-3">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="col-span-3 flex flex-col gap-8"
+    >
       <div className="bg-surface-elevated border-surface-muted flex flex-col rounded-3xl border p-8 shadow-sm">
-        {loading ? (
-          <div className="py-20 text-center">
-            <div className="border-brand-primary inline-block h-8 w-8 animate-spin rounded-full border-4 border-t-transparent"></div>
-            <p className="text-text-secondary mt-4 text-sm font-bold">
-              Syncing student records...
-            </p>
+        {/* Header */}
+        <div className="mb-8 flex items-center justify-between px-2">
+          <div className="space-y-1">
+            <h2 className="text-text-primary text-2xl font-black tracking-tight">
+              Student Records
+            </h2>
           </div>
-        ) : sections.length === 0 ? (
-          <div className="border-surface-muted hover:border-brand-primary/30 rounded-2xl border-2 border-dashed p-12 text-center transition-colors">
-            <h3 className="text-text-primary text-xl font-black">
-              No sections established yet.
-            </h3>
-            <p className="text-text-secondary mt-2 text-sm font-medium">
-              Initialize your academic structure to begin managing students.
-            </p>
-            <a
-              href="/dashboard/section"
-              className="bg-brand-primary shadow-brand-primary/20 hover:bg-brand-secondary mt-6 inline-flex items-center gap-2 rounded-2xl px-6 py-3 text-sm font-black text-white shadow-lg transition-all active:scale-95"
-            >
-              Configure Sections
-            </a>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-12">
-            {Object.keys(groupedSections).map((courseName) => (
-              <div key={courseName} className="flex flex-col gap-6">
-                <div className="flex items-center gap-4 px-2">
-                  <div className="bg-brand-primary h-2 w-2 rounded-full" />
-                  <h3 className="text-text-primary text-sm font-black tracking-widest uppercase">
-                    {courseName}
-                  </h3>
-                  <div className="bg-surface-muted h-px flex-1"></div>
-                  <span className="bg-brand-primary/10 text-brand-primary rounded-full px-3 py-1 text-[10px] font-black tracking-tight uppercase">
-                    {groupedSections[courseName].length} Academic Units
-                  </span>
-                </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {groupedSections[courseName].map((section) => (
-                    <InfoRow key={section.id} section={section} />
-                  ))}
-                </div>
+        </div>
+
+        {/* Content */}
+        <div className="min-h-[400px]">
+          {loading ? (
+            <div className="flex h-[400px] flex-col items-center justify-center gap-4">
+              <div className="border-brand-primary h-10 w-10 animate-spin rounded-full border-b-2"></div>
+              <span className="text-text-secondary text-sm font-black tracking-widest uppercase opacity-40">
+                Syncing Records...
+              </span>
+            </div>
+          ) : sections.length === 0 ? (
+            <div className="border-surface-muted bg-surface-muted/5 flex flex-col items-center justify-center rounded-3xl border-2 border-dashed p-12 text-center">
+              <div className="bg-brand-primary/5 text-brand-primary mb-6 flex h-20 w-20 items-center justify-center rounded-2xl opacity-40">
+                <UserCheck size={40} strokeWidth={2.5} />
               </div>
-            ))}
-          </div>
-        )}
+              <h3 className="text-text-primary text-2xl font-black tracking-tight">
+                No Data Found
+              </h3>
+              <p className="text-text-secondary mt-2 max-w-xs text-sm font-medium opacity-60">
+                Registry is empty. Initialize your academic structure in Section
+                Management to begin profile tracking.
+              </p>
+              <a
+                href="/dashboard/section"
+                className="bg-brand-primary shadow-brand-primary/20 hover:bg-brand-secondary mt-8 flex items-center gap-2 rounded-2xl px-8 py-3 text-sm font-black text-white shadow-lg transition-all active:scale-95"
+              >
+                Go to Sections <ArrowRight size={18} strokeWidth={3} />
+              </a>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-10">
+              {Object.keys(groupedSections).map((courseName) => (
+                <div key={courseName} className="flex flex-col gap-6">
+                  <div className="flex items-center gap-4 px-2">
+                    <h3 className="text-text-secondary text-xs font-black tracking-[0.2em] uppercase opacity-50">
+                      {courseName}
+                    </h3>
+                    <div className="bg-surface-muted h-px flex-1 opacity-50"></div>
+                    <span className="text-brand-primary text-[10px] font-black tracking-widest uppercase">
+                      {groupedSections[courseName].length} categories
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    {groupedSections[courseName].map((section) => (
+                      <InfoRow key={section.id} section={section} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

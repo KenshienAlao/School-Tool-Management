@@ -40,9 +40,6 @@ export function AddColumnModal({
         className="modal-content max-w-xl overflow-hidden p-0"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Feature Bar */}
-        <div className="bg-brand-primary h-1.5 w-full"></div>
-
         <div className="p-8">
           <div className="mb-8 flex items-start justify-between">
             <div className="flex flex-col gap-1">

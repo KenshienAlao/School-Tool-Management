@@ -10,9 +10,6 @@ export default function InfoDashboard() {
             <h1 className="text-text-primary text-4xl font-black tracking-tight">
               Student Records
             </h1>
-            <p className="text-text-secondary mt-2 text-sm font-medium opacity-70">
-              Manage complete student profiles and academic information.
-            </p>
           </div>
         </div>
         {/* dashboard widgets */}

@@ -1,6 +1,8 @@
 "use client";
+
 import React from "react";
 import { StudentInfoRow } from "./StudentInfoRow";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function InfoTable({ students, deleteStudent, updateStudent }) {
   return (
@@ -9,20 +11,22 @@ export function InfoTable({ students, deleteStudent, updateStudent }) {
         className="grading-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: `minmax(250px, 1.5fr) 140px 150px 160px 160px 150px 120px`,
+          gridTemplateColumns: `minmax(280px, 1.5fr) 140px 140px 150px 160px 150px 120px`,
         }}
       >
         {/* Header Row */}
         <div className="grid-header-row" style={{ display: "contents" }}>
-          <div className="grid-header-cell fixed-col">Full Name</div>
+          <div className="grid-header-cell fixed-col justify-center text-center font-black">
+            Student Identity
+          </div>
           <div className="grid-header-cell text-text-secondary text-center text-[10px] font-black tracking-widest uppercase opacity-60">
-            Student ID
+            Registry ID
           </div>
           <div className="grid-header-cell text-text-secondary text-center text-[10px] font-black tracking-widest uppercase opacity-60">
             Course
           </div>
           <div className="grid-header-cell text-text-secondary text-center text-[10px] font-black tracking-widest uppercase opacity-60">
-            Classification
+            Status
           </div>
           <div className="grid-header-cell text-text-secondary text-center text-[10px] font-black tracking-widest uppercase opacity-60">
             Contact
@@ -34,23 +38,29 @@ export function InfoTable({ students, deleteStudent, updateStudent }) {
         </div>
 
         {/* Body Content */}
-        {students.length === 0 ? (
-          <div
-            className="text-text-secondary py-20 text-center text-sm font-bold opacity-50"
-            style={{ gridColumn: "span 7" }}
-          >
-            No student records found.
-          </div>
-        ) : (
-          students.map((student) => (
-            <StudentInfoRow
-              key={student.student_id}
-              student={student}
-              deleteStudent={deleteStudent}
-              updateStudent={updateStudent}
-            />
-          ))
-        )}
+        <AnimatePresence mode="popLayout">
+          {students.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-text-secondary py-32 text-center text-sm font-black tracking-widest uppercase opacity-30"
+              style={{ gridColumn: "span 7" }}
+            >
+              No Registered Students
+            </motion.div>
+          ) : (
+            students.map((student, index) => (
+              <StudentInfoRow
+                key={student.student_id}
+                student={student}
+                index={index}
+                deleteStudent={deleteStudent}
+                updateStudent={updateStudent}
+              />
+            ))
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

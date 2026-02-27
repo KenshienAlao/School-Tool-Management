@@ -1,53 +1,41 @@
 "use client";
+
 import { useSearchParams } from "next/navigation";
 import { SectionInfoDashboard } from "@/app/dashboard/info/components/SectionInfoDashboard";
 import { Suspense } from "react";
+import { ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
 
 function InfoSectionContent() {
   const searchParams = useSearchParams();
   const sectionId = searchParams.get("id");
-  const sectionName = searchParams.get("name") || "Unknown Section";
+  // If name is missing (because we simplified the URL), we can use a generic title or fetch it later
+  // For now, let's stick to the search params but handle missing name gracefully
+  const sectionName = searchParams.get("name") || "Instructional Unit";
 
   return (
-    <div className="h-dvh overflow-y-auto p-4">
+    <div className="custom-scrollbar h-dvh overflow-y-auto p-4">
       <div className="mx-auto max-w-full">
         {/* header section */}
-        <div className="border-surface-muted bg-surface-elevated mb-10 flex flex-row items-center justify-between gap-6 rounded-3xl border p-8 shadow-sm">
-          <div className="flex items-center gap-6">
-            <button
-              onClick={() => window.history.back()}
-              className="border-surface-muted bg-surface-elevated text-text-secondary hover:bg-brand-primary hover:border-brand-primary flex h-12 w-12 items-center justify-center rounded-2xl border transition-all hover:text-white active:scale-95"
-              title="Back to Database"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="m15 18-6-6 6-6" />
-              </svg>
-            </button>
-            <div>
-              <h1 className="text-text-primary text-3xl font-black tracking-tight">
-                Section Registry
-              </h1>
-              <p className="text-brand-primary text-sm font-black tracking-widest uppercase opacity-80">
-                {sectionName}
-              </p>
-            </div>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="border-surface-muted bg-surface-elevated mb-10 flex flex-row items-center justify-between gap-6 rounded-3xl border p-10 shadow-sm"
+        >
+          <div className="space-y-1">
+            <h1 className="text-text-primary text-4xl font-black tracking-tight">
+              Student <span className="text-brand-primary">Registry</span>
+            </h1>
           </div>
-          <div className="hidden sm:block">
-            <span className="bg-brand-primary/10 text-brand-primary rounded-2xl px-6 py-3 text-xs font-black tracking-widest uppercase">
-              Authenticated Access
-            </span>
-          </div>
-        </div>
+          <button
+            onClick={() => window.history.back()}
+            className="text-text-secondary hover:bg-brand-primary/10 hover:text-brand-primary flex cursor-pointer items-center gap-2 rounded-2xl px-6 py-4 text-sm font-black transition-all active:scale-95"
+          >
+            <ArrowLeft size={18} strokeWidth={3} />
+            Back to Database
+          </button>
+        </motion.div>
 
         {/* Info Table Container */}
         <SectionInfoDashboard sectionId={sectionId} sectionName={sectionName} />
@@ -59,7 +47,11 @@ function InfoSectionContent() {
 export default function InfoSection() {
   return (
     <Suspense
-      fallback={<div className="p-8 text-center">Loading section...</div>}
+      fallback={
+        <div className="flex h-screen items-center justify-center">
+          <div className="border-brand-primary h-10 w-10 animate-spin rounded-full border-b-2"></div>
+        </div>
+      }
     >
       <InfoSectionContent />
     </Suspense>

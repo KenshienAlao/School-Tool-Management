@@ -1,20 +1,20 @@
 "use client";
 
-// icons
-import { ChevronDownIcon } from "@/app/components/ui/icons";
+import { useState } from "react";
+import { CalendarDays } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 // components
-import { ScheduleInput } from "./ScheduleInput";
+import { SectionModal } from "./SectionModal";
+import { ScheduleModal } from "./ScheduleModal";
 // hooks
 import { useEditSection } from "../hooks/useEditSection";
 // ui
-import { Section } from "./ui/section";
 import { Edit } from "./ui/editButton";
 import { Delete } from "./ui/deleteButton";
-import { ScheduleGrid } from "./ui/scheduleGrid";
-import { SaveCancelButtons } from "./ui/saveCancelButtons";
-import { FormInput } from "./ui/formInput";
 
-export function SectionRow({ section, onUpdate, onDelete, isOpen, setIsOpen }) {
+export function SectionRow({ section, onUpdate, onDelete }) {
+  const [showSchedule, setShowSchedule] = useState(false);
+
   const {
     isEditing,
     setIsEditing,
@@ -27,53 +27,73 @@ export function SectionRow({ section, onUpdate, onDelete, isOpen, setIsOpen }) {
   } = useEditSection(section, onUpdate);
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md">
-      {/* Summary Row */}
-      <div
-        className="flex cursor-pointer items-center justify-between p-5 transition-colors hover:bg-gray-50/50"
-        onClick={() => !isEditing && setIsOpen(!isOpen)}
+    <>
+      <motion.div
+        layout
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className="group bg-surface-elevated hover:border-brand-primary/30 border-surface-muted/50 flex items-center justify-between rounded-2xl border p-4 transition-all duration-300 hover:shadow-md"
       >
-        <div className="flex items-center gap-4">
-          <Section section={section} />
-        </div>
-
-        <div className="flex items-center gap-3">
-          {!isEditing && (
-            <Edit setIsEditing={setIsEditing} setIsOpen={setIsOpen} />
-          )}
-          <Delete onDelete={onDelete} />
-          <div
-            className={`ml-2 transform text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
-          >
-            <ChevronDownIcon size={20} />
+        <div
+          className="flex flex-1 cursor-pointer items-center gap-5 overflow-hidden"
+          onClick={() => setShowSchedule(true)}
+        >
+          <div className="bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:shadow-brand-primary/20 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl transition-all group-hover:text-white group-hover:shadow-lg">
+            <CalendarDays size={22} strokeWidth={2.5} />
+          </div>
+          <div className="flex flex-col truncate py-1">
+            <p className="text-text-primary truncate text-base font-black tracking-tight uppercase">
+              {section.sectionName}
+            </p>
           </div>
         </div>
-      </div>
 
-      {/* Details/Edit Content */}
-      {isOpen && (
-        <div className="border-t border-gray-100 bg-white p-6">
-          {isEditing ? (
-            <div className="flex flex-col gap-6">
-              <FormInput
-                label="Section Name"
-                id="edit-section-name"
-                value={editSectionName}
-                onChange={(e) => setEditSectionName(e.target.value)}
-              />
-
-              <ScheduleInput
-                schedule={editSchedule}
-                setSchedule={setEditSchedule}
-              />
-
-              <SaveCancelButtons onSave={handleSave} onCancel={handleCancel} />
-            </div>
-          ) : (
-            <ScheduleGrid schedule={section.schedule} />
-          )}
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            title="View Weekly Schedule"
+            onClick={() => setShowSchedule(true)}
+            className="text-text-secondary hover:bg-brand-primary/10 hover:text-brand-primary rounded-xl p-2.5 transition-all active:scale-90"
+          >
+            <CalendarDays size={20} strokeWidth={2.5} />
+          </button>
+          <div className="bg-surface-muted mx-1 h-6 w-px opacity-50" />
+          <div className="flex items-center">
+            <Edit setIsEditing={setIsEditing} setIsOpen={() => {}} />
+            <Delete onDelete={onDelete} />
+          </div>
         </div>
-      )}
-    </div>
+      </motion.div>
+
+      {/* Schedule Modal */}
+      <AnimatePresence>
+        {showSchedule && (
+          <ScheduleModal
+            section={section}
+            onClose={() => setShowSchedule(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Edit Section Modal */}
+      <AnimatePresence>
+        {isEditing && (
+          <SectionModal
+            initialData={{
+              courseName: section.courseName,
+              sectionName: editSectionName,
+              schedule: editSchedule,
+            }}
+            onClose={handleCancel}
+            onSubmit={(data) => {
+              setEditSectionName(data.sectionName);
+              setEditSchedule(data.schedule);
+              handleSave(data);
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 }

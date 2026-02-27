@@ -28,22 +28,6 @@ export function useGrades(sectionId) {
     fetchData();
   }, [fetchData]);
 
-  const addStudent = async (studentData) => {
-    try {
-      const res = await api.post("/api/students", {
-        ...studentData,
-        section_id: parseInt(sectionId),
-      });
-      if (res.data.success) {
-        fetchData();
-        return true;
-      }
-    } catch (err) {
-      console.error("Error adding student:", err);
-    }
-    return false;
-  };
-
   const updateStudent = async (id, studentData) => {
     try {
       const res = await api.put(`/api/students/${id}`, studentData);
@@ -70,18 +54,39 @@ export function useGrades(sectionId) {
     return false;
   };
 
-  const submitGrade = async (gradeData) => {
+  const submitGrade = async (gradeData, skipFetch = false) => {
     try {
       const res = await api.post("/api/grades", {
         ...gradeData,
         section_id: parseInt(sectionId),
       });
       if (res.data.success) {
-        fetchData();
+        if (!skipFetch) fetchData();
         return true;
       }
     } catch (err) {
       console.error("Error submitting grade:", err);
+    }
+    return false;
+  };
+
+  const bulkSubmitGrades = async (gradesList) => {
+    try {
+      setLoading(true);
+      await Promise.all(
+        gradesList.map((g) =>
+          api.post("/api/grades", {
+            ...g,
+            section_id: parseInt(sectionId),
+          }),
+        ),
+      );
+      await fetchData();
+      return true;
+    } catch (err) {
+      console.error("Error submitting bulk grades:", err);
+    } finally {
+      setLoading(false);
     }
     return false;
   };
@@ -114,6 +119,26 @@ export function useGrades(sectionId) {
     return false;
   };
 
+  const addStudent = async (studentData) => {
+    try {
+      const res = await api.post("/api/students", {
+        ...studentData,
+        section_id: parseInt(sectionId),
+      });
+      if (res.data.success) {
+        fetchData();
+        return { success: true };
+      }
+      return { success: false, message: res.data.message };
+    } catch (err) {
+      console.error("Error adding student:", err);
+      return {
+        success: false,
+        message: err.response?.data?.message || "Error adding student",
+      };
+    }
+  };
+
   return {
     students,
     grades,
@@ -122,6 +147,7 @@ export function useGrades(sectionId) {
     updateStudent,
     deleteStudent,
     submitGrade,
+    bulkSubmitGrades,
     updateGrade,
     deleteGrade,
     refresh: fetchData,

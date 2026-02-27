@@ -20,54 +20,41 @@ export function ScheduleInput({ schedule, setSchedule }) {
   } = useScheduleControls(setSchedule);
 
   return (
-    <div className="mt-2 flex flex-col gap-6">
-      <div className="flex flex-col gap-3">
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-col gap-1.5">
-            <span className="text-[10px] font-bold text-gray-400 uppercase">
+    <div className="flex flex-col gap-8 p-6">
+      <div className="flex flex-col gap-6">
+        {/* Entry Panel */}
+        <div className="grid grid-cols-1 gap-6">
+          <div className="flex flex-col gap-2">
+            <span className="text-text-secondary pl-1 text-[10px] font-black tracking-widest uppercase opacity-50">
               Day
             </span>
             <DaySelector value={selectDay} onChange={setSelectDay} />
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[10px] font-bold text-gray-400 uppercase">
-                Start
-              </span>
-              <TimeInput value={startTime} onChange={setStartTime} />
-            </div>
-
-            <span className="mt-7 text-[10px] font-black text-gray-300 uppercase">
-              to
+          <div className="flex flex-col gap-2">
+            <span className="text-text-secondary pl-1 text-[10px] font-black tracking-widest uppercase opacity-50">
+              Session Range
             </span>
-
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[10px] font-bold text-gray-400 uppercase">
-                End
-              </span>
+            <div className="flex items-center gap-3">
+              <TimeInput value={startTime} onChange={setStartTime} />
               <TimeInput value={endTime} onChange={setEndTime} />
             </div>
           </div>
-
-          <button
-            type="button"
-            onClick={handleAddTime}
-            disabled={!startTime || !endTime}
-            className="flex h-[38px] w-25 items-center gap-2 rounded-lg bg-blue-600 px-5 text-sm font-bold text-white shadow-md transition-all hover:bg-blue-700 active:scale-95 disabled:bg-blue-200 disabled:shadow-none"
-          >
-            <Plus size={18} strokeWidth={3} />
-            <span>Add </span>
-          </button>
         </div>
+
+        <button
+          type="button"
+          onClick={handleAddTime}
+          disabled={!startTime || !endTime}
+          className="bg-brand-primary shadow-brand-primary/20 hover:bg-brand-secondary disabled:bg-brand-primary/20 flex h-[50px] w-full items-center justify-center gap-2 rounded-2xl px-6 text-sm font-black text-white shadow-lg transition-all active:scale-95 disabled:cursor-not-allowed disabled:shadow-none"
+        >
+          <Plus size={18} strokeWidth={3} />
+          <span>Add</span>
+        </button>
       </div>
 
-      <div className="h-px w-full bg-gray-100"></div>
-
-      <div className="flex flex-col gap-3">
-        <label className="text-xs font-black tracking-widest text-gray-400 uppercase">
-          Schedule
-        </label>
+      {/* Active Slots */}
+      <div className="flex flex-col gap-4">
         <ScheduleEntryList schedule={schedule} onRemove={handleRemoveTime} />
       </div>
     </div>

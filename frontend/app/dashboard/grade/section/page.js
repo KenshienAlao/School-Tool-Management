@@ -1,7 +1,9 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { SectionGradeDashboard } from "@/app/components/GradeManager/SectionGradeDashboard";
+import { SectionGradeDashboard } from "@/app/dashboard/grade/components/SectionGradeDashboard";
 import { Suspense } from "react";
+import { ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
 
 function GradeSectionContent() {
   const searchParams = useSearchParams();
@@ -9,23 +11,28 @@ function GradeSectionContent() {
   const sectionName = searchParams.get("name") || "Unknown Section";
 
   return (
-    <div className="h-dvh overflow-y-auto p-4">
+    <div className="custom-scrollbar h-dvh overflow-y-auto p-4">
       <div className="mx-auto max-w-full">
         {/* header section */}
-        <div className="mb-6 flex flex-row items-center justify-between gap-2 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-              Grading Dashboard
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="border-surface-muted bg-surface-elevated mb-10 flex flex-row items-center justify-between gap-6 rounded-3xl border p-10 shadow-sm"
+        >
+          <div className="space-y-1">
+            <h1 className="text-text-primary text-4xl font-black tracking-tight">
+              Grading <span className="text-brand-primary">Dashboard</span>
             </h1>
-            <p className="text-sm text-gray-500">{sectionName}</p>
           </div>
           <button
             onClick={() => window.history.back()}
-            className="rounded-lg bg-gray-50 px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100"
+            className="text-text-secondary hover:bg-brand-primary/10 hover:text-brand-primary flex cursor-pointer items-center gap-2 rounded-2xl px-6 py-4 text-sm font-black transition-all active:scale-95"
           >
-            Back to Sections
+            <ArrowLeft size={18} strokeWidth={3} />
+            Back to Registry
           </button>
-        </div>
+        </motion.div>
 
         {/* Grading Table Container */}
         <SectionGradeDashboard

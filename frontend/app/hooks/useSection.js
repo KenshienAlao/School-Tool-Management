@@ -47,44 +47,6 @@ export function useSection() {
 }
 
 /**
- * Fetches all sections (admin/teacher view).
- *
- * Returns:
- *   sections – Array<{ id, name, created_at }>
- *   loading  – boolean
- *   error    – string | null
- */
-export function useSections() {
-  const [sections, setSections] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function fetchSections() {
-      try {
-        const res = await api.get("/api/sections");
-        if (!cancelled) setSections(res.data.data?.sections ?? []);
-      } catch (err) {
-        if (!cancelled) {
-          setError(err.response?.data?.message ?? "Failed to fetch sections");
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    fetchSections();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  return { sections, loading, error };
-}
-
-/**
  * Fetches all students in a given section.
  *
  * @param {number|string} sectionId

@@ -1,51 +1,42 @@
 #include "controllers/section_controller.h"
 #include "config/database.h"
 #include "utils/logger.h"
+#include "utils/response_utils.h"
 
 namespace SectionController {
 
-static crow::response standard_response(int code, bool success,
-                                        const std::string &message,
-                                        crow::json::wvalue data = {}) {
-  crow::json::wvalue res;
-  res["success"] = success;
-  res["message"] = message;
-  if (!data.dump().empty() && data.dump() != "{}") {
-    res["data"] = std::move(data);
-  }
-  return crow::response(code, res);
-}
-
-static std::string get_string_safely(const crow::json::rvalue &v) {
-  if (v && v.t() == crow::json::type::String)
-    return v.s();
-  return "";
-}
+using namespace ResponseUtils;
 
 crow::response getSections(const crow::request &req,
                            AuthMiddleware::context &ctx) {
   try {
+    std::string user_id = ctx.user_id;
     auto rows = Database::getInstance().query(
         "SELECT s.section_id, s.section_name, s.course_id, s.grading_config, "
-        "c.course_name "
-        "FROM sections s "
+        "c.course_name FROM sections s "
         "JOIN courses c ON s.course_id = c.course_id "
-        "ORDER BY c.course_name ASC, s.section_name ASC");
+        "WHERE s.user_id = ? "
+        "ORDER BY c.course_name ASC, s.section_name ASC",
+        {user_id});
+
     crow::json::wvalue::list sections;
     for (auto &row : rows) {
       crow::json::wvalue section;
-      section["section_id"] = std::stoi(row["section_id"]);
-      section["section_name"] = row["section_name"];
-      section["course_id"] = std::stoi(row["course_id"]);
-      section["course_name"] = row["course_name"];
-      auto config = crow::json::load(row["grading_config"]);
+      section["section_id"] = std::stoi(row.at("section_id"));
+      section["section_name"] = row.at("section_name");
+      section["course_id"] = std::stoi(row.at("course_id"));
+      section["course_name"] = row.at("course_name");
+
+      auto config = crow::json::load(row.at("grading_config"));
       if (config) {
-        section["grading_config"] = config;
+        section["grading_config"] = std::move(config);
       } else {
         section["grading_config"] = crow::json::wvalue::list();
       }
+
       sections.push_back(std::move(section));
     }
+
     crow::json::wvalue data;
     data["sections"] = std::move(sections);
     return standard_response(200, true, "Sections retrieved", std::move(data));
@@ -68,14 +59,17 @@ crow::response createSection(const crow::request &req,
                              ? crow::json::wvalue(body["grading_config"]).dump()
                              : "[]";
 
-    if (name.empty() || course_id == 0)
+    if (name.empty() || course_id == 0) {
       return standard_response(400, false,
                                "Section name and course_id are required");
+    }
 
     bool success = Database::getInstance().execute(
-        "INSERT INTO sections (course_id, section_name, grading_config) VALUES "
-        "(?, ?, ?)",
-        {std::to_string(course_id), name, config});
+        "INSERT INTO sections (course_id, user_id, section_name, "
+        "grading_config) "
+        "VALUES (?, ?, ?, ?)",
+        {std::to_string(course_id), ctx.user_id, name, config});
+
     if (success)
       return standard_response(201, true, "Section created");
     return standard_response(500, false, "Failed to create section");
@@ -86,8 +80,20 @@ crow::response createSection(const crow::request &req,
 
 crow::response updateSection(const crow::request &req,
                              AuthMiddleware::context &ctx, int id) {
-  // Similar to create but with WHERE section_id = id
   try {
+    std::string user_id = ctx.user_id;
+    std::string str_id = std::to_string(id);
+
+    // Verify ownership
+    auto check =
+        Database::getInstance().query("SELECT section_id FROM sections WHERE "
+                                      "section_id = ? AND user_id = ? LIMIT 1",
+                                      {str_id, user_id});
+
+    if (check.empty()) {
+      return standard_response(404, false, "Section not found or unauthorized");
+    }
+
     auto body = crow::json::load(req.body);
     if (!body)
       return standard_response(400, false, "Invalid JSON");
@@ -110,14 +116,16 @@ crow::response updateSection(const crow::request &req,
 
     if (params.empty())
       return standard_response(400, false, "No fields to update");
-    query.pop_back();
-    query.pop_back(); // remove last comma
-    query += " WHERE section_id = ?";
-    params.push_back(std::to_string(id));
 
-    bool success = Database::getInstance().execute(query, params);
-    if (success)
+    query.pop_back();
+    query.pop_back(); // Remove trailing comma and space
+    query += " WHERE section_id = ? AND user_id = ?";
+    params.push_back(str_id);
+    params.push_back(user_id);
+
+    if (Database::getInstance().execute(query, params)) {
       return standard_response(200, true, "Section updated");
+    }
     return standard_response(500, false, "Failed to update section");
   } catch (const std::exception &e) {
     return standard_response(500, false, "Internal server error");
@@ -128,7 +136,9 @@ crow::response deleteSection(const crow::request &req,
                              AuthMiddleware::context &ctx, int id) {
   try {
     bool success = Database::getInstance().execute(
-        "DELETE FROM sections WHERE section_id = ?", {std::to_string(id)});
+        "DELETE FROM sections WHERE section_id = ? AND user_id = ?",
+        {std::to_string(id), ctx.user_id});
+
     if (success)
       return standard_response(200, true, "Section deleted");
     return standard_response(500, false, "Failed to delete section");
@@ -137,13 +147,13 @@ crow::response deleteSection(const crow::request &req,
   }
 }
 
-// Dummy implementations for compatibility if headers expect them
+// Dummy implementations for compatibility
 crow::response getSectionStudents(const crow::request &req, int section_id) {
-  return standard_response(501, false, "Not implemented here");
+  return standard_response(501, false, "Not implemented");
 }
 crow::response getMySection(const crow::request &req,
                             AuthMiddleware::context &ctx) {
-  return standard_response(501, false, "Not implemented here");
+  return standard_response(501, false, "Not implemented");
 }
 
 } // namespace SectionController

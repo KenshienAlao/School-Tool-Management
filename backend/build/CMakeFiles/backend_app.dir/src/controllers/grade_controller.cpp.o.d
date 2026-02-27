@@ -922,4 +922,5 @@ CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.o: \
  /usr/include/mysql/plugin_auth_common.h \
  /usr/include/mysql/mysql_version.h /usr/include/mysql/mysql_time.h \
  /usr/include/mysql/errmsg.h \
- /home/kenshien/Documents/school/project/backend/include/utils/logger.h
+ /home/kenshien/Documents/school/project/backend/include/utils/logger.h \
+ /home/kenshien/Documents/school/project/backend/include/utils/response_utils.h

@@ -5,9 +5,11 @@ export default function Section() {
     <div className="h-dvh overflow-y-auto p-4">
       <div className="mx-auto max-w-7xl">
         {/* header section */}
-        <div className="mb-8 flex flex-row items-center justify-between gap-2 rounded-sm p-8 shadow-sm ring-2 ring-gray-100">
-          <div className="size-full text-center">
-            <h1 className="text-3xl font-bold tracking-tight">Section</h1>
+        <div className="border-surface-muted bg-surface-elevated mb-10 flex flex-row items-center justify-between gap-6 rounded-3xl border p-10 text-center shadow-sm">
+          <div className="size-full">
+            <h1 className="text-text-primary text-4xl font-black tracking-tight">
+              Section Management
+            </h1>
           </div>
         </div>
         {/* dashboard widgets */}

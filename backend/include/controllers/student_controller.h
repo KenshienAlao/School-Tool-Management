@@ -14,6 +14,7 @@ crow::response createStudent(const crow::request &req,
                              AuthMiddleware::context &ctx);
 crow::response updateStudent(const crow::request &req,
                              AuthMiddleware::context &ctx, int id);
+
 crow::response deleteStudent(const crow::request &req,
                              AuthMiddleware::context &ctx, int id);
 } // namespace StudentController

@@ -1,0 +1,204 @@
+.grading-table-container {
+  position: relative;
+  overflow: auto;
+  border-radius: 1.5rem;
+  border: 1px solid var(--background-muted);
+  background-color: var(--background-elevated);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  max-height: calc(100vh - 250px);
+}
+
+.grading-grid {
+  min-width: 100%;
+  position: relative;
+}
+
+.grid-header-cell {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background-color: var(--background-muted);
+  border-bottom: 2px solid var(--background-muted);
+  padding: 1.25rem 1rem;
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--foreground-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.grid-cell {
+  padding: 1rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-elevated);
+}
+
+.group:hover .grid-cell {
+  background-color: rgba(16, 185, 129, 0.03);
+}
+
+.fixed-col {
+  position: sticky;
+  left: 0;
+  z-index: 40;
+  border-right: 2px solid var(--background-muted) !important;
+  justify-content: flex-start !important;
+}
+
+.grid-header-cell.fixed-col {
+  z-index: 50;
+  background-color: var(--background-muted);
+}
+
+/* Input Styles */
+.grade-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  background-color: transparent;
+  padding: 0.5rem;
+  transition: all 0.2s;
+  text-align: center;
+  font-weight: 700;
+  color: var(--foreground);
+  outline: none;
+}
+
+.grade-input:focus {
+  border-color: var(--brand-primary);
+  background-color: var(--background-elevated);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+
+
+.name-input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  background-color: transparent;
+  padding: 0.5rem;
+  transition: all 0.2s;
+  font-weight: 700;
+  color: var(--foreground);
+  outline: none;
+}
+
+.name-input:focus {
+  border-color: var(--brand-primary);
+  background-color: var(--background-elevated);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+/* Modal Styles maintained via global class but specific overrides here if needed */
+.form-input {
+  background-color: var(--background-muted);
+  border: 1px solid var(--background-muted);
+  color: var(--foreground);
+}
+
+.form-input:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+/* Delete button styles */
+.delete-btn {
+  opacity: 0;
+  padding: 0.5rem;
+  color: #ef4444;
+  border-radius: 0.75rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.group:hover .delete-btn {
+  opacity: 1;
+}
+
+.delete-btn:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Summary Cards */
+.summary-card {
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  background-color: var(--background-elevated);
+  border: 1px solid var(--background-muted);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Color Coding for 1-5 scale */
+.grade-excellent {
+  color: var(--brand-secondary) !important;
+  background-color: rgba(16, 185, 129, 0.05);
+  border-radius: 0.5rem;
+}
+
+.grade-average {
+  color: var(--brand-primary) !important;
+}
+
+.grade-below-average {
+  color: #ef4444 !important;
+}
+
+.grade-failing {
+  color: #991b1b !important;
+  font-weight: 800;
+}
+
+.col-gpa {
+  background-color: var(--background-muted) !important;
+  font-weight: 800;
+  position: sticky;
+  right: 0;
+  z-index: 35;
+  cursor: pointer;
+}
+
+.grade-overridden {
+  color: var(--brand-primary);
+  font-style: italic;
+  text-decoration: underline dotted;
+}
+
+.delete-col-btn {
+  opacity: 0;
+  color: #ef4444;
+  background-color: var(--background-elevated);
+  border: 1px solid var(--background-muted);
+  border-radius: 9999px;
+  padding: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 40;
+}
+
+.grid-header-cell.group:hover .delete-col-btn {
+  opacity: 1;
+}
+
+.delete-col-btn:hover {
+  transform: scale(1.1);
+  color: #b91c1c;
+  background-color: rgba(239, 68, 68, 0.05);
+  border-color: #fca5a5;
+}

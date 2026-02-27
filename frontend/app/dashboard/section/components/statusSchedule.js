@@ -2,6 +2,7 @@
 
 import { getStatusCards } from "../data/cards";
 import { StatusCard } from "./ui/statusCard";
+import { motion } from "framer-motion";
 
 export function StatusSchedule({
   scheduleFilter,
@@ -11,7 +12,12 @@ export function StatusSchedule({
   const cards = getStatusCards(summaryCounts);
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="grid grid-cols-1 gap-6 sm:grid-cols-3"
+    >
       {cards.map((card) => (
         <StatusCard
           key={card.id}
@@ -22,6 +28,6 @@ export function StatusSchedule({
           }
         />
       ))}
-    </div>
+    </motion.div>
   );
 }

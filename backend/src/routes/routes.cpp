@@ -1,4 +1,3 @@
-#include "controllers/attendance_controller.h"
 #include "controllers/auth_controller.h"
 #include "controllers/course_controller.h"
 #include "controllers/grade_controller.h"
@@ -191,9 +190,4 @@ void setup_routes(crow::App<CORSMiddleware, AuthMiddleware> &app,
             auto &ctx = app.get_context<AuthMiddleware>(req);
             return TaskController::deleteTask(req, ctx, id);
           });
-
-  // attendance route (PROTECTED)
-  CROW_ROUTE(app, "/api/attendance")
-      .CROW_MIDDLEWARES(app, AuthMiddleware)(
-          []() { return AttendanceController::getAttendance(); });
 }

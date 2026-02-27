@@ -10,7 +10,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/kenshien/Documents/school/project/backend/src/config/database.cpp" "CMakeFiles/backend_app.dir/src/config/database.cpp.o" "gcc" "CMakeFiles/backend_app.dir/src/config/database.cpp.o.d"
   "/home/kenshien/Documents/school/project/backend/src/config/db.cpp" "CMakeFiles/backend_app.dir/src/config/db.cpp.o" "gcc" "CMakeFiles/backend_app.dir/src/config/db.cpp.o.d"
-  "/home/kenshien/Documents/school/project/backend/src/controllers/attendance_controller.cpp" "CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.o" "gcc" "CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.o.d"
   "/home/kenshien/Documents/school/project/backend/src/controllers/auth_controller.cpp" "CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o" "gcc" "CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o.d"
   "/home/kenshien/Documents/school/project/backend/src/controllers/course_controller.cpp" "CMakeFiles/backend_app.dir/src/controllers/course_controller.cpp.o" "gcc" "CMakeFiles/backend_app.dir/src/controllers/course_controller.cpp.o.d"
   "/home/kenshien/Documents/school/project/backend/src/controllers/grade_controller.cpp" "CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.o" "gcc" "CMakeFiles/backend_app.dir/src/controllers/grade_controller.cpp.o.d"

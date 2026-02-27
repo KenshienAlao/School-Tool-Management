@@ -8,12 +8,11 @@ export function useEditSection(section, onUpdate) {
   const [editSchedule, setEditSchedule] = useState(section.schedule || {});
   const [editSectionName, setEditSectionName] = useState(section.sectionName);
 
-  const handleSave = () => {
-    if (editSectionName.trim()) {
-      onUpdate({
-        sectionName: editSectionName.trim(),
-        schedule: editSchedule,
-      });
+  const handleSave = (data) => {
+    const name = data?.sectionName ?? editSectionName;
+    const sched = data?.schedule ?? editSchedule;
+    if (name.trim()) {
+      onUpdate({ sectionName: name.trim(), schedule: sched });
       setIsEditing(false);
     }
   };

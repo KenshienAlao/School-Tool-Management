@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 export default function DashboardLayout({ children }) {
   const { loading: authLoading } = useProtectedRoute();
   const pathname = usePathname();
-  const activeView = pathname.split("/").pop() || "home";
+  const activeView = pathname.split("/")[2] || "home";
 
   if (authLoading) return null;
 

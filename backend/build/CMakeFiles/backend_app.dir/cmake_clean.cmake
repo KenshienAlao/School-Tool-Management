@@ -3,8 +3,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/backend_app.dir/src/config/database.cpp.o.d"
   "CMakeFiles/backend_app.dir/src/config/db.cpp.o"
   "CMakeFiles/backend_app.dir/src/config/db.cpp.o.d"
-  "CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.o"
-  "CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.o.d"
   "CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o"
   "CMakeFiles/backend_app.dir/src/controllers/auth_controller.cpp.o.d"
   "CMakeFiles/backend_app.dir/src/controllers/course_controller.cpp.o"

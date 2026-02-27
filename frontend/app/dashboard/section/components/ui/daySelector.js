@@ -5,7 +5,7 @@ export function DaySelector({ value, onChange }) {
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="rounded-lg border border-gray-300 bg-white p-2 text-sm font-medium text-gray-700 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none"
+      className="border-surface-muted bg-surface-elevated text-text-primary focus:ring-brand-primary/10 focus:border-brand-primary h-[50px] w-full cursor-pointer rounded-2xl border px-4 text-sm font-bold shadow-sm transition-all outline-none focus:ring-4"
     >
       {dayOrder.map((d) => (
         <option key={d} value={d}>

@@ -17,16 +17,20 @@ CREATE TABLE users (
 -- Courses Table
 CREATE TABLE courses (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
-    course_name VARCHAR(255) NOT NULL
+    user_id INT NOT NULL,
+    course_name VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 -- Sections Table
 CREATE TABLE sections (
     section_id INT AUTO_INCREMENT PRIMARY KEY,
     course_id INT NOT NULL,
+    user_id INT NOT NULL,
     section_name VARCHAR(255) NOT NULL,
     grading_config JSON, -- Stores weights and columns
-    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
+    FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 -- Students Table
@@ -36,7 +40,14 @@ CREATE TABLE students (
     first_name VARCHAR(255) NOT NULL,
     middle_name VARCHAR(255),
     suffix VARCHAR(50),
+    course VARCHAR(255),
+    status VARCHAR(50) DEFAULT 'Regular',
+    contact_number VARCHAR(20),
+    birthday DATE,
+    student_id_school VARCHAR(50),
+    user_id INT NOT NULL,
     section_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (section_id) REFERENCES sections(section_id) ON DELETE CASCADE
 );
 

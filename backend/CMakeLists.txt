@@ -24,7 +24,6 @@ set(SOURCES
     src/config/database.cpp
     src/routes/routes.cpp
     src/controllers/auth_controller.cpp
-    src/controllers/attendance_controller.cpp
     src/controllers/course_controller.cpp
     src/controllers/grade_controller.cpp
     src/controllers/section_controller.cpp

@@ -6,30 +6,30 @@ export function ScheduleEntryList({ schedule, onRemove }) {
   const { formatTimeRange } = useTimeFormatting();
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       {dayOrder.map((d) => {
         if (!schedule[d] || schedule[d].length === 0) return null;
         return (
           <div
             key={d}
-            className="flex flex-wrap items-center gap-2 border-l-2 border-blue-200 py-1 pl-3 transition-colors hover:border-blue-400"
+            className="border-brand-primary/20 hover:border-brand-primary flex flex-wrap items-center gap-3 border-l-3 py-1 pl-4 transition-all"
           >
-            <span className="w-20 text-xs font-black tracking-tighter text-gray-400 uppercase">
+            <span className="text-text-secondary w-20 text-[10px] font-black tracking-widest uppercase opacity-60">
               {d}
             </span>
             <div className="flex flex-wrap gap-2">
               {schedule[d].map((time, idx) => (
                 <span
                   key={idx}
-                  className="group flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 ring-1 ring-blue-100 transition-all hover:bg-blue-100"
+                  className="group bg-brand-primary/10 text-brand-primary hover:bg-brand-primary/20 flex items-center gap-2 rounded-xl px-4 py-1.5 text-xs font-black shadow-sm transition-all"
                 >
                   {formatTimeRange(time)}
                   <button
                     type="button"
                     onClick={() => onRemove(d, idx)}
-                    className="text-blue-400 transition-colors hover:text-red-500"
+                    className="text-brand-primary/50 transition-all hover:scale-110 hover:text-red-500"
                   >
-                    <X size={14} />
+                    <X size={14} strokeWidth={3} />
                   </button>
                 </span>
               ))}

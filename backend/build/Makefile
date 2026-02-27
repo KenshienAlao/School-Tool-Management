@@ -177,30 +177,6 @@ src/config/db.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/config/db.cpp.s
 .PHONY : src/config/db.cpp.s
 
-src/controllers/attendance_controller.o: src/controllers/attendance_controller.cpp.o
-.PHONY : src/controllers/attendance_controller.o
-
-# target to build an object file
-src/controllers/attendance_controller.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.o
-.PHONY : src/controllers/attendance_controller.cpp.o
-
-src/controllers/attendance_controller.i: src/controllers/attendance_controller.cpp.i
-.PHONY : src/controllers/attendance_controller.i
-
-# target to preprocess a source file
-src/controllers/attendance_controller.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.i
-.PHONY : src/controllers/attendance_controller.cpp.i
-
-src/controllers/attendance_controller.s: src/controllers/attendance_controller.cpp.s
-.PHONY : src/controllers/attendance_controller.s
-
-# target to generate assembly for a file
-src/controllers/attendance_controller.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/backend_app.dir/build.make CMakeFiles/backend_app.dir/src/controllers/attendance_controller.cpp.s
-.PHONY : src/controllers/attendance_controller.cpp.s
-
 src/controllers/auth_controller.o: src/controllers/auth_controller.cpp.o
 .PHONY : src/controllers/auth_controller.o
 
@@ -432,9 +408,6 @@ help:
 	@echo "... src/config/db.o"
 	@echo "... src/config/db.i"
 	@echo "... src/config/db.s"
-	@echo "... src/controllers/attendance_controller.o"
-	@echo "... src/controllers/attendance_controller.i"
-	@echo "... src/controllers/attendance_controller.s"
 	@echo "... src/controllers/auth_controller.o"
 	@echo "... src/controllers/auth_controller.i"
 	@echo "... src/controllers/auth_controller.s"

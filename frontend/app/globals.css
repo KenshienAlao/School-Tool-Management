@@ -1,31 +1,62 @@
 @import "tailwindcss";
 
 @theme {
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-accent: var(--brand-accent);
+
+  --color-surface-base: var(--background);
+  --color-surface-muted: var(--background-muted);
+  --color-surface-elevated: var(--background-elevated);
+
+  --color-text-primary: var(--foreground);
+  --color-text-secondary: var(--foreground-muted);
+
   --color-main: var(--background);
   --color-main-foreground: var(--foreground);
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --background-muted: #f4f4f5;
+  --background-elevated: #ffffff;
+  --foreground: #09090b;
+  --foreground-muted: #71717a;
+
+  --brand-primary: #10b981; /* Emerald-600 */
+  --brand-secondary: #059669; /* Emerald-700 */
+  --brand-accent: #34d399; /* Emerald-400 */
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #09090b;
+  --background-muted: #18181b;
+  --background-elevated: #27272a;
+  --foreground: #fafafa;
+  --foreground-muted: #a1a1aa;
+
+  --brand-primary: #10b981;
+  --brand-secondary: #34d399;
+  --brand-accent: #059669;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
+  -webkit-font-smoothing: antialiased;
 }
 
-select {
-  background-color: var(--background);
-  color: var(--foreground);
-  transition:
-    background-color 0.5s ease,
-    color 0.5s ease;
+/* Hide scrollbars globally but keep functionality */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }
 
 button,
@@ -34,10 +65,29 @@ select {
   cursor: pointer;
 }
 
+select {
+  background-color: var(--background-elevated);
+  color: var(--foreground);
+  border-radius: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+option {
+  background-color: var(--background-elevated);
+  color: var(--foreground);
+}
+
 input[type="time"]::-webkit-calendar-picker-indicator {
   opacity: 0;
   position: absolute;
   right: 0;
+  top: 0;
+  width: 48px;
+  height: 100%;
+  cursor: pointer;
+  margin: 0;
 }
 
 p,
@@ -48,4 +98,40 @@ h4,
 h5,
 h6 {
   user-select: none;
+  letter-spacing: -0.02em;
+}
+
+/* Base Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1rem;
+}
+
+.modal-content {
+  background-color: var(--background-elevated);
+  border-radius: 1.25rem;
+  width: 100%;
+  padding: 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--background-muted);
+}
+
+/* Hide Spinners (Arrows) for Number Inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }

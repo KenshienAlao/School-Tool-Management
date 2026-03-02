@@ -22,7 +22,6 @@ export function SectionManager() {
     deleteSection,
     groupedSections,
   } = useManageSections();
-
   const {
     isAdding,
     setIsAdding,

@@ -55,7 +55,7 @@ export function TaskModal({ onClose, onSubmit, initialData }) {
             )}
             <div>
               <h2 className="text-text-primary text-2xl font-black tracking-tight">
-                {isEditing ? "Description" : "New Task"}
+                {isEditing ? "Description" : "Add Task"}
               </h2>
             </div>
           </div>
@@ -73,7 +73,7 @@ export function TaskModal({ onClose, onSubmit, initialData }) {
           <TaskFormInput
             label="Task Title"
             id="modal-task-title"
-            placeholder="e.g. Complete Project Proposal"
+            placeholder="e.g. Project"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -81,7 +81,7 @@ export function TaskModal({ onClose, onSubmit, initialData }) {
           />
 
           <TaskFormInput
-            label="Objective Description"
+            label="Description"
             id="modal-task-desc"
             type="textarea"
             rows={4}
@@ -91,7 +91,7 @@ export function TaskModal({ onClose, onSubmit, initialData }) {
           />
 
           <TaskFormInput
-            label="Deadline Registry"
+            label="Deadline"
             id="modal-task-due"
             type="date"
             value={dueDate}
@@ -104,14 +104,14 @@ export function TaskModal({ onClose, onSubmit, initialData }) {
               onClick={onClose}
               className="border-surface-muted bg-surface-elevated text-text-secondary hover:bg-surface-muted flex-1 rounded-2xl border py-4 text-sm font-black transition-all active:scale-95"
             >
-              Cancel Entry
+              Cancel
             </button>
             <button
               type="submit"
               disabled={!title.trim()}
               className="bg-brand-primary shadow-brand-primary/20 hover:bg-brand-secondary disabled:bg-brand-primary/30 flex-1 rounded-2xl py-4 text-sm font-black text-white shadow-lg transition-all active:scale-95 disabled:cursor-not-allowed disabled:shadow-none"
             >
-              {isEditing ? "Confirm Changes" : "Save Priority"}
+              {isEditing ? "Confirm Changes" : "Save"}
             </button>
           </div>
         </form>

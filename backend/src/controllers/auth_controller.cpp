@@ -122,9 +122,9 @@ crow::response registerUser(const crow::request &req) {
         "SELECT user_id FROM users WHERE email = ? LIMIT 1", {email});
     if (!emailExist.empty()) {
       return standard_response(400, false, "Email already registered");
-    }
+    }                                                             
 
-    // hash pass and insert
+    // hash pass and insert (hashedPassword)
     std::string hashedPassword = Security::hashPassword(password);
     bool success = Database::getInstance().execute(
         "INSERT INTO users (user_name, email, password) VALUES (?, ?, ?)",

@@ -5,14 +5,19 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthContext";
 
 export function useProtectedRoute() {
-  const { isAuthenticated, loading } = useAuth();
+  const { authStatus, loading } = useAuth();
   const router = useRouter();
+  const isAuthenticated = authStatus === "authenticated";
 
   useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      router.push("/page/login");
+    if (!loading) {
+      if (authStatus === "missing") {
+        router.push("/page/error");
+      } else if (authStatus === "expired") {
+        router.push("/page/login");
+      }
     }
-  }, [isAuthenticated, loading, router]);
+  }, [authStatus, loading, router]);
 
-  return { isAuthenticated, loading };
+  return { authStatus, loading, isAuthenticated };
 }

@@ -13,6 +13,7 @@ import { MenuIcon, UserIcon, XIcon } from "@/app/components/ui/icons";
 
 // components
 import { OnViewMenu, OnViewMenuIcon } from "@/app/components/onViewMenu";
+import Image from "next/image";
 
 export function Sidebar({ activeView }) {
   const { isOpen, setIsOpen } = useSidebarHandle();
@@ -33,13 +34,18 @@ export function Sidebar({ activeView }) {
             animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : -10 }}
             className={`flex items-center gap-2 ${!isOpen && "pointer-events-none"}`}
           >
-            <div className="bg-brand-primary shadow-brand-primary/20 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg shadow-lg">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg shadow-lg">
               <span className="text-xl font-black text-white italic select-none">
-                S
+                <Image
+                  src="/The_Colegio_de_Montalban_Seal.png"
+                  alt="Logo"
+                  width={32}
+                  height={32}
+                />
               </span>
             </div>
             <h2 className="text-text-primary text-xl font-black tracking-tighter whitespace-nowrap">
-              SchoolTool
+              School-Tool
             </h2>
           </motion.div>
         </div>

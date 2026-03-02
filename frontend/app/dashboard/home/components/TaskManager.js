@@ -6,7 +6,8 @@ import { CheckCircle } from "lucide-react";
 
 // hooks
 import { useTasks } from "@/app/hooks/useTasks";
-import { useFilterTasks } from "../hooks/useFilterTasks";
+import { useFilterTasks } from "@/app/dashboard/home/hooks/useFilterTasks";
+import { useHandleModal } from "@/app/dashboard/home/hooks/useHandleModal";
 
 // components
 import { TaskRow } from "./TaskRow";
@@ -14,35 +15,16 @@ import { TaskPreview } from "./TaskPreview";
 import { TaskModal } from "./TaskModal";
 
 export function TaskManager() {
-  const { tasks, loading, addTask, updateTask, toggleTaskDone, deleteTask } =
-    useTasks();
+  const {
+    isModalOpen,
+    setIsModalOpen,
+    editingTask,
+    handleOpenAddModal,
+    handleOpenEditModal,
+    handleModalSubmit,
+  } = useHandleModal();
+  const { tasks, loading, toggleTaskDone, deleteTask } = useTasks();
   const { pendingTasks, completedTasks } = useFilterTasks(tasks);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingTask, setEditingTask] = useState(null);
-
-  const handleOpenAddModal = () => {
-    setEditingTask(null);
-    setIsModalOpen(true);
-  };
-
-  const handleOpenEditModal = (task) => {
-    setEditingTask(task);
-    setIsModalOpen(true);
-  };
-
-  const handleModalSubmit = async (data) => {
-    try {
-      if (editingTask) {
-        await updateTask(editingTask.id, data);
-      } else {
-        await addTask(data.title, data.description, data.due_date);
-      }
-      setIsModalOpen(false);
-    } catch (err) {
-      console.error("Task operation failed:", err);
-    }
-  };
 
   return (
     <motion.div
@@ -72,7 +54,7 @@ export function TaskManager() {
               >
                 <div className="border-brand-primary inline-block h-8 w-8 animate-spin rounded-full border-4 border-t-transparent" />
                 <p className="text-text-secondary mt-4 text-sm font-bold opacity-70">
-                  Updating tasks...
+                  fetching task
                 </p>
               </motion.div>
             ) : tasks.length === 0 ? (
@@ -87,7 +69,7 @@ export function TaskManager() {
                   <CheckCircle size={32} />
                 </div>
                 <p className="text-text-secondary text-sm font-bold opacity-50">
-                  All cleared! You have no pending tasks.
+                  You have no tasks.
                 </p>
               </motion.div>
             ) : (

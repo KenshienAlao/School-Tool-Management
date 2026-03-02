@@ -1,93 +1,62 @@
 "use client";
-import { useState } from "react";
-import Link from "next/link";
+import { motion } from "framer-motion";
+import { useHandleLogin } from "@/app/page/login/hooks/useHandleLogin";
+import { Header } from "@/app/page/login/components/header";
+import { Status } from "@/app/page/login/components/status";
+import { Email } from "@/app/page/login/components/email";
+import { Password } from "@/app/page/login/components/password";
+import { Footer } from "@/app/page/login/components/footer";
+import { Submit } from "@/app/page/login/components/submit";
 
-import { useLogin } from "@/app/hooks/useLogin";
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { login, error, success } = useLogin();
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    await login({ email, password });
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    handleLogin,
+    error,
+    success,
+    loading,
+  } = useHandleLogin();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
-      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
-        <h1 className="mb-6 text-center text-3xl font-bold text-gray-800">
-          Login
-        </h1>
+    <div className="bg-surface-base bg-opacity-5 text-text-primary flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top_right,var(--color-brand-primary)_0%,transparent_25%),radial-gradient(circle_at_bottom_left,var(--color-brand-primary)_0%,transparent_25%)] p-4 font-sans">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md space-y-8"
+      >
+        {/* Logo & Header */}
+        <Header />
 
-        {error && (
-          <div className="mb-4 rounded border border-red-400 bg-red-100 p-3 text-sm text-red-700">
-            {error}
-          </div>
-        )}
+        {/* Auth Card */}
+        <div className="border-surface-muted bg-surface-elevated overflow-hidden rounded-3xl border shadow-2xl backdrop-blur-sm">
+          <div className="p-8">
+            <Status error={error} success={success} />
 
-        {success && (
-          <div className="mb-4 rounded border border-green-400 bg-green-100 p-3 text-sm text-green-700">
-            {success}
-          </div>
-        )}
-        <form onSubmit={handleLogin} className="space-y-6">
-          {/* Email */}
-          <div>
-            <label
-              className="mb-2 block text-sm font-semibold text-gray-700"
-              htmlFor="email"
-            >
-              Email Address
-            </label>
-            <input
-              id="email"
-              type="email"
-              placeholder="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-black transition-all focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              required
-            />
+            {/* form */}
+            <form onSubmit={handleLogin} className="space-y-5">
+              {/* Email Field */}
+              <Email email={email} setEmail={setEmail} loading={loading} />
+
+              {/* Password Field */}
+              <Password
+                password={password}
+                setPassword={setPassword}
+                loading={loading}
+              />
+
+              {/* Submit Button */}
+              <Submit loading={loading} />
+            </form>
           </div>
 
-          {/* Password */}
-          <div>
-            <label
-              className="mb-2 block text-sm font-semibold text-gray-700"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-black transition-all focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="transition-active w-full transform rounded-lg bg-blue-600 py-3 font-bold text-white shadow-md hover:bg-blue-700 active:scale-95"
-          >
-            Sign In
-          </button>
-
-          <p className="mt-6 text-center text-gray-600">
-            Don't have an account?{" "}
-            <Link
-              href="/page/register"
-              className="font-medium text-blue-600 transition-colors hover:text-blue-800"
-            >
-              Register here
-            </Link>
-          </p>
-        </form>
-      </div>
+          {/* Footer Link */}
+          <Footer />
+        </div>
+      </motion.div>
     </div>
   );
 }

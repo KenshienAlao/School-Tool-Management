@@ -10,9 +10,9 @@ export default function Home() {
   useEffect(() => {
     if (!loading) {
       if (!isAuthenticated) {
-        router.push("/page/login");
+        router.push("/page/error");
       } else {
-        router.push("/dashboard");
+        router.push("/dashboard/home");
       }
     }
   }, [isAuthenticated, loading, router]);

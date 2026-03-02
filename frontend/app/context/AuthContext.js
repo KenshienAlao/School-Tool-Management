@@ -38,6 +38,7 @@ const isTokenExpired = (decoded) => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [authStatus, setAuthStatus] = useState("loading"); // "authenticated", "expired", "missing", "loading"
   const router = useRouter();
 
   // logout
@@ -48,6 +49,7 @@ export const AuthProvider = ({ children }) => {
       console.warn("localStorage is not accessible", err);
     }
     setUser(null);
+    setAuthStatus("missing");
     router.push("/page/login");
   };
 
@@ -58,14 +60,19 @@ export const AuthProvider = ({ children }) => {
         const decoded = decodeToken(token);
         if (decoded && !isTokenExpired(decoded)) {
           setUser(decoded);
+          setAuthStatus("authenticated");
         } else {
           // Token is invalid or expired
           localStorage.removeItem(TOKEN_KEY);
           setUser(null);
+          setAuthStatus("expired");
         }
+      } else {
+        setAuthStatus("missing");
       }
     } catch (err) {
       console.warn("Failed to read token from localStorage", err);
+      setAuthStatus("missing");
     } finally {
       setLoading(false);
     }
@@ -74,6 +81,7 @@ export const AuthProvider = ({ children }) => {
       (response) => response,
       (error) => {
         if (error.response?.status === 401) {
+          setAuthStatus("expired");
           logout();
         }
         return Promise.reject(error);
@@ -113,13 +121,21 @@ export const AuthProvider = ({ children }) => {
       username: decoded.username || tokenPayload.username,
       email: decoded.email || tokenPayload.email,
     });
+    setAuthStatus("authenticated");
 
-    router.push("/dashboard");
+    router.push("/dashboard/home");
   };
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, logout, isAuthenticated: !!user }}
+      value={{
+        user,
+        loading,
+        login,
+        logout,
+        isAuthenticated: !!user,
+        authStatus,
+      }}
     >
       {!loading && children}
     </AuthContext.Provider>

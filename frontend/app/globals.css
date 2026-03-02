@@ -23,9 +23,9 @@
   --foreground: #09090b;
   --foreground-muted: #71717a;
 
-  --brand-primary: #10b981; /* Emerald-600 */
-  --brand-secondary: #059669; /* Emerald-700 */
-  --brand-accent: #34d399; /* Emerald-400 */
+  --brand-primary: #10b981;
+  --brand-secondary: #059669;
+  --brand-accent: #34d399;
 }
 
 .dark {

@@ -160,7 +160,7 @@ export function AddColumnModal({
 
             <div className="mt-8 flex gap-4">
               <button
-                type="button" 
+                type="button"
                 onClick={onClose}
                 className="border-surface-muted bg-surface-elevated text-text-secondary hover:bg-surface-muted flex-1 rounded-2xl border py-4 text-sm font-black transition-all active:scale-95"
               >
